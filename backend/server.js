@@ -2,10 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "./logger/devLogger.js";
+import testRouter from "./routes/testRouter.js";
 
-const app = express();
+const port = process.env.PORT || 4321;
 
-const port = process.env.PORT || 8000;
 dotenv.config();
 
 // Connect to MongoDB
@@ -20,6 +20,12 @@ mongoose
   .catch((err) => {
     logger.error("Error connecting to MongoDB", err);
   });
+
+const app = express();
+
+// =====================ENPOINTS====================
+
+app.use("/api/test", testRouter);
 
 // health check endpoint
 app.get("/health", (req, res) => {
