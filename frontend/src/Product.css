@@ -1,0 +1,12 @@
+body {
+  background: #2d2f45;
+}
+
+#Product-Name-Label {
+  font-family: "Bitter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 120%;
+  color: #ffffff;
+}
