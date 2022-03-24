@@ -2,6 +2,10 @@
 
 .PHONY: all
 
+init-servers:
+	npm install --prefix ./backend
+	npm install --prefix ./frontend
+
 start-backend-dev:
 	@echo "Starting backend"
 	npm  --prefix ./backend run dev
