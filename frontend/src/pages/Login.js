@@ -37,7 +37,7 @@ export default function Login()
         <CssBaseline />
         <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-        <Typography component="h1" variant="h5"> Sign in </Typography>
+        <Typography component="h1" variant="h3"> Sign in </Typography>
 
         <Box component="form" onSubmit={submit} noValidate sx={{ mt: 1 }}>
 

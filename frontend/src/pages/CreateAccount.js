@@ -31,7 +31,7 @@ export default function CreateAccount()
           <CssBaseline />
           <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-          <Typography component="h1" variant="h5"> Create Account </Typography>
+          <Typography component="h1" variant="h3"> Create Account </Typography>
 
           <Box component="form" onSubmit={submit} noValidate sx={{ mt: 1 }}>
 
