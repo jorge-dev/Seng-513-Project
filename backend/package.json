@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/jorge-dev/Seng-513-Project#readme",
   "dependencies": {
+    "compfest": "file:..",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.8",

@@ -1,6 +1,5 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './Product.css';
+import './styles/Product.css';
 
 export default function Product() {
   return (
