@@ -1,12 +1,30 @@
 body {
   background: #2d2f45;
 }
+main {
+  background: #2d2f45;
+}
 
-#Product-Name-Label {
+.product-info {
+  background: #2d2f45;
   font-family: "Bitter";
   font-style: normal;
-  font-weight: 700;
-  font-size: 48px;
+}
+.product-info-item {
+  background: #2d2f45;
+}
+
+.product-name-label {
+  font-weight: 900;
+  font-size: 64px;
   line-height: 120%;
   color: #ffffff;
+}
+
+.product-category-button {
+  font-size: 24px;
+}
+
+.img-large {
+  max-width: 100%;
 }
