@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/UserModel.js";
 import logger from "../logger/devLogger.js";
 
-const authenticate = asyncHandler(async (req, res, next) => {
+export const authenticate = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -28,4 +28,23 @@ const authenticate = asyncHandler(async (req, res, next) => {
   }
 });
 
-export default authenticate;
+export const isUserAuthenticated = (req, res, next) => {
+  const auth = req.headers.authorization;
+  if (auth) {
+    const token = auth.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        res.status(401);
+        throw new Error("User is not authorized, token failed. Please login");
+      } else {
+        req.user = decoded;
+        next();
+      }
+    });
+  } else {
+    res.status(401);
+    throw new Error("Unauthorized, no token found. Please login");
+  }
+};
+
+// export{ authenticate, isUserAuthenticated };
