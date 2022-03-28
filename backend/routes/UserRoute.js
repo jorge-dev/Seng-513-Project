@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import generateAuthToken from "../authUtil/generateAuthToken.js";
 import logger from "../logger/devLogger.js";
-import authenticate from "../Middleware/HandleAuth.js";
+import { authenticate } from "../Middleware/HandleAuth.js";
 import User from "../models/UserModel.js";
 
 const userRouter = express.Router();
@@ -12,7 +12,7 @@ const userRouter = express.Router();
 userRouter.post(
   "/login",
   asyncHandler(async (req, res) => {
-    logger.http(`POST /api/users/login was called`);
+    logger.debug(`POST /api/users/login was called`);
     logger.debug(`req.body: ${JSON.stringify(req.body)}`);
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -40,7 +40,7 @@ userRouter.get(
   "/account",
   authenticate,
   asyncHandler(async (req, res) => {
-    logger.http(`POST /api/users/account was called`);
+    logger.debug(`POST /api/users/account was called`);
     const user = await User.findById(req.user._id);
     if (!user) {
       res.status(404);
@@ -62,7 +62,7 @@ userRouter.get(
 userRouter.post(
   "/",
   asyncHandler(async (req, res) => {
-    logger.http(`POST /api/users was called`);
+    logger.debug(`POST /api/users was called`);
     const { name, username, email, password } = req.body;
     // check if username is already taken
     const user = await User.findOne({ username });
@@ -102,7 +102,7 @@ userRouter.put(
   "/account",
   authenticate,
   asyncHandler(async (req, res) => {
-    logger.http(`POST /api/users/account was called`);
+    logger.debug(`POST /api/users/account was called`);
     const user = await User.findById(req.user._id);
     if (!user) {
       res.status(404);
