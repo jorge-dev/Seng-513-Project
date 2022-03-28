@@ -1,8 +1,10 @@
 import express from "express";
 import asyncHandler from "express-async-handler";
 import logger from "../logger/devLogger.js";
-import { authenticate } from "../Middleware/HandleAuth.js";
+import { authenticate, authenticateAdmin } from "../Middleware/HandleAuth.js";
 import Order from "../models/OrderModel.js";
+import User from "../models/UserModel.js";
+import slugify from "../utils/slugify.js";
 
 const orderRouter = express.Router();
 
@@ -24,21 +26,27 @@ orderRouter.post(
       res.status(400);
       throw new Error("There appears to be no items in the order");
     } else {
+      // get user's info
+      const user = await User.findById(req.user._id);
       const order = new Order({
         user: req.user._id,
         items: req.body.items.map((item) => ({
           ...item,
+          slug: slugify(item.name),
           product: item.product,
         })),
         shippingAddress: req.body.shippingAddress,
         paymentMethod: req.body.paymentMethod,
         itemsPrice: req.body.itemsPrice,
-        shippingPrice: req.body.shippingPrice,
+        shippingFee: req.body.shippingFee,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
       });
       const newOrder = await order.save();
-      res.status(201).send({ message: "Order has been created", newOrder });
+      res.status(201).send({
+        message: `Order has been created for user ${user.name}`,
+        newOrder,
+      });
     }
   })
 );
@@ -58,12 +66,12 @@ orderRouter.get(
       res.status(404);
       throw new Error("Order not found");
     } else {
-      res.json(order);
+      res.json({ message: `Order found`, order });
     }
   })
 );
 
-// update order apyment status
+// update order payment status
 orderRouter.put(
   "/:id/payed",
   authenticate,
@@ -75,9 +83,41 @@ orderRouter.put(
       res.status(404);
       throw new Error("Order not found");
     } else {
-      order.paymentStatus = "Approved";
-      const updatedOrder = await order.save();
-      res.json(updatedOrder);
+      // Verify user is the same as the order's user
+      if (order.user._id.toString() !== req.user._id.toString()) {
+        logger.error(`PUT /api/orders/:id/paid: User not authorized`);
+        res.status(401);
+        throw new Error("User not authorized to update this order");
+      } else {
+        order.paymentStatus = "Approved";
+        const updatedOrder = await order.save();
+        res.json({
+          message: `Order ${req.params.id} has been Approved`,
+          updatedOrder,
+        });
+      }
+    }
+  })
+);
+
+// Admin only:get All orders
+orderRouter.get(
+  "/",
+  authenticate,
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    logger.debug(`GET /api/orders for admins was called`);
+    const orders = await Order.find({});
+    if (!orders) {
+      res.status(404);
+      throw new Error("No orders were found");
+    } else {
+      const totalOrders = orders.length;
+      res.json({
+        message: `Success! ${totalOrders} orders were found`,
+        numberOfOrders: totalOrders,
+        orders,
+      });
     }
   })
 );
