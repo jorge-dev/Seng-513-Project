@@ -146,7 +146,12 @@ userRouter.get(
       res.status(404);
       throw new Error("No users were found");
     } else {
-      res.json({ message: "Success!", users });
+      const totalUsers = users.length;
+      res.json({
+        message: `Success! ${totalUsers} users were found`,
+        numberOfUsers: totalUsers,
+        users,
+      });
     }
   })
 );
