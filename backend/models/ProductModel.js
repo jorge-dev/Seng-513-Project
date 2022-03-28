@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema(
     mainCategory: { type: String, required: true },
     subCategory: { type: String, required: true },
     inStock: { type: Boolean, required: true, default: true },
-    rating: { type: Number, required: true, min: 0, max: 5 },
+    rating: { type: Number, required: true, default: 0, min: 0, max: 5 },
     numberOfReviews: { type: Number, required: true, default: 0 },
     reviews: [reviewSchema],
   },
