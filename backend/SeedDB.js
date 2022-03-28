@@ -13,7 +13,7 @@ SeedDataRouter.post(
   asyncHandler(async (req, res) => {
     // clean the collection
     await User.deleteMany({});
-    logger.debug("cleaned the collection");
+    logger.debug("cleaned the user collection");
     // seed the collection
     const createUser = await User.insertMany(users);
     res.send({ createUser });
@@ -26,7 +26,7 @@ SeedDataRouter.post(
   asyncHandler(async (req, res) => {
     // clean the collection
     await Product.deleteMany({});
-    logger.debug("cleaned the collection");
+    logger.debug("cleaned the product collection");
     // seed the collection
     const createProduct = await Product.insertMany(products);
     res.send({ createProduct });
