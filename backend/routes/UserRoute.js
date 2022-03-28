@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import generateAuthToken from "../authUtil/generateAuthToken.js";
 import logger from "../logger/devLogger.js";
-import { authenticate } from "../Middleware/HandleAuth.js";
+import { authenticate, authenticateAdmin } from "../Middleware/HandleAuth.js";
 import User from "../models/UserModel.js";
 
 const userRouter = express.Router();
@@ -35,7 +35,7 @@ userRouter.post(
   })
 );
 
-// Account
+// Get signed in user
 userRouter.get(
   "/account",
   authenticate,
@@ -60,7 +60,7 @@ userRouter.get(
 
 // Create Account
 userRouter.post(
-  "/",
+  "/account",
   asyncHandler(async (req, res) => {
     logger.debug(`POST /api/users was called`);
     const { name, username, email, password } = req.body;
@@ -130,6 +130,23 @@ userRouter.put(
           updatedAt: updatedUser.updatedAt,
         });
       }
+    }
+  })
+);
+
+// For admin: Get all users
+userRouter.get(
+  "/",
+  authenticate,
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    logger.debug(`GET /api/users for admins was called`);
+    const users = await User.find({});
+    if (!users) {
+      res.status(404);
+      throw new Error("No users were found");
+    } else {
+      res.json({ message: "Success!", users });
     }
   })
 );
