@@ -8,6 +8,7 @@ import SeedData from "./SeedDB.js";
 import productRoute from "./routes/ProductRoute.js";
 import { errorHandler, notFoundError } from "./Middleware/HandleErrors.js";
 import userRouter from "./routes/UserRoute.js";
+import orderRouter from "./routes/OrderRoute.js";
 
 const port = process.env.PORT || 4321;
 
@@ -23,11 +24,14 @@ app.use(express.json());
 //seed the database
 app.use("/api/seed", SeedData);
 
-//get all products
+//Products
 app.use("/api/products", productRoute);
 
-// login
-app.use("/api/user/", userRouter);
+// Users
+app.use("/api/user", userRouter);
+
+// Orders
+app.use("/api/orders", orderRouter);
 
 // =====================ERROR HANDLING====================
 app.use(errorHandler);
