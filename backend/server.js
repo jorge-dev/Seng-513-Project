@@ -7,6 +7,7 @@ import connectToMongoDB from "./config/MongoDBConnection.js";
 import SeedData from "./SeedDB.js";
 import productRoute from "./routes/ProductRoute.js";
 import { errorHandler, notFoundError } from "./Middleware/HandleErrors.js";
+import userRouter from "./routes/UserRoute.js";
 
 const port = process.env.PORT || 4321;
 
@@ -16,7 +17,7 @@ dotenv.config();
 connectToMongoDB();
 
 const app = express();
-
+app.use(express.json());
 // =====================ENPOINTS====================
 
 //seed the database
@@ -24,6 +25,9 @@ app.use("/api/seed", SeedData);
 
 //get all products
 app.use("/api/products", productRoute);
+
+// login
+app.use("/api/user/", userRouter);
 
 // =====================ERROR HANDLING====================
 app.use(errorHandler);
@@ -36,5 +40,6 @@ app.get("/health", (req, res) => {
 
 // =====================START SERVER====================
 app.listen(port, () => {
+  logger.debug(`Current environment: ${process.env.NODE_ENV}`);
   logger.http(`Server started on port http://localhost:${port}`);
 });
