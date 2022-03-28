@@ -28,6 +28,17 @@ export const authenticate = asyncHandler(async (req, res, next) => {
   }
 });
 
+export const authenticateAdmin = (req, res, next) => {
+  logger.debug(`authenticateAdmin was called`);
+  logger.debug(`req: ${JSON.stringify(req.user)}`);
+  if (req.user.isAdmin && req.user) {
+    next();
+  } else {
+    res.status(403);
+    throw new Error("Not authorized. Must be admin to access this endpoint");
+  }
+};
+
 export const isUserAuthenticated = (req, res, next) => {
   const auth = req.headers.authorization;
   if (auth) {
