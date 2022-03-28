@@ -10,6 +10,7 @@ main {
   font-family: "Bitter";
   font-style: normal;
 }
+
 .product-info-item {
   background: #2d2f45;
 }
@@ -23,6 +24,67 @@ main {
 
 .product-category-button {
   font-size: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.product-price-label {
+  font-family: "Bitter";
+  font-style: normal;
+  font-weight: 100;
+  font-size: 36px;
+  line-height: 120%;
+  color: #ffffff;
+}
+
+.product-price {
+  font-family: "Bitter";
+  font-style: oblique;
+  font-size: 24px;
+  line-height: 120%;
+  color: #ffffff;
+}
+
+.product-status-indicator {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+}
+
+.add-to-cart-button {
+  background: linear-gradient(180deg, #5561ff 0%, #3643fc 100%, #3643fc 100%);
+  border-radius: 12px;
+  font-family: "Inter";
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.product-description-card {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.description-toggle {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.description-body {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  display: flex;
+  align-items: center;
+  font-feature-settings: "cv11" on, "cv02" on, "cv03" on, "cv04" on;
+  color: #ffffff;
 }
 
 .img-large {
