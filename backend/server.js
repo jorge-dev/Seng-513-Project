@@ -28,7 +28,7 @@ app.use("/api/seed", SeedData);
 app.use("/api/products", productRoute);
 
 // Users
-app.use("/api/user", userRouter);
+app.use("/api/users", userRouter);
 
 // Orders
 app.use("/api/orders", orderRouter);

@@ -2,8 +2,9 @@ import express from "express";
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import logger from "../logger/devLogger.js";
-import { authenticate } from "../Middleware/HandleAuth.js";
+import { authenticate, authenticateAdmin } from "../Middleware/HandleAuth.js";
 import Product from "../models/ProductModel.js";
+import slugify from "../utils/slugify.js";
 
 const productRoute = express.Router();
 
@@ -32,7 +33,7 @@ productRoute.get(
   })
 );
 
-// get product review
+// post product review
 productRoute.post(
   "/:id/review",
   authenticate,
@@ -63,6 +64,136 @@ productRoute.post(
           product.reviews.length;
         await product.save();
         res.status(201).json({ message: "Review was added", product });
+      }
+    }
+  })
+);
+
+//Admin Only: delete product
+productRoute.delete(
+  "/:id",
+  authenticate,
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    logger.http(`DELETE /api/products/${req.params.id} was called`);
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      res.status(404);
+      throw new Error("Product not found");
+    } else {
+      await product.remove();
+      res.status(200).json({ message: "Product was deleted", product });
+    }
+  })
+);
+
+//Admin Only: Add product
+productRoute.post(
+  "/",
+  authenticate,
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    logger.http(`POST /api/products was called to create a new product`);
+    // check for body to not be empty
+    logger.http(`req.body: ${JSON.stringify(req.body)}`);
+    if (Object.keys(req.body).length === 0) {
+      logger.http(`POST /api/products: req.body is empty`);
+      res.status(400);
+      throw new Error("Request body is missing");
+    } else {
+      const {
+        name,
+        vendor,
+        price,
+        description,
+        image,
+        mainCategory,
+        subCategory,
+        inStock,
+        rating,
+        numberOfReviews,
+      } = req.body;
+      const productExists = await Product.findOne({ name });
+      if (productExists) {
+        res.status(400);
+        throw new Error("Product already exists");
+      } else {
+        const product = new Product({
+          name,
+          slug: slugify(name),
+          vendor,
+          price,
+          description,
+          image,
+          mainCategory,
+          subCategory,
+          inStock,
+          rating,
+          numberOfReviews,
+        });
+        if (!product) {
+          res.status(400);
+          throw new Error("Invalid data");
+        } else {
+          const newProduct = await product.save();
+          res.status(201).json({ message: "Product was added", newProduct });
+        }
+      }
+    }
+  })
+);
+
+//Admin Only: Edit product
+productRoute.put(
+  "/:id",
+  authenticate,
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    logger.http(`POST /api/products was called to create a new product`);
+    // check for body to not be empty
+    logger.http(`req.body: ${JSON.stringify(req.body)}`);
+    if (Object.keys(req.body).length === 0) {
+      logger.http(`POST /api/products: req.body is empty`);
+      res.status(400);
+      throw new Error("Request body is missing");
+    } else {
+      logger.debug(`req.params: ${JSON.stringify(req.params)}`);
+      const product = await Product.findById(req.params.id);
+      logger.debug(`product: ${JSON.stringify(product)}`);
+      if (product) {
+        // check the name is unique
+        if (req.body.name && req.body.name !== product.name) {
+          logger.debug(`req.body.name: ${req.body.name}`);
+          const isNameTaken = await Product.findOne({ name: req.body.name });
+          if (isNameTaken) {
+            res.status(400);
+            throw new Error("Product name is already taken");
+          } else {
+            product.name = req.body.name;
+            product.slug = slugify(req.body.name);
+          }
+        }
+        product.vendor = req.body.vendor || product.vendor;
+        product.price = req.body.price || product.price;
+        product.description = req.body.description || product.description;
+        product.image = req.body.image || product.image;
+        product.mainCategory = req.body.mainCategory || product.mainCategory;
+        product.subCategory = req.body.subCategory || product.subCategory;
+        product.inStock = req.body.inStock || product.inStock;
+        product.rating = req.body.rating || product.rating;
+        product.numberOfReviews =
+          req.body.numberOfReviews || product.numberOfReviews;
+
+        const updatedProduct = await product.save();
+        if (!updatedProduct) {
+          res.status(400);
+          throw new Error("Invalid data");
+        } else {
+          res.json({ message: "Product was updated", updatedProduct });
+        }
+      } else {
+        res.status(404);
+        throw new Error("Product not found");
       }
     }
   })
