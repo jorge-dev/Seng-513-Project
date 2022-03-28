@@ -1,21 +1,4 @@
 import mongoose from "mongoose";
-import logger from "../logger/devLogger.js";
-// Product schema template
-// {
-//     _id: 1,
-//     name: "Logitech DESK MAT Studio Series",
-//     vendor: "Logitech",
-//     price: 29.99,
-//     description:
-//       "Beautiful and comfortable desk mat with anti-slip base and spill-resistant design",
-//     image:
-//       "https://res.cloudinary.com/cloud-513/image/upload/v1648356541/compfest/Accesories/deskMats/LogitechDESKMAT_tsw0vt.webp",
-//     mainCategory: "accessories",
-//     subCategory: "deskMats",
-//     quantity: 0,
-//     rating: 0,
-//     numberOfReviews: 0,
-//   },
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -38,7 +21,7 @@ const productSchema = new mongoose.Schema(
     image: { type: String, required: true },
     mainCategory: { type: String, required: true },
     subCategory: { type: String, required: true },
-    quantity: { type: Number, required: true },
+    isStock: { type: Boolean, required: true, default: true },
     rating: { type: Number, required: true, min: 0, max: 5 },
     numberOfReviews: { type: Number, required: true },
     reviews: [reviewSchema],
