@@ -14,7 +14,18 @@ productRoute.get(
   asyncHandler(async (req, res) => {
     logger.http(`GET /api/products was called`);
     const products = await Product.find({});
-    res.json(products);
+    if (!products) {
+      logger.error(`GET /api/products: No products found`);
+      res.status(404);
+      throw new Error("No products found");
+    } else {
+      const totalProducts = products.length;
+      res.json({
+        message: `Success! ${totalProducts} products were found`,
+        numberOfProducts: totalProducts,
+        products,
+      });
+    }
   })
 );
 
