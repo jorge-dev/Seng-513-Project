@@ -1,3 +1,4 @@
+import slugify from "../utils/slugify.js";
 const products = [
   {
     name: "Logitech DESK MAT Studio Series",
@@ -1125,18 +1126,6 @@ const products = [
     reviews: [],
   },
 ];
-
-// convert text to slug for url
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-    .replace(/\-\-+/g, "-") // Replace multiple - with single -
-    .replace(/^-+/, "") // Trim - from start of text
-    .replace(/-+$/, ""); // Trim - from end of text
-}
 
 // Convert name to slug and add slug to each product
 products.forEach((product) => {
