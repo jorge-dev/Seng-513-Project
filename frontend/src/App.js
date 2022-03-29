@@ -17,11 +17,11 @@ function App() {
 
         </main>
         <footer className='footer'>
-          <div class="text-center">All rights reserved &copy; 2020</div>
-          <div class="text-center">  Designed and implemented by:  Ahmed Elnasri,Haotian Chen, Daryl Dang
+          <div className="text-center">All rights reserved &copy; 2020</div>
+          <div className="text-center">  Designed and implemented by:  Ahmed Elnasri,Haotian Chen, Daryl Dang
             , and Jorge Avila
           </div>
-          <div class="text-center">Ahmed Elnasri,Haotian Chen, Daryl Dang,
+          <div className="text-center">Ahmed Elnasri,Haotian Chen, Daryl Dang,
             , and Jorge Avila
           </div>
         </footer>
