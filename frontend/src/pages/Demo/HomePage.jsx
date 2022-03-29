@@ -1,27 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import logger from "use-reducer-logger"
 import './styles/HomePage.css';
 
+// Init a rreducer Hook to handle the data from the API
+const reducerHook = (state, action) => {
+    switch (action.type) {
+        case "FETCH_DATA":
+            return { ...state, loading: true };
+        case "FETCH_DATA_SUCCESS":
+            return { ...state, products: action.payload, loading: false };
+        case "FETCH_DATA_FAILURE":
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+
 function HomePage() {
+    const [{ products, loading, error }, dispatch] = useReducer(logger(reducerHook), {
+        products: [],
+        loading: true,
+        error: ''
+    });
     // fetch all products for API
-    const [productsList, setProductsList] = useState([]);
     useEffect(() => {
         const fetchProducts = async () => {
-            const response = await axios.get("/api/products");
-            console.log(response.data.products);
-            setProductsList(response.data.products);
+            dispatch({ type: "FETCH_DATA" });
+            try {
+                const response = await axios.get("/api/products");
+                dispatch({ type: "FETCH_DATA_SUCCESS", payload: response.data.products });
+
+                // setProductsList(response.data.products);
+            } catch (error) {
+                dispatch({ type: "FETCH_DATA_FAILURE", payload: error.message });
+            }
         };
         fetchProducts();
     }, []);
-    console.log("Printing productList", productsList);
+
 
     return (
         <div><h1 className="featured">FEATURED PRODUCTS</h1>
             <div className="products">
                 {
 
-                    productsList.slice(5, 10).map(product => (
+                    products.slice(5, 10).map(product => (
                         <div className="single-product" key={product.slug}>
                             <div className="img-div">
                                 <Link to={`/product/${product.slug}`}>
