@@ -1,20 +1,27 @@
 import * as React from 'react';
 import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
 import { Box } from '@mui/system';
-import { Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
 
 function formatNumOfReviews(numOfReviews) {
-    return numOfReviews + (numOfReviews > 1 ? ' reviews' : ' review');
+    // return numOfReviews + (numOfReviews > 1 ? ' reviews' : ' review');
+    return numOfReviews + ' reviews';
 }
+
+// create a random number between 0 and 1000
+function ratingName() {
+    const randNUmber = Math.floor(Math.random() * 1000) / 10;
+    return 'rating' + randNUmber;
+}
+
 export default function Ratings(props) {
 
 
-    const { ratingReceived, numberOfReviews } = props;
+    const { ratingReceived, numberOfReviews, update } = props;
     const [rating, setRating] = React.useState(ratingReceived);
-    const [hover, setHover] = React.useState(-1);
+    const name = ratingName();
+    console.log(name);
     console.log(ratingReceived);
     console.log(numberOfReviews);
     return (
@@ -26,17 +33,16 @@ export default function Ratings(props) {
             }}
         >
             <Rating
-                name="hover-feedback"
+                name={name}
                 defaultValue={ratingReceived}
                 value={rating}
                 precision={0.5}
-                // getLabelText={getLabelText}
+                readOnly={update}
+                size="large"
                 onChange={(event, newValue) => {
                     setRating(newValue);
                 }}
-                onChangeActive={(event, newHover) => {
-                    setHover(newHover);
-                }}
+
                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
             />
             {rating !== null && (
