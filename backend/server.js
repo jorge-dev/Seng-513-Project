@@ -2,36 +2,48 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "./logger/devLogger.js";
-import testRouter from "./routes/testRouter.js";
+import products from "./data/Products.js";
+import connectToMongoDB from "./config/MongoDBConnection.js";
+import SeedData from "./SeedDB.js";
+import productRoute from "./routes/ProductRoute.js";
+import { errorHandler, notFoundError } from "./Middleware/HandleErrors.js";
+import userRouter from "./routes/UserRoute.js";
+import orderRouter from "./routes/OrderRoute.js";
 
 const port = process.env.PORT || 4321;
 
 dotenv.config();
 
 // Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    logger.info("Successfully connected to MongoDB");
-  })
-  .catch((err) => {
-    logger.error("Error connecting to MongoDB", err);
-  });
+connectToMongoDB();
 
 const app = express();
-
+app.use(express.json());
 // =====================ENPOINTS====================
 
-app.use("/api/test", testRouter);
+//seed the database
+app.use("/api/seed", SeedData);
 
-// health check endpoint
+//Products
+app.use("/api/products", productRoute);
+
+// Users
+app.use("/api/users", userRouter);
+
+// Orders
+app.use("/api/orders", orderRouter);
+
+// =====================ERROR HANDLING====================
+app.use(errorHandler);
+app.use(notFoundError);
+
+// =====================HEALTH CHECK====================
 app.get("/health", (req, res) => {
   res.send("Server is up and running");
 });
 
+// =====================START SERVER====================
 app.listen(port, () => {
+  logger.debug(`Current environment: ${process.env.NODE_ENV}`);
   logger.http(`Server started on port http://localhost:${port}`);
 });
