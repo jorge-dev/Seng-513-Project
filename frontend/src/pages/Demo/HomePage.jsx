@@ -1,11 +1,13 @@
 import { useEffect, useReducer } from "react";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 import logger from "use-reducer-logger"
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
+import { Col, Container, Row } from "react-bootstrap";
+import Product from "../../components/Demo/Product";
 
-// Init a rreducer Hook to handle the data from the API
+// Init a reducer Hook to handle the data from the API
 const reducerHook = (state, action) => {
     switch (action.type) {
         case "FETCH_DATA":
@@ -47,30 +49,19 @@ function HomePage() {
 
     return (
         <div><h1 className="featured">FEATURED PRODUCTS</h1>
-            <div className="products">
+            <Container fluid>
                 {
                     loading ? <LoadingScreen open={loading} /> : error ? <h2 className="error">{error}</h2> :
-
-                        products.slice(5, 10).map(product => (
-                            <div className="single-product" key={product.slug}>
-                                <div className="img-div">
-                                    <Link to={`/product/${product.slug}`}>
-                                        <img src={product.image} alt={product.name} />
-                                    </Link>
-                                </div>
-                                <div className="product-info">
-                                    <Link to={`/product/${product.slug}`}>
-                                        <p>{product.name}</p>
-                                    </Link>
-
-                                    <p><strong>{product.price}</strong></p>
-                                    <button>Add to Cart</button>
-                                </div>
-
-                            </div>
-                        ))
+                        <Row xs={1} md={2} lg={3} className="g-4">
+                            {products.slice(0, 10).map(product => (
+                                <Col key={product.slug} sm={6} md={4} lg={3} className="mb3" >
+                                    <Product product={product} />
+                                </Col>
+                            ))}
+                        </Row>
                 }
-            </div></div>
+            </Container>
+        </div>
     );
 }
 
