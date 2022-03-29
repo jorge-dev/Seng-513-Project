@@ -1,9 +1,7 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import logger from "use-reducer-logger"
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
 
