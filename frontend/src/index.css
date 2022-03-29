@@ -14,3 +14,15 @@ body {
 code {
   font-family: "Roboto Mono", monospace;
 }
+
+main {
+  flex: 1;
+}
+
+.footer {
+  background: #1d2c81;
+  color: white;
+  padding: 1em;
+  text-align: center;
+  font-size: 0.8em;
+}

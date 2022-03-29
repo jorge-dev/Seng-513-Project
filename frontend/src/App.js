@@ -1,18 +1,13 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
-import LogoImage from "./logos/fullLogo.png";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NavBar from './components/Demo/Navbar';
 import HomePage from './pages/Demo/HomePage';
 import ProductPage from './pages/Demo/ProductPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <header>
-          <Link to="/">
-            <img src={LogoImage} width="150" alt="logo" />
-          </Link>
-        </header>
+      <div className='d-flex flex-column vh-100'>
+        <NavBar />
         <main>
           <Routes>
             <Route path="/product/:slug" element={<ProductPage />} />
@@ -20,9 +15,21 @@ function App() {
 
           </Routes>
 
-        </main >
+        </main>
+        <footer className='footer'>
+          <div class="text-center">All rights reserved &copy; 2020</div>
+          <div class="text-center">  Designed and implemented by:  Ahmed Elnasri,Haotian Chen, Daryl Dang
+            , and Jorge Avila
+          </div>
+          <div class="text-center">Ahmed Elnasri,Haotian Chen, Daryl Dang,
+            , and Jorge Avila
+          </div>
+        </footer>
+
+
       </div >
-    </BrowserRouter>
+
+    </BrowserRouter >
   );
 }
 
