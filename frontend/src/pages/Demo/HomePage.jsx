@@ -2,7 +2,10 @@ import { useEffect, useState, useReducer } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import logger from "use-reducer-logger"
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import './styles/HomePage.css';
+import LoadingScreen from "../../components/Demo/LoadingScreen";
 
 // Init a rreducer Hook to handle the data from the API
 const reducerHook = (state, action) => {
@@ -18,6 +21,7 @@ const reducerHook = (state, action) => {
             return state;
     }
 };
+
 
 
 function HomePage() {
@@ -47,25 +51,26 @@ function HomePage() {
         <div><h1 className="featured">FEATURED PRODUCTS</h1>
             <div className="products">
                 {
+                    loading ? <LoadingScreen open={loading} /> : error ? <h2 className="error">{error}</h2> :
 
-                    products.slice(5, 10).map(product => (
-                        <div className="single-product" key={product.slug}>
-                            <div className="img-div">
-                                <Link to={`/product/${product.slug}`}>
-                                    <img src={product.image} alt={product.name} />
-                                </Link>
+                        products.slice(5, 10).map(product => (
+                            <div className="single-product" key={product.slug}>
+                                <div className="img-div">
+                                    <Link to={`/product/${product.slug}`}>
+                                        <img src={product.image} alt={product.name} />
+                                    </Link>
+                                </div>
+                                <div className="product-info">
+                                    <Link to={`/product/${product.slug}`}>
+                                        <p>{product.name}</p>
+                                    </Link>
+
+                                    <p><strong>{product.price}</strong></p>
+                                    <button>Add to Cart</button>
+                                </div>
+
                             </div>
-                            <div className="product-info">
-                                <Link to={`/product/${product.slug}`}>
-                                    <p>{product.name}</p>
-                                </Link>
-
-                                <p><strong>{product.price}</strong></p>
-                                <button>Add to Cart</button>
-                            </div>
-
-                        </div>
-                    ))
+                        ))
                 }
             </div></div>
     );
