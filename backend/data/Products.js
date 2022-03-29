@@ -49,7 +49,7 @@ const products = [
     price: 20.99,
     description: "Premium, no-slip support for hours of comfortable typing.",
     image:
-      "https://res.cloudinary.com/cloud-513/image/upload/v1648356664/compfest/Accesories/wristWrest/LogitechMXPalmRest_ids",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356664/compfest/Accesories/wristWrest/LogitechMXPalmRest_ids9ch.webp",
     mainCategory: "accessories",
     subCategory: "wristWrest",
     inStock: true,
@@ -731,21 +731,6 @@ const products = [
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356934/compfest/Mice/wireless/RazerNagaPro_xf3j8d.png",
     mainCategory: "mice",
     subCategory: "wireless",
-    inStock: true,
-    rating: 0,
-    numberOfReviews: 0,
-    reviews: [],
-  },
-  {
-    name: "Razer Orochi V2 - White",
-    vendor: "Razer",
-    price: 89.99,
-    description:
-      "Mobile Wireless Gaming Mouse with up to 950 Hours of Battery Life.",
-    image:
-      "https://res.cloudinary.com/cloud-513/image/upload/v1648356646/compfest/Accesories/mousePads/LogitechMOUSEPAD_aolpb3.webp",
-    mainCategory: "accessories",
-    subCategory: "mousePads",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
