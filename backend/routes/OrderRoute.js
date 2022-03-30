@@ -55,7 +55,7 @@ orderRouter.post(
 
 // get all orders for a user
 orderRouter.get(
-  "/test",
+  "/user",
   authenticate,
   asyncHandler(async (req, res) => {
     logger.debug(`GET /api/orders/user was called`);
