@@ -48,12 +48,12 @@ productRoute.get(
 
 // post product review
 productRoute.post(
-  "/:id/review",
+  "/:slug/review",
   authenticate,
   asyncHandler(async (req, res) => {
     logger.http(`GET /api/products/${req.params.id} was called`);
     const { rating, comment } = req.body;
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
       res.status(404);
       throw new Error("Product not found");
