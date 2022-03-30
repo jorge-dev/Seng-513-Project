@@ -42,7 +42,8 @@ function ratingName() {
 }
 
 export default function Ratings(props) {
-    const { ratingReceived, numberOfReviews, readOnly, isDark } = props;
+    const { ratingReceived, numberOfReviews, readOnly, isDark, align } = props;
+    const alignItems = align ? align : 'center';
     const [rating, setRating] = React.useState(ratingReceived);
     const name = ratingName();
 
@@ -56,7 +57,7 @@ export default function Ratings(props) {
                 display: 'flex',
                 flexDirection: 'column',
                 flexWrap: 'wrap',
-                alignItems: 'left',
+                alignItems: { alignItems },
             }}
         >{
                 isDark ?
