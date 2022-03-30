@@ -7,6 +7,9 @@ import { Col, Container, Row, ListGroup } from "react-bootstrap";
 import './styles/ProductPage.css';
 import Ratings from "../../components/Demo/Rating";
 import { Card } from "react-bootstrap";
+import { Button } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
+import { Badge } from "react-bootstrap";
 
 
 // Init a reducer Hook to handle the data from the API
@@ -53,22 +56,48 @@ function ProductPage(params) {
 
             <Container fluid className="main-container">
                 <Row >
-                    <Col md={6} style={{ borderRadius: "30px" }} >
-                        <img src={product.image} alt={product.name} style={{ width: "100%", backgroundColor: '#dbdbdb', border: '2px solid #252836', borderRadius: "30px" }} />
+                    <Col md={6} style={{}} >
+                        <div className="mt-4 row align-items-center" style={{ border: "1px solid #252836", height: "30em", borderRadius: "30px" }} >
+                            <img src={product.image} alt={product.name} style={{ width: "100%" }} />
+                        </div>
+
                     </Col>
                     <Col md={6} className="mt-4" >
-                        <Card style={{ background: "transparent", border: "none", borderRadius: "30px" }}>
+                        <Card style={{ background: "#252836", border: "none", borderRadius: "30px", height: "30em" }}>
                             <Card.Body style={{ padding: "0", }} >
                                 <ListGroup variant="flush" style={{ borderRadius: "30px" }}>
-                                    <ListGroup.Item > <h1>{product.name}</h1></ListGroup.Item>
-                                    <ListGroup.Item> <Ratings isDark={true} ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} />  </ListGroup.Item>
-                                    <ListGroup.Item className="text-muted"> <h3>${product.description}</h3></ListGroup.Item>
+                                    <ListGroup.Item className="text-center" > <h1>{product.name}</h1></ListGroup.Item>
+                                    <ListGroup.Item className="text-center text-muted" > <h2>{product.description}</h2></ListGroup.Item>
+                                    <ListGroup.Item > <Ratings isDark={true} ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} />  </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Row className="mt-1 mb-1">
+                                            <Col className="text-center" >Status</Col>
+                                            <Col className="text-center">
+                                                {
+                                                    product.inStock ?
+                                                        <Badge bg="success">In Stock</Badge> :
+                                                        <Badge bg="danger">Out Stock</Badge>
+                                                }
+                                            </Col>
+                                        </Row>
+
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="text-center mb-1 mt-1"> <h4> Price: ${product.price}</h4></ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Container className="text-center mt-4">
+                                            <Button className="text-center" variant="contained" size="large" >
+                                                <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                            </Button>
+                                        </Container>
+                                    </ListGroup.Item>
+
                                 </ListGroup>
 
                             </Card.Body>
 
                         </Card>
                     </Col>
+
 
 
 

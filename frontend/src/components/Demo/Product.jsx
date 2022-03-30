@@ -30,7 +30,7 @@ function Product(props) {
                 </Card.Subtitle> */}
                 {loading ? <Skeleton variant="text" width={'100%'} height={'100%'} /> :
                     < div className="mt-auto" >
-                        <Ratings ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} isDark={false} />
+                        <Ratings align="left" ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} isDark={false} />
                     </div>
                 }
                 {loading ? <Skeleton variant="text" width={'100%'} height={'100%'} /> :
