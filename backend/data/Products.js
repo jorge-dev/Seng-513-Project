@@ -44,12 +44,26 @@ const products = [
     reviews: [],
   },
   {
+    name: "Razer Firefly V2",
+    vendor: "Razer",
+    price: 49.99,
+    description: "Micro-textured Surface Mouse Mat with Razer Chroma.",
+    image:
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648657977/compfest/Accesories/mousePads/RazerFireflyV2_bgnxdm.png",
+    mainCategory: "accessories",
+    subCategory: "mousePads",
+    inStock: true,
+    rating: 0,
+    numberOfReviews: 0,
+    reviews: [],
+  },
+  {
     name: "Logitech MX Palm Rest",
     vendor: "Logitech",
     price: 20.99,
     description: "Premium, no-slip support for hours of comfortable typing.",
     image:
-      "https://res.cloudinary.com/cloud-513/image/upload/v1648356664/compfest/Accesories/wristWrest/LogitechMXPalmRest_ids",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356664/compfest/Accesories/wristWrest/LogitechMXPalmRest_ids9ch.webp",
     mainCategory: "accessories",
     subCategory: "wristWrest",
     inStock: true,
@@ -149,7 +163,7 @@ const products = [
     price: 129.99,
     description: "Wireless Mechanical Keyboard with Customizable Emoji Keys",
     image:
-      "https://res.cloudinary.com/cloud-513/image/upload/v1648356785/compfest/Keyboards/mech/wireless/LogitechPOPKeys_cruapg.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648624037/compfest/Keyboards/mech/wireless/LogitechPopKeyboard_nsxrvv.png",
     mainCategory: "keyboards",
     subCategory: "mech_wireless",
     inStock: true,
@@ -731,21 +745,6 @@ const products = [
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356934/compfest/Mice/wireless/RazerNagaPro_xf3j8d.png",
     mainCategory: "mice",
     subCategory: "wireless",
-    inStock: true,
-    rating: 0,
-    numberOfReviews: 0,
-    reviews: [],
-  },
-  {
-    name: "Razer Orochi V2 - White",
-    vendor: "Razer",
-    price: 89.99,
-    description:
-      "Mobile Wireless Gaming Mouse with up to 950 Hours of Battery Life.",
-    image:
-      "https://res.cloudinary.com/cloud-513/image/upload/v1648356646/compfest/Accesories/mousePads/LogitechMOUSEPAD_aolpb3.webp",
-    mainCategory: "accessories",
-    subCategory: "mousePads",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
