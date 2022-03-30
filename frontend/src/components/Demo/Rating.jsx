@@ -1,7 +1,32 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
 import { Box } from '@mui/system';
-import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+
+const DarkStyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: '#ffeb38',
+    },
+    '& .MuiRating-iconHover': {
+        color: '#ffd000',
+    },
+    '& .MuiRating-iconEmpty': {
+        color: '#e6e6e6',
+    }
+});
+
+const LightStyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: '#fac534',
+    },
+    '& .MuiRating-iconHover': {
+        color: '#ffc400',
+    },
+    '& .MuiRating-iconEmpty': {
+        color: '#363636',
+    }
+});
 
 
 function formatNumOfReviews(numOfReviews) {
@@ -16,14 +41,13 @@ function ratingName() {
 }
 
 export default function Ratings(props) {
-
-
-    const { ratingReceived, numberOfReviews, update } = props;
+    const { ratingReceived, numberOfReviews, readOnly, isDark } = props;
     const [rating, setRating] = React.useState(ratingReceived);
     const name = ratingName();
-    console.log(name);
-    console.log(ratingReceived);
-    console.log(numberOfReviews);
+
+
+
+
     return (
         <Box
             sx={{
@@ -31,22 +55,40 @@ export default function Ratings(props) {
                 display: 'flex',
                 alignItems: 'center',
             }}
-        >
-            <Rating
-                name={name}
-                defaultValue={ratingReceived}
-                value={rating}
-                precision={0.5}
-                readOnly={update}
-                size="large"
-                onChange={(event, newValue) => {
-                    setRating(newValue);
-                }}
+        >{
+                isDark ?
+                    <DarkStyledRating
+                        name={name}
+                        defaultValue={ratingReceived}
+                        value={rating}
+                        precision={0.5}
+                        readOnly={readOnly}
+                        size="large"
+                        onChange={(event, newValue) => {
+                            setRating(newValue);
+                        }}
 
-                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-            />
+                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                    /> :
+                    <LightStyledRating
+                        name={name}
+                        defaultValue={ratingReceived}
+                        value={rating}
+                        precision={0.5}
+                        readOnly={readOnly}
+                        size="large"
+                        onChange={(event, newValue) => {
+                            setRating(newValue);
+                        }}
+
+                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                    />
+            }
             {rating !== null && (
-                <Box sx={{ ml: 3 }}>{formatNumOfReviews(numberOfReviews)}</Box>
+                isDark ?
+                    <Box style={{ color: "white" }} sx={{ ml: 3 }}>{formatNumOfReviews(numberOfReviews)}</Box>
+                    :
+                    <Box style={{ color: "black" }} sx={{ ml: 3 }}>{formatNumOfReviews(numberOfReviews)}</Box>
             )}
         </Box>
     );

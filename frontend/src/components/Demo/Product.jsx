@@ -4,7 +4,6 @@ import Ratings from "./Rating";
 import Button from '@mui/material/Button';
 
 import { ShoppingCart } from '@mui/icons-material';
-import { Container } from "react-bootstrap";
 
 function Product(props) {
     const { product } = props;
@@ -24,7 +23,7 @@ function Product(props) {
                 </Card.Subtitle>
 
                 < Card.Text className="mt-auto">
-                    <Ratings ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} update={true} />
+                    <Ratings ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} isDark={false} />
                     ${product.price}
                 </Card.Text>
                 <Button className="mt-auto" variant="contained" endIcon={<ShoppingCart />}>
