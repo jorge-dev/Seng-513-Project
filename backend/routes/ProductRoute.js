@@ -31,10 +31,12 @@ productRoute.get(
 
 // get a single product
 productRoute.get(
-  "/:id",
+  "/:slug",
   asyncHandler(async (req, res) => {
     logger.http(`GET /api/products/${req.params.id} was called`);
-    const product = await Product.findById(req.params.id);
+    console.log(req.params);
+
+    const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
       res.status(404);
       throw new Error("Product not found");
