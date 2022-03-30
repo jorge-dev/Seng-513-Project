@@ -149,7 +149,7 @@ const products = [
     price: 129.99,
     description: "Wireless Mechanical Keyboard with Customizable Emoji Keys",
     image:
-      "https://res.cloudinary.com/cloud-513/image/upload/v1648356785/compfest/Keyboards/mech/wireless/LogitechPOPKeys_cruapg.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648624037/compfest/Keyboards/mech/wireless/LogitechPopKeyboard_nsxrvv.png",
     mainCategory: "keyboards",
     subCategory: "mech_wireless",
     inStock: true,
