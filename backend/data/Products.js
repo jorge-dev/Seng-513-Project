@@ -44,6 +44,20 @@ const products = [
     reviews: [],
   },
   {
+    name: "Razer Firefly V2",
+    vendor: "Razer",
+    price: 49.99,
+    description: "Micro-textured Surface Mouse Mat with Razer Chroma.",
+    image:
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648657977/compfest/Accesories/mousePads/RazerFireflyV2_bgnxdm.png",
+    mainCategory: "accessories",
+    subCategory: "mousePads",
+    inStock: true,
+    rating: 0,
+    numberOfReviews: 0,
+    reviews: [],
+  },
+  {
     name: "Logitech MX Palm Rest",
     vendor: "Logitech",
     price: 20.99,
