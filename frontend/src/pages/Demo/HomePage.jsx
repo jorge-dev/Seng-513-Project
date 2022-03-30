@@ -4,8 +4,7 @@ import axios from "axios";
 import logger from "use-reducer-logger"
 import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
-import LoadingScreen from "../../components/Demo/LoadingScreen";
-import Skeleton from '@mui/material/Skeleton';
+import { Helmet } from "react-helmet-async";
 
 import Product from "../../components/Demo/Product";
 
@@ -65,7 +64,10 @@ function HomePage() {
 
         <div className="home-page">
 
-
+            <Helmet>
+                <title>DotCom Store</title>
+                <meta name="description" content="Home Page" />
+            </Helmet>
             <MainCarousel />
             <div><h1 className="featured">FEATURED PRODUCTS</h1>
             </div>

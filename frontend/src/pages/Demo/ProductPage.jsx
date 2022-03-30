@@ -10,6 +10,7 @@ import { Card } from "react-bootstrap";
 import { Button } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "react-bootstrap";
+import { Helmet } from "react-helmet-async";
 
 
 // Init a reducer Hook to handle the data from the API
@@ -66,7 +67,12 @@ function ProductPage(params) {
                         <Card style={{ background: "#252836", border: "none", borderRadius: "30px", height: "30em" }}>
                             <Card.Body style={{ padding: "0", }} >
                                 <ListGroup variant="flush" style={{ borderRadius: "30px" }}>
-                                    <ListGroup.Item className="text-center" > <h1>{product.name}</h1></ListGroup.Item>
+                                    <ListGroup.Item className="text-center" >
+                                        <Helmet>
+                                            <title>{product.name}</title>
+                                        </Helmet>
+                                        <h2>{product.name}</h2>
+                                    </ListGroup.Item>
                                     <ListGroup.Item className="text-center text-muted" > <h2>{product.description}</h2></ListGroup.Item>
                                     <ListGroup.Item > <Ratings isDark={true} ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} />  </ListGroup.Item>
                                     <ListGroup.Item>
