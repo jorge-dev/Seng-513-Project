@@ -9,6 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #1f1d2c; /* fallback for old browsers */
   font-family: "Poppins", sans-serif;
+  padding: auto 0;
   color: white;
 }
 
@@ -16,11 +17,8 @@ code {
   font-family: "Roboto Mono", monospace;
 }
 
-main {
-  flex: 1;
-}
-
 .footer {
+  margin-top: 3em;
   background: #1d2c81;
   color: white;
   padding: 1em;

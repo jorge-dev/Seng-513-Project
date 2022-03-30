@@ -13,8 +13,8 @@ a {
 }
 
 .main-navbar {
-  background-color: #252836;
-  /* background-color: transparent; */
+  /* background-color: #252836; */
+  background-color: transparent;
   padding: 20px;
   font-weight: bold;
 
@@ -22,7 +22,7 @@ a {
 }
 
 .main-navbar.active {
-  background-color: #646464;
+  background-color: #1d2c81d5;
   transition: 0.1s ease-out;
   color: white;
 }

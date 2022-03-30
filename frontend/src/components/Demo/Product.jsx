@@ -8,10 +8,10 @@ import { ShoppingCart } from '@mui/icons-material';
 function Product(props) {
     const { product } = props;
     return (
-        <Card key={product.slug} className="h-100" style={{ borderRadius: "30px" }} >
+        <Card key={product.slug} style={{ borderRadius: "30px", height: '25em', width: '18em' }} >
 
             <Link to={`/product/${product.slug}`}>
-                <Card.Img variant="top" alt="product-image" style={{ height: '20em', background: '#d1d1d1', borderRadius: "30px 30px 0 0" }} src={product.image} />
+                <Card.Img variant="top" alt="product-image" style={{ height: '8em', width: '100%', background: '#d1d1d1', borderRadius: "30px 30px 0 0" }} src={product.image} />
             </Link>
             <Card.Body className="d-flex flex-column mt-auto">
 
@@ -22,7 +22,7 @@ function Product(props) {
                     {product.description}
                 </Card.Subtitle>
 
-                < Card.Text className="mt-auto">
+                < Card.Text className="mt-auto" style={{ color: 'black' }}>
                     <Ratings ratingReceived={product.rating} numberOfReviews={product.numberOfReviews} readOnly={true} isDark={false} />
                     ${product.price}
                 </Card.Text>

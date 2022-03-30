@@ -2,10 +2,13 @@ import { useEffect, useReducer } from "react";
 
 import axios from "axios";
 import logger from "use-reducer-logger"
+import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
 import { Col, Container, Row } from "react-bootstrap";
 import Product from "../../components/Demo/Product";
+import HHyy from "../../components/Demo/MainCarousel";
+import MainCarousel from "../../components/Demo/MainCarousel";
 
 // Init a reducer Hook to handle the data from the API
 const reducerHook = (state, action) => {
@@ -22,6 +25,14 @@ const reducerHook = (state, action) => {
     }
 };
 
+
+const breakpoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 2, pagination: false },
+    { width: 850, itemsToShow: 2, },
+    { width: 1150, itemsToShow: 3, },
+    { width: 1290, itemsToShow: 4, },
+    { width: 1750, itemsToShow: 4, },];
 
 
 function HomePage() {
@@ -48,21 +59,36 @@ function HomePage() {
 
 
     return (
-        <div><h1 className="featured">FEATURED PRODUCTS</h1>
+        <div>
+            {loading ? <LoadingScreen /> : error ? <div className="error">{error}</div> :
+                <div className="home-page">
 
-            {
-                loading ? <LoadingScreen open={loading} /> : error ? <h2 className="error">{error}</h2> :
-                    <Container fluid>
-                        <Row xs={1} md={2} lg={3} className="g-4">
-                            {products.slice(0, 10).map(product => (
-                                <Col key={product.slug} sm={6} md={6} lg={4} xl={3} className="mb3" >
-                                    <Product product={product} />
-                                </Col>
-                            ))}
-                        </Row>
-                    </Container>
+
+                    <MainCarousel />
+                    <div><h1 className="featured">FEATURED PRODUCTS</h1>
+                    </div>
+
+                    <Carousel itemsToShow={4} breakpoints={breakpoints} itemPadding={[0, 10]} >
+                        {products.slice(0, 10).map(product => (
+                            <Col key={product.slug}  >
+                                <Product product={product} />
+                            </Col>
+                        ))}
+                    </Carousel>
+
+                    <div><h1 className="featured">STAFF PRODUCTS</h1>
+                    </div>
+
+                    <Carousel itemsToShow={4} breakpoints={breakpoints} itemPadding={[0, 10]} >
+                        {products.slice(10, 20).map(product => (
+                            <Col key={product.slug}  >
+                                <Product product={product} />
+                            </Col>
+                        ))}
+                    </Carousel>
+
+                </div >
             }
-
         </div>
     );
 }
