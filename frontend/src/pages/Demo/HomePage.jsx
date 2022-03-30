@@ -49,18 +49,20 @@ function HomePage() {
 
     return (
         <div><h1 className="featured">FEATURED PRODUCTS</h1>
-            <Container fluid>
-                {
-                    loading ? <LoadingScreen open={loading} /> : error ? <h2 className="error">{error}</h2> :
+
+            {
+                loading ? <LoadingScreen open={loading} /> : error ? <h2 className="error">{error}</h2> :
+                    <Container fluid>
                         <Row xs={1} md={2} lg={3} className="g-4">
                             {products.slice(0, 10).map(product => (
-                                <Col key={product.slug} sm={6} md={4} lg={3} className="mb3" >
+                                <Col key={product.slug} sm={6} md={6} lg={4} xl={3} className="mb3" >
                                     <Product product={product} />
                                 </Col>
                             ))}
                         </Row>
-                }
-            </Container>
+                    </Container>
+            }
+
         </div>
     );
 }
