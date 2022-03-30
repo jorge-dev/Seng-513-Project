@@ -5,9 +5,10 @@ import logger from "use-reducer-logger"
 import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
-import { Col, Container, Row } from "react-bootstrap";
+import Skeleton from '@mui/material/Skeleton';
+
 import Product from "../../components/Demo/Product";
-import HHyy from "../../components/Demo/MainCarousel";
+
 import MainCarousel from "../../components/Demo/MainCarousel";
 
 // Init a reducer Hook to handle the data from the API
@@ -26,13 +27,7 @@ const reducerHook = (state, action) => {
 };
 
 
-const breakpoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, pagination: false },
-    { width: 850, itemsToShow: 2, },
-    { width: 1150, itemsToShow: 3, },
-    { width: 1290, itemsToShow: 4, },
-    { width: 1750, itemsToShow: 4, },];
+
 
 
 function HomePage() {
@@ -41,6 +36,13 @@ function HomePage() {
         loading: true,
         error: ''
     });
+    const breakPoints = [
+        { width: 1, itemsToShow: 1 },
+        { width: 550, itemsToShow: 2, },
+        { width: 998, itemsToShow: 2, },
+        { width: 1200, itemsToShow: 4, itemPadding: [0, 5] }
+    ];
+
     // fetch all products for API
     useEffect(() => {
         const fetchProducts = async () => {
@@ -59,37 +61,40 @@ function HomePage() {
 
 
     return (
-        <div>
-            {loading ? <LoadingScreen /> : error ? <div className="error">{error}</div> :
-                <div className="home-page">
 
 
-                    <MainCarousel />
-                    <div><h1 className="featured">FEATURED PRODUCTS</h1>
-                    </div>
+        <div className="home-page">
 
-                    <Carousel itemsToShow={4} breakpoints={breakpoints} itemPadding={[0, 10]} >
-                        {products.slice(0, 10).map(product => (
-                            <Col key={product.slug}  >
-                                <Product product={product} />
-                            </Col>
-                        ))}
-                    </Carousel>
 
-                    <div><h1 className="featured">STAFF PRODUCTS</h1>
-                    </div>
+            <MainCarousel />
+            <div><h1 className="featured">FEATURED PRODUCTS</h1>
+            </div>
+            <Carousel breakPoints={breakPoints} >
+                {
+                    products.slice(0, 10).map(product => (
 
-                    <Carousel itemsToShow={4} breakpoints={breakpoints} itemPadding={[0, 10]} >
-                        {products.slice(10, 20).map(product => (
-                            <Col key={product.slug}  >
-                                <Product product={product} />
-                            </Col>
-                        ))}
-                    </Carousel>
+                        <Product product={product} loading={loading} />
 
-                </div >
-            }
-        </div>
+                    ))}
+            </Carousel>
+
+
+
+            <div><h1 className="featured">STAFF PRODUCTS</h1>
+            </div>
+
+            <Carousel breakPoints={breakPoints} >
+                {
+                    products.slice(10, 20).map(product => (
+                        // <Col key={product.slug}  >
+                        <Product product={product} loading={loading} />
+                        // </Col>
+                    ))}
+            </Carousel>
+
+        </div >
+
+
     );
 }
 

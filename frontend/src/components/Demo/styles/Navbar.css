@@ -22,7 +22,7 @@ a {
 }
 
 .main-navbar.active {
-  background-color: #1d2c81d5;
+  background-color: #858585ef;
   transition: 0.1s ease-out;
   color: white;
 }
