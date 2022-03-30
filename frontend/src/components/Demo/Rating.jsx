@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
 import { Box } from '@mui/system';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { Typography } from '@mui/material';
 
 const DarkStyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
@@ -30,8 +31,8 @@ const LightStyledRating = styled(Rating)({
 
 
 function formatNumOfReviews(numOfReviews) {
-    // return numOfReviews + (numOfReviews > 1 ? ' reviews' : ' review');
-    return numOfReviews + ' reviews';
+    return numOfReviews + (numOfReviews > 1 ? ' reviews' : ' review');
+    // return numOfReviews + ' reviews';
 }
 
 // create a random number between 0 and 1000
@@ -51,9 +52,11 @@ export default function Ratings(props) {
     return (
         <Box
             sx={{
-                width: 200,
+                width: '100%',
                 display: 'flex',
-                alignItems: 'center',
+                flexDirection: 'column',
+                flexWrap: 'wrap',
+                alignItems: 'left',
             }}
         >{
                 isDark ?
@@ -86,9 +89,9 @@ export default function Ratings(props) {
             }
             {rating !== null && (
                 isDark ?
-                    <Box style={{ color: "white" }} sx={{ ml: 3 }}>{formatNumOfReviews(numberOfReviews)}</Box>
+                    <Typography style={{ color: "white" }}  >{formatNumOfReviews(numberOfReviews)}</Typography>
                     :
-                    <Box style={{ color: "black" }} sx={{ ml: 3 }}>{formatNumOfReviews(numberOfReviews)}</Box>
+                    <Typography style={{ color: "black" }} >{formatNumOfReviews(numberOfReviews)}</Typography>
             )}
         </Box>
     );
