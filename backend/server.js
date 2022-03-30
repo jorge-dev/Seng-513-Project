@@ -19,6 +19,13 @@ connectToMongoDB();
 
 const app = express();
 app.use(express.json());
+// add a delay to simulate a slow server
+// app.use((req, res, next) => {
+//   setTimeout(() => {
+//     next();
+//   }, 5000);
+// });
+
 // =====================ENPOINTS====================
 
 //seed the database
