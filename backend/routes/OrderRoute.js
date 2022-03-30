@@ -29,7 +29,7 @@ orderRouter.post(
       // get user's info
       const user = await User.findById(req.user._id);
       const order = new Order({
-        user: req.user._id,
+        user: user,
         items: req.body.items.map((item) => ({
           ...item,
           slug: slugify(item.name),
@@ -51,25 +51,33 @@ orderRouter.post(
   })
 );
 
-// Get Order
+
+
+// get all orders for a user
 orderRouter.get(
-  "/:id",
+  "/test",
   authenticate,
   asyncHandler(async (req, res) => {
-    logger.debug(`GET /api/orders/:id was called`);
-    const order = await Order.findById(req.params.id).populate(
-      "user",
-      "name username email"
-    );
-    if (!order) {
-      logger.error(`GET /api/orders/:id: Order not found`);
+    logger.debug(`GET /api/orders/user was called`);
+    const user = await User.findById(req.user._id);
+    logger.debug(`user: ${JSON.stringify(user)}`);
+    const orders = await Order.find({ 'user': user._id }).sort({ createdAt: -1 });
+    if (!orders) {
+      logger.error(`GET /api/orders/user: No orders found for ${req.user.name}`);
       res.status(404);
-      throw new Error("Order not found");
+      throw new Error("No orders found");
     } else {
-      res.json({ message: `Order found`, order });
+      const totalOrders = orders.length;
+      res.json({
+        message: `Success! ${totalOrders} orders were found for ${req.user.name}`,
+        numberOfOrders: totalOrders,
+        orders,
+      });
     }
   })
 );
+
+
 
 // update order payment status
 orderRouter.put(
@@ -123,3 +131,23 @@ orderRouter.get(
 );
 
 export default orderRouter;
+
+// Get Order
+orderRouter.get(
+  "/:id",
+  authenticate,
+  asyncHandler(async (req, res) => {
+    logger.debug(`GET /api/orders/:id was called`);
+    const order = await Order.findById(req.params.id).populate(
+      "user",
+      "name username email"
+    );
+    if (!order) {
+      logger.error(`GET /api/orders/:id: Order not found`);
+      res.status(404);
+      throw new Error("Order not found");
+    } else {
+      res.json({ message: `Order found`, order });
+    }
+  })
+);
