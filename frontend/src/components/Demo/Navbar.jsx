@@ -127,7 +127,7 @@ function NavBar() {
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
 
                     </Nav.Item>
-                    <Nav.Item className='NavLinks nav-icons' ><Link to="/account"><FontAwesomeIcon icon={faUser} /> </Link></Nav.Item>
+                    <Nav.Item className='NavLinks nav-icons' ><Link to="../pages/Login"><FontAwesomeIcon icon={faUser} /> </Link></Nav.Item>
                     <Nav.Item className='NavLinks nav-icons' ><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart} /> </Link></Nav.Item>
 
 
