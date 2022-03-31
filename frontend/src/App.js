@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/Demo/Navbar';
 import HomePage from './pages/Demo/HomePage';
-
 import ProductPage from './pages/Demo/ProductPage';
+
+import Login from './pages/Login'
+import CreateAccount from './pages/CreateAccount'
+import AccountManagement from './pages/AccountManagement'
 
 function App() {
   return (
@@ -11,10 +14,11 @@ function App() {
         <NavBar />
         <main>
           <Routes>
-            <Route path="/product/:slug" element={<ProductPage />} />
-
             <Route path="/" element={<HomePage />} />
-
+            <Route path="/product/:slug" element={<ProductPage />} />
+            <Route path="pages/Login" element={<Login />}/>
+            <Route path="pages/CreateAccount" element={<CreateAccount/>}/>
+            <Route path="pages/AccountManagement" element={<AccountManagement/>}/>
           </Routes>
 
         </main>
