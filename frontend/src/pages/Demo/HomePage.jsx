@@ -10,6 +10,8 @@ import Product from "../../components/Demo/Product";
 
 import MainCarousel from "../../components/Demo/MainCarousel";
 
+var count = 0;
+
 // Init a reducer Hook to handle the data from the API
 const reducerHook = (state, action) => {
     switch (action.type) {
@@ -25,10 +27,6 @@ const reducerHook = (state, action) => {
     }
 };
 
-
-
-
-
 function HomePage() {
     const [{ products, loading, error }, dispatch] = useReducer(logger(reducerHook), {
         products: [],
@@ -41,6 +39,12 @@ function HomePage() {
         { width: 998, itemsToShow: 2, },
         { width: 1200, itemsToShow: 4, itemPadding: [0, 5] }
     ];
+    const generateKey = (pre) => {
+        count++;
+        return `${pre}${count}_${new Date().getTime()}`;
+    }
+
+
 
     // fetch all products for API
     useEffect(() => {
@@ -75,7 +79,8 @@ function HomePage() {
                 {
                     products.slice(0, 10).map(product => (
 
-                        <Product product={product} loading={loading} />
+                        <Product key={generateKey(product.id)} product={product}
+                            loading={loading} onSale={true} discountPercent={30} />
 
                     ))}
             </Carousel>
@@ -88,9 +93,10 @@ function HomePage() {
             <Carousel breakPoints={breakPoints} >
                 {
                     products.slice(10, 20).map(product => (
-                        // <Col key={product.slug}  >
-                        <Product product={product} loading={loading} />
-                        // </Col>
+
+
+                        <Product key={generateKey(product.name)} product={product} loading={loading} onSale={false} />
+
                     ))}
             </Carousel>
 
