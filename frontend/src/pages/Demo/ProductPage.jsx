@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import './styles/HomePage.css';
@@ -12,6 +12,8 @@ import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 import MessageAlert from "../../components/Demo/MessageAlert";
+import { getErrorMessage } from "../../utils/handleApiError";
+import { ContextStore } from "../../ContextStore";
 
 
 // Init a reducer Hook to handle the data from the API
@@ -29,7 +31,7 @@ const reducerHook = (state, action) => {
     }
 };
 
-function ProductPage(params) {
+function ProductPage() {
     const [{ product, loading, error }, dispatch] = useReducer(reducerHook, {
         product: {},
         loading: true,
@@ -41,20 +43,38 @@ function ProductPage(params) {
         const fetchProducts = async () => {
             dispatch({ type: "FETCH_DATA" });
             try {
-                const response = await axios.get(`/api/products/${slug}`);
+                const response = await axios.get(`/api/products/slug/${slug}`);
                 dispatch({ type: "FETCH_DATA_SUCCESS", payload: response.data });
 
                 // setProductsList(response.data.products);
             } catch (error) {
-                dispatch({ type: "FETCH_DATA_FAILURE", payload: error.message });
+
+                dispatch({ type: "FETCH_DATA_FAILURE", payload: getErrorMessage(error) });
             }
         };
         fetchProducts();
     }, [slug]);
 
+    const { state: ctxState, setState: setCtxState } = useContext(ContextStore)
+    const { cart } = ctxState
+    const addToCartHandler = () => {
+        // check if the product is already in the cart
+        const isInCart = cart.items.find(item => item._id === product._id)
+        // const { data } = await axios.get(`/api/products/${product._id}`);
+        if (!product.inStock) {
+            window.alert("This product is out of stock")
+        }
+
+        if (isInCart) {
+            console.log("Product is already in the cart")
+        }
+        setCtxState({
+            type: "ADD_TO_CART", payload: { ...product, quantity: 1 }
+        });
+    }
 
     return (
-        loading ? <LoadingScreen open={loading} /> : error ? <MessageAlert variant="danger">{error}</MessageAlert> :
+        loading ? <LoadingScreen open={loading} /> : error ? <MessageAlert style={{ marginTop: '10em' }} variant="danger" > {error}</MessageAlert > :
 
             <Container fluid className="main-container">
                 <Row >
@@ -92,9 +112,14 @@ function ProductPage(params) {
                                     <ListGroup.Item className="text-center mb-1 mt-1"> <h4> Price: ${product.price}</h4></ListGroup.Item>
                                     <ListGroup.Item>
                                         <Container className="text-center mt-4">
-                                            <Button className="text-center" variant="contained" size="large" >
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart />
-                                            </Button>
+                                            {product.inStock ?
+                                                <Button className="text-center" variant="contained" size="large" onClick={addToCartHandler} >
+                                                    <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                                </Button> :
+                                                <Button className="text-center" variant="contained" size="large" disabled>
+                                                    <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                                </Button>
+                                            }
                                         </Container>
                                     </ListGroup.Item>
 

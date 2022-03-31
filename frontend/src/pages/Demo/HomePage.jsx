@@ -32,7 +32,7 @@ const reducerHook = (state, action) => {
 };
 
 function HomePage() {
-    const [{ products, loading, error }, dispatch] = useReducer(logger(reducerHook), {
+    const [{ products, loading, error }, dispatch] = useReducer(reducerHook, {
         products: [],
         loading: true,
         error: ''
@@ -60,7 +60,19 @@ function HomePage() {
 
                 // setProductsList(response.data.products);
             } catch (error) {
-                dispatch({ type: "FETCH_DATA_FAILURE", payload: error.message });
+                // Handle error codes
+                console.log(error.response.message);
+                if (error.response.status === 404) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "Product not found" });
+                } else if (error.response.status === 500) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "Internal server error" });
+                } else if (error.response.status === 403) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "Forbidden" });
+                } else if (error.response.status === 400) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "No data found due to Bad request" });
+
+                }
+
             }
         };
         fetchProducts();
@@ -68,7 +80,7 @@ function HomePage() {
     const skeleton = []
     for (let i = 0; i < 4; i++) {
         skeleton.push(
-            <CardSkeleton key={generateKey("skeleton")} />
+            <CardSkeleton />
         )
     }
 
@@ -89,7 +101,7 @@ function HomePage() {
             <Carousel breakPoints={breakPoints} >
                 {loading ?
                     skeleton.map(item =>
-                        <div>{item}</div>
+                        <div key={generateKey("skeleton")}>{item}</div>
                     )
 
                     : error ? <MessageAlert variant="danger">{error}</MessageAlert>
@@ -113,7 +125,7 @@ function HomePage() {
             <Carousel breakPoints={breakPoints} >
                 {loading ?
                     skeleton.map(item =>
-                        <div>{item}</div>
+                        <div key={generateKey("skeleton")}>{item}</div>
                     )
 
                     : error ? <MessageAlert variant="danger">{error}</MessageAlert>

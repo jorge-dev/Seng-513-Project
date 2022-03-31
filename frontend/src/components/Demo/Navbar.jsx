@@ -2,14 +2,18 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, Navbar, NavDropdown, NavItem, NavLink, Dropdown } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap';
+import { Badge } from '@mui/material';
 import LogoImage from "../../logos/fullLogo.png";
+import { ShoppingCart } from '@mui/icons-material';
 import "./styles/Navbar.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faShoppingCart, faUser, faKeyboard, faComputerMouse, faHeadphones, faPlus } from '@fortawesome/free-solid-svg-icons'
 
-function NavBar() {
+function NavBar(props) {
     const [navColor, setNavColor] = useState(false);
+    const { cart } = props
+    const itemsInCart = cart.items.length;
 
     const handleScroll = () => {
         if (window.scrollY > 10) {
@@ -128,7 +132,18 @@ function NavBar() {
 
                     </Nav.Item>
                     <Nav.Item className='NavLinks nav-icons' ><Link to="../pages/Login"><FontAwesomeIcon icon={faUser} /> </Link></Nav.Item>
-                    <Nav.Item className='NavLinks nav-icons' ><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart} /> </Link></Nav.Item>
+                    <Nav.Item className='NavLinks nav-icons' >
+                        <Link to="/cart">
+
+                            < Badge color="error" badgeContent={itemsInCart > 0 ? itemsInCart : 0}>
+                                {/* <FontAwesomeIcon icon={faShoppingCart} /> */}
+                                <ShoppingCart fontSize="large" />
+
+
+                            </Badge>
+
+                        </Link>
+                    </Nav.Item>
 
 
                 </Nav>

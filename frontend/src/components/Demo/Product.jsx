@@ -23,7 +23,7 @@ function Product(props) {
 
         <Card className="main-card" style={{ borderRadius: "30px", height: '25em', width: '18em' }} >
             {loading ? <Skeleton variant="rect" width={'100%'} height={'10em'} /> :
-                <Link to={`/product/${product.slug}`}>
+                <Link to={`/product/slug/${product.slug}`}>
                     {onSale ?
                         <Badge bg="danger" style={{ position: 'absolute', top: '10px', left: '10px', fontSize: ".8em" }}>
                             Sale
@@ -34,7 +34,7 @@ function Product(props) {
             }
             <Card.Body className="d-flex flex-column mt-auto">
                 {loading ? <Skeleton variant="text" width={'100%'} height={'100%'} /> :
-                    <Link to={`/product/${product.slug}`}>
+                    <Link to={`/product/slug/${product.slug}`}>
                         <Card.Title className="mt-auto" style={{ color: 'black', fontSize: '1em' }}>{product.name}</Card.Title>
                     </Link>
                 }
