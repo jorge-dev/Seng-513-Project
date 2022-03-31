@@ -119,7 +119,7 @@ function HomePage() {
                     products.slice(0, 10).map(product => (
 
                         <Product key={generateKey(product.name)} product={product}
-                            loading={loading} onSale={true} discountPercent={30} />
+                            loading={loading} onSale={false} discountPercent={30} />
 
                     ))
 
