@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
+import MessageAlert from "../../components/Demo/MessageAlert";
 
 
 // Init a reducer Hook to handle the data from the API
@@ -53,7 +54,7 @@ function ProductPage(params) {
 
 
     return (
-        loading ? <LoadingScreen open={loading} /> : error ? <h2 className="error">{error}</h2> :
+        loading ? <LoadingScreen open={loading} /> : error ? <MessageAlert variant="danger">{error}</MessageAlert> :
 
             <Container fluid className="main-container">
                 <Row >

@@ -12,6 +12,7 @@ import { Skeleton } from "@mui/material";
 import MainCarousel from "../../components/Demo/MainCarousel";
 import { Stack } from "@mui/material";
 import CardSkeleton from "../../components/Demo/CardSkeleton";
+import MessageAlert from "../../components/Demo/MessageAlert";
 
 var count = 0;
 
@@ -91,14 +92,15 @@ function HomePage() {
                         <div>{item}</div>
                     )
 
-                    :
+                    : error ? <MessageAlert variant="danger">{error}</MessageAlert>
+                        :
 
-                    products.slice(0, 10).map(product => (
+                        products.slice(0, 10).map(product => (
 
-                        <Product key={generateKey(product.id)} product={product}
-                            loading={loading} onSale={true} discountPercent={30} />
+                            <Product key={generateKey(product.id)} product={product}
+                                loading={loading} onSale={true} discountPercent={30} />
 
-                    ))
+                        ))
 
                 }
             </Carousel>
@@ -114,14 +116,15 @@ function HomePage() {
                         <div>{item}</div>
                     )
 
-                    :
+                    : error ? <MessageAlert variant="danger">{error}</MessageAlert>
+                        :
 
-                    products.slice(0, 10).map(product => (
+                        products.slice(0, 10).map(product => (
 
-                        <Product key={generateKey(product.name)} product={product}
-                            loading={loading} onSale={false} discountPercent={30} />
+                            <Product key={generateKey(product.name)} product={product}
+                                loading={loading} onSale={false} discountPercent={30} />
 
-                    ))
+                        ))
 
                 }
             </Carousel>
