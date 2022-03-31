@@ -5,10 +5,13 @@ import logger from "use-reducer-logger"
 import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
 import { Helmet } from "react-helmet-async";
-
+import { Spinner } from "react-bootstrap";
 import Product from "../../components/Demo/Product";
+import { Skeleton } from "@mui/material";
 
 import MainCarousel from "../../components/Demo/MainCarousel";
+import { Stack } from "@mui/material";
+import CardSkeleton from "../../components/Demo/CardSkeleton";
 
 var count = 0;
 
@@ -61,6 +64,12 @@ function HomePage() {
         };
         fetchProducts();
     }, []);
+    const skeleton = []
+    for (let i = 0; i < 4; i++) {
+        skeleton.push(
+            <CardSkeleton key={generateKey("skeleton")} />
+        )
+    }
 
 
     return (
@@ -75,29 +84,46 @@ function HomePage() {
             <MainCarousel />
             <div><h1 className="featured">FEATURED PRODUCTS</h1>
             </div>
+
             <Carousel breakPoints={breakPoints} >
-                {
+                {loading ?
+                    skeleton.map(item =>
+                        <div>{item}</div>
+                    )
+
+                    :
+
                     products.slice(0, 10).map(product => (
 
                         <Product key={generateKey(product.id)} product={product}
                             loading={loading} onSale={true} discountPercent={30} />
 
-                    ))}
+                    ))
+
+                }
             </Carousel>
 
 
 
-            <div><h1 className="featured">STAFF PRODUCTS</h1>
+            <div><h1 className="featured">STAFF RECOMMENDATIONS</h1>
             </div>
 
             <Carousel breakPoints={breakPoints} >
-                {
-                    products.slice(10, 20).map(product => (
+                {loading ?
+                    skeleton.map(item =>
+                        <div>{item}</div>
+                    )
 
+                    :
 
-                        <Product key={generateKey(product.name)} product={product} loading={loading} onSale={false} />
+                    products.slice(0, 10).map(product => (
 
-                    ))}
+                        <Product key={generateKey(product.name)} product={product}
+                            loading={loading} onSale={true} discountPercent={30} />
+
+                    ))
+
+                }
             </Carousel>
 
         </div >
