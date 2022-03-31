@@ -1,24 +1,19 @@
 //This code is heavily inspired (but not verbatim copied) from: https://github.com/mui/material-ui/blob/v5.5.2/docs/data/material/getting-started/templates/sign-in/SignIn.js
 
-import * as React from 'react';
+import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Alert, Button, TextField, Box, Typography, Container} from '@mui/material';
 import axios from "axios";
-import Login from './Login';
-
-const theme = createTheme();
 
 export default function CreateAccount()
 {
+    const [failure, fupdate] = useState(0);
+
     let navigate = useNavigate();
 
     function submit(event)
     {
+        fupdate("");
         event.preventDefault();
 
         const account = Object.fromEntries(new FormData(event.currentTarget));
@@ -29,7 +24,7 @@ export default function CreateAccount()
             localStorage.setItem("token", JSON.stringify(response));
             navigate("/");
             })
-            .catch((error) => {console.log(JSON.stringify(error.response.data.message))})
+            .catch((error) => { fupdate(error.response.data.message); })
     }
 
     return (
@@ -51,6 +46,8 @@ export default function CreateAccount()
 
               <TextField margin="normal" fullWidth required
               label="Password" type="password" name="password" autoComplete="on"/>
+
+              <Alert style={{ width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none') }} severity="error"><h5>Error - {failure}.</h5></Alert>
 
               <Button type="submit" fullWidth variant="contained" color="success" sx={{ mt: 3, mb: 2 }}>
               Create Account </Button>

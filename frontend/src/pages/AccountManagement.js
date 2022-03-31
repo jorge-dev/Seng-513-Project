@@ -15,10 +15,7 @@ import {
     ListItemText,
     Alert
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-
-const theme = createTheme();
 
 var orders = [ //Dummy data for now.
     {
@@ -41,7 +38,7 @@ var orders = [ //Dummy data for now.
     {
         id: 3333,
         cost: 117.25,
-        timestamp: "2022-03-25 5:30PM UTC",
+        timestamp: "2022-03-25 6:31AM UTC",
         items: [
         "USB 3.0 Extension Cable",
         "USB 3.1 Extension Cable",
@@ -94,65 +91,63 @@ export default function AccountManagement()
         return <Navigate to="../pages/Login"/>
 
     return (
-    <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginTop: "150px"}}>
+    <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginTop: "150px", minWidth: "45%"}}>
     <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center", }} >
 
     <Typography component="h1" variant="h3" style={{color: "black", marginTop: "50px"}}> Account Info </Typography>
 
     <Box
     component="form" onSubmit={updateUser} sx={{
-    marginTop: 8, display: "flex", flexDirection: "row", alignItems: "center",}}>
+    marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
     <TextField
     required fullWidth variant="filled"
     name="username" autoFocus defaultValue={userData.username} label="Change Username"/>
     <Button variant="contained" type="submit"> Change </Button>
     </Box>
-    <Alert style={{ display: ((lastchanged === "username") ? 'block' : 'none') }} severity="success">You've successfully changed your username!</Alert>
-    <Alert style={{ display: ((lastchanged === "fail-username") ? 'block' : 'none') }} severity="error">Error - failed to change username.</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "username") ? 'block' : 'none') }} severity="success">You've successfully changed your username!</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "fail-username") ? 'block' : 'none') }} severity="error">Error - failed to change username.</Alert>
 
     <Box
     component="form" onSubmit={updateUser} sx={{
-    marginTop: 8, display: "flex", flexDirection: "row", alignItems: "center",}}>
+    marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
     <TextField required fullWidth variant="filled"
     name="name" defaultValue={userData.name} label="Change Name"/>
     <Button variant="contained" type="submit"> Change </Button>
     </Box>
-    <Alert style={{ display: ((lastchanged === "name") ? 'block' : 'none') }} severity="success">You've successfully changed your name!</Alert>
-    <Alert style={{ display: ((lastchanged === "fail-name") ? 'block' : 'none') }} severity="error">Error - failed to change name.</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "name") ? 'block' : 'none') }} severity="success">You've successfully changed your name!</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "fail-name") ? 'block' : 'none') }} severity="error">Error - failed to change name.</Alert>
 
     <Box
     component="form" onSubmit={updateUser} sx={{
-    marginTop: 8, display: "flex", flexDirection: "row", alignItems: "center",}}>
+    marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
     <TextField required fullWidth variant="filled"
     name="email" defaultValue={userData.email} label="Change Email"/>
     <Button variant="contained" type="submit"> Change </Button>
     </Box>
-    <Alert style={{ display: ((lastchanged === "email") ? 'block' : 'none') }} severity="success">You've successfully changed your email!</Alert>
-    <Alert style={{ display: ((lastchanged === "fail-email") ? 'block' : 'none') }} severity="error">Error - failed to change email address.</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "email") ? 'block' : 'none') }} severity="success">You've successfully changed your email!</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "fail-email") ? 'block' : 'none') }} severity="error">Error - failed to change email address.</Alert>
 
     <Box
     component="form" onSubmit={updateUser} sx={{
-    marginTop: 8, display: "flex", flexDirection: "row", alignItems: "center",}}>
+    marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
     <TextField required fullWidth variant="filled"
     name="password" label="Change Password"/>
     <Button variant="contained" type="submit"> Change </Button>
     </Box>
-    <Alert style={{ display: ((lastchanged === "password") ? 'block' : 'none') }} severity="success">You've successfully changed your password!</Alert>
-    <Alert style={{ display: ((lastchanged === "fail-password") ? 'block' : 'none') }} severity="error">Error - failed to change password.</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "password") ? 'block' : 'none') }} severity="success">You've successfully changed your password!</Alert>
+    <Alert style={{ width: "90%", display: ((lastchanged === "fail-password") ? 'block' : 'none') }} severity="error">Error - failed to change password.</Alert>
 
     <Box
-    sx={{ marginTop: 4, marginBottom: 2, alignItems: "center",}}>
-    <Button variant="contained"  onClick={logout}>Log Out</Button></Box>
+    sx={{ marginTop: 4, marginBottom: 2, alignItems: "center", width: "80%"}}>
+    <Button variant="contained" fullWidth color="error" onClick={logout}>Log Out</Button></Box>
 
-    <Typography component="h1" variant="h3">
-    List of Purchases
-    </Typography>
+    <Typography component="h1" variant="h3" style={{color: "black"}}> Your Orders ({orders.length}) </Typography>
 
-    <Grid container direction="column" spacing={4} alignItems="center" justifyContent="center">
+    <Grid container direction="column" spacing={4} alignItems="center" justifyContent="center" sx={{marginBottom: "50px"}}>
     {orders.map((o) => {
     return (
-    <Grid key={o.id} item sx={{ marginBottom: 5 }}>
-        <Card>
+    <Grid key={o.id} item sx={{ width: "100%" }}>
+        <Card sx={{backgroundColor: "#eeeeee"}}>
         <CardContent>
 
         <Typography variant="h5" color="text.secondary" gutterBottom>
