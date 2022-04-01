@@ -132,7 +132,7 @@ function NavBar(props) {
                     </Nav.Item>
                     <Nav.Item className='NavLinks nav-icons' ><Link to="../pages/Login"><FontAwesomeIcon icon={faUser} /> </Link></Nav.Item>
                     <Nav.Item className='NavLinks nav-icons' >
-                        <Link to="/cart">
+                        <Link to="/shoppingCart">
 
                             < Badge color="error" badgeContent={cart.items.reduce((a, c) => a + c.quantities, 0)}>
                                 {/* <FontAwesomeIcon icon={faShoppingCart} /> */}
