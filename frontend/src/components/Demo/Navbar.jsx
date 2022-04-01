@@ -1,18 +1,16 @@
 import {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Dropdown, Nav, Navbar, NavDropdown, NavItem, NavLink} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
-import {Badge, IconButton} from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {Badge, Divider, IconButton, Menu, MenuItem} from '@mui/material';
 import LogoImage from "../../logos/fullLogo.png";
-import {AccountCircle, LoginOutlined, Search, ShoppingCart} from '@mui/icons-material';
+import {AccountCircle, ArrowDropDown, LoginOutlined, Search, ShoppingCart} from '@mui/icons-material';
 import "./styles/Navbar.css";
-
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faComputerMouse, faHeadphones, faKeyboard, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {ContextStore} from "../../ContextStore";
 import {grey} from "@mui/material/colors";
+import CustomMenu from "../CustomMenu";
+import {MegaMenu} from "../MegaMenu";
+
 
 function NavBar() {
     const [navColor, setNavColor] = useState(false);
@@ -21,13 +19,23 @@ function NavBar() {
     // const navigate = useNavigate
 
     const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorElProduct, setAnchorElProduct] = useState(null);
     const open = Boolean(anchorEl);
+    const openProduct = Boolean(anchorElProduct);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+    };
+    const handleClickProduct = (event) => {
+        setAnchorElProduct(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleCloseProduct = () => {
+        setAnchorElProduct(null);
+    };
+
 
     const handleScroll = () => {
         if (window.scrollY > 10) {
@@ -46,106 +54,34 @@ function NavBar() {
     };
 
     return (
-        <Navbar fixed="top" className={navColor ? 'main-navbar active' : 'main-navbar'} collapseOnSelect expand="lg"
+        <Navbar sticky="top" className={navColor ? 'main-navbar active' : 'main-navbar'} collapseOnSelect expand="lg"
                 variant="dark">
             <LinkContainer to="/">
                 <Navbar.Brand><img className="brand" src={LogoImage} alt="logo"/></Navbar.Brand>
             </LinkContainer>
+            <Nav>
+
+                <div className="arrowDown" onClick={handleClickProduct}>
 
 
+                    Product
+                    <ArrowDropDown/>
+                </div>
+                <CustomMenu id="user-menu"
+                            anchorEl={anchorElProduct}
+                            open={openProduct}
+                            onClose={handleCloseProduct}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}>
+                    <MegaMenu clickMe={handleCloseProduct}/>
+                </CustomMenu>
+
+            </Nav>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
-                <Dropdown as={NavItem}>
-                    <Dropdown.Toggle className='arrowDown' as={NavLink}>Products</Dropdown.Toggle>
-                    <Dropdown.Menu className="large-dropdown-menu">
-                        <div className="dropdown-menu-wrapper">
-                            <div>
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
 
-                                            <div><NavDropdown.Item href="#keyboards"><b
-                                                className='dropDownTitle'><FontAwesomeIcon icon={faKeyboard}/>KeyBoards</b></NavDropdown.Item>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wired</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wireless</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Mechanical</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Membrane</Link>
-                                    </NavDropdown.Item></li>
-
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
-
-                                            <div><NavDropdown.Item href="#mice"><b className='dropDownTitle mouse'><FontAwesomeIcon icon={faComputerMouse} />Mice </b></NavDropdown.Item></div>
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item>
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wired</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item>
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wireless</Link>
-                                    </NavDropdown.Item></li>
-                                </ul>
-                            </div>
-                            <div className="dropdown-items-div">
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
-
-                                            <div><NavDropdown.Item href="#headphone"><b
-                                                className='dropDownTitle'><FontAwesomeIcon icon={faHeadphones}/>HeadPhones</b></NavDropdown.Item>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item>
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wired</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wireless</Link>
-                                    </NavDropdown.Item></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
-
-                                            <div><NavDropdown.Item href="#accessories"><b className='dropDownTitle'><FontAwesomeIcon icon={faPlus} />Accessories</b></NavDropdown.Item></div>
-
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Desk mats</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Key Caps</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Mouse Pads</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wrist Wrest</Link>
-                                    </NavDropdown.Item></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Nav className="me-auto" activeKey={window.location.pathname}>
+                <Nav className="me-auto">
 
                     <Link className='NavLinks non-product' to="/contact">Contact</Link>
                 </Nav>
@@ -171,17 +107,20 @@ function NavBar() {
                                         <AccountCircle sx={{color: grey[50]}} fontSize="large"/>
                                     </IconButton>
                                     <Menu
-                                        xs={{color: grey[500]}}
-                                        id="basic-menu"
+
+                                        id="user-menu"
                                         anchorEl={anchorEl}
                                         open={open}
                                         onClose={handleClose}
                                         MenuListProps={{
                                             'aria-labelledby': 'basic-button',
                                         }}
+
                                     >
+                                        {/*<MegaMenu/>*/}
                                         <MenuItem onClick={handleClose}>Profile</MenuItem>
                                         <MenuItem onClick={handleClose}>My account</MenuItem>
+                                        <Divider/>
                                         <MenuItem onClick={handleSignOut}><Link to="/#signout">Logout</Link></MenuItem>
                                     </Menu>
                                 </>
@@ -209,8 +148,9 @@ function NavBar() {
                 </Nav>
             </Navbar.Collapse>
 
-        </Navbar >
-    );
+        </Navbar>
+    )
+        ;
 }
 
 export default NavBar;
