@@ -8,7 +8,7 @@ import { ShoppingCart } from '@mui/icons-material';
 import "./styles/Navbar.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faShoppingCart, faUser, faKeyboard, faComputerMouse, faHeadphones, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faUser, faKeyboard, faComputerMouse, faHeadphones, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 function NavBar(props) {
     const [navColor, setNavColor] = useState(false);

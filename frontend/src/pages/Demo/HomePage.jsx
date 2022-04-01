@@ -1,16 +1,12 @@
 import { useEffect, useReducer } from "react";
 
 import axios from "axios";
-import logger from "use-reducer-logger"
 import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
 import { Helmet } from "react-helmet-async";
-import { Spinner } from "react-bootstrap";
 import Product from "../../components/Demo/Product";
-import { Skeleton } from "@mui/material";
 
 import MainCarousel from "../../components/Demo/MainCarousel";
-import { Stack } from "@mui/material";
 import CardSkeleton from "../../components/Demo/CardSkeleton";
 import MessageAlert from "../../components/Demo/MessageAlert";
 
