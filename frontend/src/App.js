@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {useContext} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import NavBar from './components/Demo/Navbar';
 import ScrollToTop from './components/Demo/ScrollToTop';
-import { ContextStore } from './ContextStore';
+import {ContextStore} from './ContextStore';
 import CartPage from './pages/Demo/CartPage';
 import HomePage from './pages/Demo/HomePage';
 import ProductPage from './pages/Demo/ProductPage';
@@ -33,11 +33,17 @@ function App() {
         </main>
         <footer className='footer mt-4'>
           <div className="text-center">All rights reserved &copy; 2020</div>
-          <div className="text-center">  Designed and implemented by:  Ahmed Elnasri,Haotian Chen, Daryl Dang
+          <div className="text-center"> Designed and implemented by: Ahmed Elnasri,Haotian Chen, Daryl Dang
             , and Jorge Avila
           </div>
-          <div className="text-center">Ahmed Elnasri,Haotian Chen, Daryl Dang,
-            , and Jorge Avila
+          <div className="text-center">All images are from the public domain and obtained from this websites: <br/>
+            <div className="h5">
+              <a href="https://oneofzero.net/">OneOfZero</a> {' '}
+              <a href="https://www.razer.com/ca-en/">Razer</a> {' '}
+              <a href="https://www.logitech.com/">Logitech</a>
+            </div>
+
+
           </div>
         </footer>
 
