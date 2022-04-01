@@ -1,6 +1,6 @@
 //This code is heavily inspired (but not verbatim copied) from: https://github.com/mui/material-ui/blob/v5.5.2/docs/data/material/getting-started/templates/sign-in/SignIn.js
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
     Button,
@@ -12,51 +12,62 @@ import {
     Card,
     CardContent,
     List,
-    ListItemText,
+    ListItem,
     Alert
 } from "@mui/material";
-import axios from "axios";
+import EditIcon from '@mui/icons-material/Edit';
+import { grey } from '@mui/material/colors';
+import { IconButton } from "@mui/material"
 
-var orders = [ //Dummy data for now.
-    {
-        id: 1111,
-        cost: 1000.5,
-        timestamp: "2022-03-25 5:30PM UTC",
-        items: [
-        "Super Gaming Keyboard",
-        "Programmer's Mice",
-        "Ultra Gamer's Monitor 8k",
-        "Audiophile Headphones PRO",
-        ],
-    },
-    {
-        id: 2222,
-        cost: 22.54,
-        timestamp: "2022-03-25 5:30PM UTC",
-        items: ["USB-C Power Hub"],
-    },
-    {
-        id: 3333,
-        cost: 117.25,
-        timestamp: "2022-03-25 6:31AM UTC",
-        items: [
-        "USB 3.0 Extension Cable",
-        "USB 3.1 Extension Cable",
-        "USB Microphone MicStar Model 14MICA",
-        ],
-    },
-];
+import axios from "axios";
 
 export default function AccountManagement()
 {
-    const [lastchanged, lcupdate] = useState(0);
+    const [lastchanged, lcupdate] = useState("");
+    const [orders, setOrders] = useState([]);
 
     let navigate = useNavigate();
+
+    function price(num)
+    {
+        return "$" + num?.toFixed(2);
+    }
+
+    useEffect(() => {
+        axios.get("/api/orders/user", {"headers": {"Authorization": "Bearer " + userData.token}})
+        .then((response) => {
+            console.log(response.data.orders);
+            response.data.orders.forEach(o => {
+            var n = {
+            id: o._id.toUpperCase(),
+            cost: o.totalPrice,
+            timestamp: "Purchased on: " + new Date(o.createdAt).toLocaleString("en-US",
+            {weekday: "short", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric"}),
+            items: []
+            };
+
+            o.items.forEach(i =>
+            {
+                var s = ""
+                if (i.quantity > 1)
+                    s += `(${i.quantity}) `
+                s += i.name + " " + price(i.price) + ")"
+                n.items.push(s);
+            })
+
+            n.items.push("Shipping: " + price(o.shippingFee));
+            n.items.push("Taxes: " + price(o.taxPrice));
+
+            setOrders((old) => [...old, n]);
+            });
+        });
+    }, []);
 
     if (null === localStorage.getItem("token"))
         return <Navigate to="/"/>
 
     var userData = JSON.parse(localStorage.getItem("token")).data;
+
 
     function logout(event)
     {
@@ -100,9 +111,12 @@ export default function AccountManagement()
     component="form" onSubmit={updateUser} sx={{
     marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
     <TextField
-    required fullWidth variant="filled"
+    required fullWidth variant="outlined" InputProps={{style: {fontSize: "125%"}}} InputLabelProps={{style: {fontSize: "125%"}}}
     name="username" autoFocus defaultValue={userData.username} label="Change Username"/>
-    <Button variant="contained" type="submit"> Change </Button>
+    <IconButton type="submit" color="inherit" sx={{backgroundColor: "darkgrey",transition: "background 0.5s, color 0.5s",
+ ":hover": {backgroundColor: "black"}}}>
+        <EditIcon sx={{ color: grey[50] }} />
+    </IconButton>
     </Box>
     <Alert style={{ width: "90%", display: ((lastchanged === "username") ? 'block' : 'none') }} severity="success">You've successfully changed your username!</Alert>
     <Alert style={{ width: "90%", display: ((lastchanged === "fail-username") ? 'block' : 'none') }} severity="error">Error - failed to change username.</Alert>
@@ -110,9 +124,12 @@ export default function AccountManagement()
     <Box
     component="form" onSubmit={updateUser} sx={{
     marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
-    <TextField required fullWidth variant="filled"
+    <TextField required fullWidth variant="outlined" InputProps={{style: {fontSize: "125%"}}} InputLabelProps={{style: {fontSize: "125%"}}}
     name="name" defaultValue={userData.name} label="Change Name"/>
-    <Button variant="contained" type="submit"> Change </Button>
+    <IconButton type="submit" color="inherit" sx={{backgroundColor: "darkgrey",transition: "background 0.5s, color 0.5s",
+ ":hover": {backgroundColor: "black"}}}>
+        <EditIcon sx={{ color: grey[50] }} />
+    </IconButton>
     </Box>
     <Alert style={{ width: "90%", display: ((lastchanged === "name") ? 'block' : 'none') }} severity="success">You've successfully changed your name!</Alert>
     <Alert style={{ width: "90%", display: ((lastchanged === "fail-name") ? 'block' : 'none') }} severity="error">Error - failed to change name.</Alert>
@@ -120,9 +137,12 @@ export default function AccountManagement()
     <Box
     component="form" onSubmit={updateUser} sx={{
     marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
-    <TextField required fullWidth variant="filled"
+    <TextField required fullWidth variant="outlined" InputProps={{style: {fontSize: "125%"}}} InputLabelProps={{style: {fontSize: "125%"}}}
     name="email" defaultValue={userData.email} label="Change Email"/>
-    <Button variant="contained" type="submit"> Change </Button>
+    <IconButton type="submit" color="inherit" sx={{backgroundColor: "darkgrey",transition: "background 0.5s, color 0.5s",
+ ":hover": {backgroundColor: "black"}}}>
+        <EditIcon sx={{ color: grey[50] }} />
+    </IconButton>
     </Box>
     <Alert style={{ width: "90%", display: ((lastchanged === "email") ? 'block' : 'none') }} severity="success">You've successfully changed your email!</Alert>
     <Alert style={{ width: "90%", display: ((lastchanged === "fail-email") ? 'block' : 'none') }} severity="error">Error - failed to change email address.</Alert>
@@ -130,9 +150,12 @@ export default function AccountManagement()
     <Box
     component="form" onSubmit={updateUser} sx={{
     marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"}}>
-    <TextField required fullWidth variant="filled"
+    <TextField required fullWidth variant="outlined" InputProps={{style: {fontSize: "125%"}}} InputLabelProps={{style: {fontSize: "125%"}}}
     name="password" label="Change Password"/>
-    <Button variant="contained" type="submit"> Change </Button>
+    <IconButton type="submit" color="inherit" sx={{backgroundColor: "darkgrey",transition: "background 0.5s, color 0.5s",
+ ":hover": {backgroundColor: "black"}}}>
+        <EditIcon sx={{ color: grey[50] }} />
+    </IconButton>
     </Box>
     <Alert style={{ width: "90%", display: ((lastchanged === "password") ? 'block' : 'none') }} severity="success">You've successfully changed your password!</Alert>
     <Alert style={{ width: "90%", display: ((lastchanged === "fail-password") ? 'block' : 'none') }} severity="error">Error - failed to change password.</Alert>
@@ -154,14 +177,14 @@ export default function AccountManagement()
             Order #{o.id}
         </Typography>
         <Typography variant="h4" component="div">
-            ${o.cost}
+            Total cost: ${o.cost}
         </Typography>
         <Typography variant="h5" color="text.secondary">
             {o.timestamp}
         </Typography>
         <List key={o.id}>
-            {o.items.map((i) =>
-            { return <ListItemText key={i}>{i}</ListItemText>; })}
+            {o.items.map((i, index) =>
+            { return <ListItem sx={{ display: 'list-item', fontSize: "125%" }} key={i + index}>⚫{i}</ListItem>; })}
         </List>
 
         </CardContent>
