@@ -7,6 +7,8 @@ import Skeleton from '@mui/material/Skeleton';
 import { Badge } from 'react-bootstrap'
 
 import { ShoppingCart } from '@mui/icons-material';
+import { useContext } from "react";
+import { ContextStore } from "../../ContextStore";
 
 
 
@@ -19,6 +21,18 @@ function applyDiscount(price, discount) {
 
 function Product(props) {
     const { product, loading, onSale, discountPercent } = props;
+    const { state: ctxState, setState: setCtxState } = useContext(ContextStore)
+    const { cart: { items } } = ctxState
+    // const navigate = useNavigate()
+
+    const addToCartHandler = (item) => {
+        const isInCart = items.find(item => item._id === product._id)
+        const quantities = isInCart ? isInCart.quantities + 1 : 1;
+        setCtxState({
+            type: "ADD_TO_CART", payload: { ...item, quantities }
+        });
+    }
+
     return (
 
         <Card className="main-card" style={{ borderRadius: "30px", height: '25em', width: '18em' }} >
@@ -60,8 +74,9 @@ function Product(props) {
                     </div>
                 }
                 {loading ? <Skeleton variant="text" width={'100%'} height={'100%'} /> :
-                    <Button className="mt-auto " variant="contained" endIcon={<ShoppingCart />}>
-                        Add to Card
+
+                    <Button className="mt-auto " disabled={!product.inStock} variant="contained" onClick={() => addToCartHandler(product)} endIcon={<ShoppingCart />}>
+                        {product.inStock ? "Add to Card" : "Out of Stock"}
                     </Button>
                 }
 
