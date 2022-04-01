@@ -13,7 +13,6 @@ import { faMagnifyingGlass, faUser, faKeyboard, faComputerMouse, faHeadphones, f
 function NavBar(props) {
     const [navColor, setNavColor] = useState(false);
     const { cart } = props
-    const itemsInCart = cart.items.length;
 
     const handleScroll = () => {
         if (window.scrollY > 10) {
@@ -135,7 +134,7 @@ function NavBar(props) {
                     <Nav.Item className='NavLinks nav-icons' >
                         <Link to="/cart">
 
-                            < Badge color="error" badgeContent={itemsInCart > 0 ? itemsInCart : 0}>
+                            < Badge color="error" badgeContent={cart.items.reduce((a, c) => a + c.quantities, 0)}>
                                 {/* <FontAwesomeIcon icon={faShoppingCart} /> */}
                                 <ShoppingCart fontSize="large" />
 

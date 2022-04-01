@@ -66,16 +66,18 @@ function ProductPage() {
     const addToCartHandler = () => {
         // check if the product is already in the cart
         const isInCart = cart.items.find(item => item._id === product._id)
+        const quantities = isInCart ? isInCart.quantities + 1 : 1;
+        console.log(isInCart)
         // const { data } = await axios.get(`/api/products/${product._id}`);
         if (!product.inStock) {
             window.alert("This product is out of stock")
         }
 
-        if (isInCart) {
-            console.log("Product is already in the cart")
-        }
+        // if (isInCart) {
+        //     console.log("Product is already in the cart")
+        // }
         setCtxState({
-            type: "ADD_TO_CART", payload: { ...product, quantity: 1 }
+            type: "ADD_TO_CART", payload: { ...product, quantities }
         });
     }
 
@@ -86,7 +88,7 @@ function ProductPage() {
                 <Row >
                     <Col className='mt-4' md={6} style={{ border: "1px solid #252836", height: "30em", borderRadius: "30px" }} >
 
-                        <img src={product.image} alt={product.name} style={{ width: "100%", height: '35em' }} />
+                        <img src={product.image} alt={product.name} style={{ width: "100%", height: '30em' }} />
 
 
                     </Col>
@@ -100,7 +102,7 @@ function ProductPage() {
                                         </Helmet>
                                         <h3 className="text-uppercase">{product.name}</h3>
                                     </ListGroup.Item>
-                                    <ListGroup.Item className="border-bottom-0"> <BSBadge pill bg="secondary">{product.mainCategory}</BSBadge></ListGroup.Item>
+                                    <ListGroup.Item className="border-bottom-0 text-capitalize"> <BSBadge pill bg="secondary">Category: {product.mainCategory}</BSBadge></ListGroup.Item>
                                     <ListGroup.Item className="border-bottom-0">
                                         <Accordion className="w-57" style={{ background: "#252836", borderRadius: '10px' }} TransitionProps={{ unmountOnExit: true }}>
                                             <AccordionSummary
