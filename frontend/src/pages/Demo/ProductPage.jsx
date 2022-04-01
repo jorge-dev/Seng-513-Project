@@ -1,5 +1,5 @@
 import { useContext, useEffect, useReducer } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
@@ -38,6 +38,7 @@ const reducerHook = (state, action) => {
 };
 
 function ProductPage() {
+    const navigate = useNavigate();
     const [{ product, loading, error }, dispatch] = useReducer(reducerHook, {
         product: {},
         loading: true,
@@ -79,7 +80,9 @@ function ProductPage() {
         setCtxState({
             type: "ADD_TO_CART", payload: { ...product, quantities }
         });
+        navigate("/shoppingCart")
     }
+
 
     return (
         loading ? <LoadingScreen open={loading} /> : error ? <MessageAlert style={{ marginTop: '10em' }} variant="danger" > {error}</MessageAlert > :
