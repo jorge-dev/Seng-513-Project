@@ -50,8 +50,9 @@ export default function AccountManagement()
             {
                 var s = ""
                 if (i.quantity > 1)
-                    s += `(${i.quantity}) `
-                s += i.name + " " + price(i.price) + ")"
+                    s = "(" + i.quantity + ") " + i.name + " (" + i.quantity + " x " + price(i.price) + ")"
+                else
+                    s = i.name + " (" + price(i.price) + ")"
                 n.items.push(s);
             })
 
@@ -177,7 +178,7 @@ export default function AccountManagement()
             Order #{o.id}
         </Typography>
         <Typography variant="h4" component="div">
-            Total cost: ${o.cost}
+            Total cost: {price(o.cost)}
         </Typography>
         <Typography variant="h5" color="text.secondary">
             {o.timestamp}
