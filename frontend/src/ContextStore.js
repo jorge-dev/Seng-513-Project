@@ -1,8 +1,11 @@
-import { createContext, useReducer } from "react";
+import {createContext, useReducer} from "react";
 
 export const ContextStore = createContext();
 
 const initialState = {
+    userInfo: localStorage.getItem('userInfo')
+        ? JSON.parse(localStorage.getItem('userInfo'))
+        : null,
     cart: {
         items: localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : []
     }
@@ -23,15 +26,21 @@ const reducer = (state, action) => {
                 )
                 : [...state.cart.items, newItem];
             localStorage.setItem("items", JSON.stringify(items));
-            return { ...state, cart: { ...state.cart, items } };
+            return {...state, cart: {...state.cart, items}};
         case "REMOVE_FROM_CART":
             const itemToRemove = action.payload;
             const itemsToRemove = state.cart.items.filter(
                 (item) => item._id !== itemToRemove._id
             );
             localStorage.setItem("items", JSON.stringify(itemsToRemove));
-            return { ...state, cart: { ...state.cart, items: itemsToRemove } };
-
+            return {...state, cart: {...state.cart, items: itemsToRemove}};
+        case 'SIGN_IN':
+            return {...state, userInfo: action.payload};
+        case 'SIGN_OUT':
+            return {
+                ...state,
+                userInfo: null,
+            };
         default:
             return state;
     }

@@ -1,64 +1,113 @@
 //This code is heavily inspired (but not verbatim copied) from: https://github.com/mui/material-ui/blob/v5.5.2/docs/data/material/getting-started/templates/sign-in/SignIn.js
 
-import React, {useState} from "react";
-import {useNavigate, Navigate } from 'react-router-dom';
-import {Alert, Button, TextField, Box, Typography, Container} from '@mui/material';
-import axios from 'axios';
+import React, {useContext, useEffect, useState} from "react";
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {Alert, Box, Button, Container, TextField, Typography} from '@mui/material';
+import {Helmet} from "react-helmet-async";
+import axios from "axios";
+import {ContextStore} from "../ContextStore";
 
-export default function Login()
-{
+export default function Login() {
+    const navigate = useNavigate();
+    const {search} = useLocation();
+    const redirectInUrl = new URLSearchParams(search).get('redirect');
+    console.log(redirectInUrl);
+    const redirectTo = redirectInUrl ? redirectInUrl : '/';
+    console.log(redirectTo);
+
+    const [userName, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const [failure, fupdate] = useState(0);
+    const {state: ctxState, setState: setCtxState} = useContext(ContextStore)
+    const {userInfo} = ctxState;
 
-    let navigate = useNavigate();
-    function submit(event)
-    {
-        fupdate("")
+    const submit = async (event) => {
+
         event.preventDefault();
 
-        const login = Object.fromEntries(new FormData(event.currentTarget));
-        console.log("Attempting to login with: " + JSON.stringify(login))
-        axios.post("/api/users/login", login)
-            .then((response) => {
-            console.log(response.data);
-            localStorage.setItem("token", JSON.stringify(response));
-            navigate("/");
-            })
-            .catch((error) => { fupdate(error.response.data.message); })
+        try {
+            const {data} = await axios.post('/api/users/login', {
+                username: userName,
+                password: password
+            });
+            console.log(data);
+            setCtxState({type: "SIGN_IN", payload: data});
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            navigate(redirectTo || '/');
+        } catch (error) {
+            fupdate(error.response.data.message)
+
+        }
+
     }
 
-    function create()
-    {
-        console.log("Hello!")
-        navigate('../pages/CreateAccount')
-    }
+    useEffect(() => {
+        if (userInfo) {
+            navigate(redirectTo);
+        }
+    }, [navigate, redirectTo, userInfo]);
+// const [failure, fupdate] = useState(0);
+//
+// let navigate = useNavigate();
+// function submit(event)
+// {
+//     fupdate("")
+//     event.preventDefault();
 
-    if (localStorage.getItem('token'))
-        return <Navigate to="../pages/AccountManagement"/>
 
-    else
-    
+//     const login = Object.fromEntries(new FormData(event.currentTarget));
+//     console.log("Attempting to login with: " + JSON.stringify(login))
+//     axios.post("/api/users/login", login)
+//         .then((response) => {
+//         console.log(response.data);
+//         localStorage.setItem("token", JSON.stringify(response));
+//         navigate("/");
+//         })
+//         .catch((error) => { fupdate(error.response.data.message); })
+// }
+
+// function create()
+// {
+//     console.log("Hello!")
+//     navigate('../pages/CreateAccount')
+// }
+//
+// if (localStorage.getItem('token'))
+//     return <Navigate to="../pages/AccountManagement"/>
+//
+// else
+
     return (
         <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginTop: "150px"}}>
-        <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
+            <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-        <Typography component="h1" variant="h3" style={{color: "black", marginTop: "50px"}}> Sign in </Typography>
+                <Typography component="h1" variant="h3" style={{color: "black", marginTop: "50px"}}> Sign
+                    in </Typography>
 
-        <Box component="form" onSubmit={submit}>
+                <Box component="form" onSubmit={submit}>
 
-            <TextField margin="normal" required fullWidth id="username"
-            label="Username" name="username" autoFocus autoComplete="username"/>
+                    <TextField margin="normal" required fullWidth id="username"
+                               onChange={(event) => setUsername(event.target.value)}
+                               label="Username" name="username" autoFocus autoComplete="username"/>
 
-            <TextField margin="normal" required fullWidth name="password"
-            label="Password" type="password" id="password" autoComplete="current-password" />
-            <Alert style={{ width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none') }} severity="error"><h5>Error - {failure}.</h5></Alert>
+                    <TextField margin="normal" required fullWidth name="password"
+                               onChange={(event) => setPassword(event.target.value)}
+                               label="Password" type="password" id="password" autoComplete="current-password"/>
+                    <Alert style={{width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none')}}
+                           severity="error"><h5>Error - {failure}.</h5></Alert>
 
-            <Button type="submit" fullWidth variant="contained" color="success" sx={{ mt: 3, mb: 2 }}>
-            Sign In </Button>
+                    <Button type="submit" fullWidth variant="contained" color="success" sx={{mt: 3, mb: 2}}>
+                        Sign In </Button>
 
-            <Button type="submit" onClick={create} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Create Account  </Button>
+                    <Link to={`/pages/CreateAccount?redirect${redirectTo}`}>
+                        <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
+                            Create Account </Button>
+                    </Link>
 
-        </Box>
+                </Box>
         </Box>
     </Container>
     );
