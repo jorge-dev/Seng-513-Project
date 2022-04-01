@@ -4,19 +4,12 @@ export const ContextStore = createContext();
 
 const initialState = {
     cart: {
-        items: [],
+        items: localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : []
     }
 };
 
 const reducer = (state, action) => {
     // switch (action.type) {
-    //     case "ADD_TO_CART":
-    //         const newItem = action.payload;
-    //         // avoid duplicates
-    //         const existingItem = state.cart.items.find(itemInCart => itemInCart._id === newItem._id);
-    //         const cartItems = existingItem ? state.cart.items.map(item =>
-    //             item._id === existingItem._id ? newItem : item) : [...state.cart.items, newItem];
-    //         return { ...state, cart: { ...state.cart, cartItems } };
 
     switch (action.type) {
         case "ADD_TO_CART":
@@ -29,14 +22,16 @@ const reducer = (state, action) => {
                     item._id === existItem._id ? newItem : item
                 )
                 : [...state.cart.items, newItem];
+            localStorage.setItem("items", JSON.stringify(items));
             return { ...state, cart: { ...state.cart, items } };
-        // return {
-        //     ...state,
-        //     cart: {
-        //         ...state.cart,
-        //         items: [...state.cart.items, action.payload]
-        //     }
-        // };
+        case "REMOVE_FROM_CART":
+            const itemToRemove = action.payload;
+            const itemsToRemove = state.cart.items.filter(
+                (item) => item._id !== itemToRemove._id
+            );
+            localStorage.setItem("items", JSON.stringify(itemsToRemove));
+            return { ...state, cart: { ...state.cart, items: itemsToRemove } };
+
         default:
             return state;
     }
