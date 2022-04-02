@@ -1,4 +1,4 @@
-# Compftest E-commerce Webpage
+# DotCom Store E-commerce Webpage
 
 ## Requirements
 - Have git installed
