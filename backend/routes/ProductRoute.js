@@ -8,40 +8,57 @@ const productRoute = express.Router();
 
 // get all products
 productRoute.get(
-  "/",
-  asyncHandler(async (req, res) => {
-    logger.http(`GET /api/products was called`);
-    const products = await Product.find({});
-    if (!products) {
-      logger.error(`GET /api/products: No products found`);
-      res.status(404);
-      throw new Error("No products found");
-    } else {
-      const totalProducts = products.length;
-      res.json({
-        message: `Success! ${totalProducts} products were found`,
-        numberOfProducts: totalProducts,
-        products,
-      });
-    }
-  })
+    "/",
+    asyncHandler(async (req, res) => {
+        logger.http(`GET /api/products was called`);
+        const products = await Product.find({});
+        if (!products) {
+            logger.error(`GET /api/products: No products found`);
+            res.status(404);
+            throw new Error("No products found");
+        } else {
+            const totalProducts = products.length;
+            res.json({
+                message: `Success! ${totalProducts} products were found`,
+                numberOfProducts: totalProducts,
+                products,
+            });
+        }
+    })
 );
 
 // get a single product by slug
 productRoute.get(
-  "/:slug",
-  asyncHandler(async (req, res) => {
-      logger.http(`GET /api/products/${req.params.id} was called`);
-      console.log(req.params);
+    "/slug/:slug",
+    asyncHandler(async (req, res) => {
+        logger.http(`GET /api/products/slug/${req.params.id} was called`);
+        console.log(req.params);
 
-      const product = await Product.findOne({slug: req.params.slug});
-      if (!product) {
-          res.status(404);
-          throw new Error("Product not found");
-      } else {
-          res.json(product);
-      }
-  })
+        const product = await Product.findOne({ slug: req.params.slug });
+        if (!product) {
+            res.status(404);
+            throw new Error("Product not found");
+        } else {
+            res.json(product);
+        }
+    })
+);
+
+// get a single product by id
+productRoute.get(
+    "/:id",
+    asyncHandler(async (req, res) => {
+        logger.http(`GET /api/products/${req.params.id} was called`);
+        console.log(req.params);
+
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            res.status(404);
+            throw new Error("Product not found");
+        } else {
+            res.json(product);
+        }
+    })
 );
 
 // get all products by main category
@@ -67,9 +84,6 @@ productRoute.get(
     })
 );
 
-// get all products by main category and sub category
-// the diff types of sub categories are:
-// keyboards:
 /**
  * get all products by main category and sub category
  * the diff types of sub categories are:
@@ -119,6 +133,44 @@ productRoute.get(
 );
 
 
+
+// post product review
+productRoute.post(
+    "/:slug/review",
+    authenticate,
+    asyncHandler(async (req, res) => {
+        logger.http(`GET /api/products/${req.params.id} was called`);
+        const { rating, comment } = req.body;
+        const product = await Product.findOne({ slug: req.params.slug });
+        if (!product) {
+            res.status(404);
+            throw new Error("Product not found");
+        } else {
+            const hasAlreadyReviewed = product.reviews.some(
+                (review) => review.user.toString() === req.user._id.toString()
+            );
+            if (hasAlreadyReviewed) {
+                res.status(400);
+                throw new Error("You have already reviewed this product");
+            } else {
+                product.reviews.push({
+                    name: req.user.name,
+                    user: req.user._id,
+                    rating: Number(rating),
+                    comment,
+                });
+                product.numberOfReviews += product.reviews.length;
+                product.rating =
+                    product.reviews.reduce((acc, review) => review.rating + acc, 0) /
+                    product.reviews.length;
+                await product.save();
+                res.status(201).json({ message: "Review was added", product });
+            }
+        }
+    })
+);
+
+
 //Admin Only: delete product
 productRoute.delete(
     "/:id",
@@ -132,7 +184,7 @@ productRoute.delete(
             throw new Error("Product not found");
         } else {
             await product.remove();
-            res.status(200).json({message: "Product was deleted", product});
+            res.status(200).json({ message: "Product was deleted", product });
         }
     })
 );
@@ -163,7 +215,7 @@ productRoute.post(
                 rating,
                 numberOfReviews,
             } = req.body;
-            const productExists = await Product.findOne({name});
+            const productExists = await Product.findOne({ name });
             if (productExists) {
                 res.status(400);
                 throw new Error("Product already exists");
@@ -186,7 +238,7 @@ productRoute.post(
                     throw new Error("Invalid data");
                 } else {
                     const newProduct = await product.save();
-                    res.status(201).json({message: "Product was added", newProduct});
+                    res.status(201).json({ message: "Product was added", newProduct });
                 }
             }
         }
@@ -214,7 +266,7 @@ productRoute.put(
                 // check the name is unique
                 if (req.body.name && req.body.name !== product.name) {
                     logger.debug(`req.body.name: ${req.body.name}`);
-                    const isNameTaken = await Product.findOne({name: req.body.name});
+                    const isNameTaken = await Product.findOne({ name: req.body.name });
                     if (isNameTaken) {
                         res.status(400);
                         throw new Error("Product name is already taken");
@@ -239,14 +291,14 @@ productRoute.put(
                     res.status(400);
                     throw new Error("Invalid data");
                 } else {
-                    res.json({message: "Product was updated", updatedProduct});
+                    res.json({ message: "Product was updated", updatedProduct });
                 }
             } else {
                 res.status(404);
                 throw new Error("Product not found");
             }
-    }
-  })
+        }
+    })
 );
 
 export default productRoute;
