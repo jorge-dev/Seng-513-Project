@@ -179,7 +179,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/LogitechIlluminatedKeyboardK740_jnkkam.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wired",
+    subCategory: "membrane_wired",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -193,7 +193,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/LogitechKeyboardK120_iizqtl.png",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wired",
+    subCategory: "membrane_wired",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -207,7 +207,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechERGOK860_iinqsw.png",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wireless",
+    subCategory: "membrane_wireless",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -221,7 +221,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechK360_x4meyo.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wireless",
+    subCategory: "membrane_wireless",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -235,7 +235,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechK380Multi-Device_uciakt.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wireless",
+    subCategory: "membrane_wireless",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -249,7 +249,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechMXKeysforMac_ifkn8o.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wireless",
+    subCategory: "membrane_wireless",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -263,7 +263,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechMXKeysMini_pxec5o.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wireless",
+    subCategory: "membrane_wireless",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -278,7 +278,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogiteckMXKeysforBusiness_togy2v.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wireless",
+    subCategory: "membrane_wireless",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -646,7 +646,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/RazerHuntsmanMiniAnalog_s44se8.png",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wired",
+    subCategory: "membrane_wired",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -660,7 +660,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/RazerHuntsmanV2Analog_zdvh6f.png",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wired",
+    subCategory: "membrane_wired",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -1028,7 +1028,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/CorsairK55RGBPROGamingKeyboard_oetvgm.webp",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wired",
+    subCategory: "membrane_wired",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
@@ -1043,7 +1043,7 @@ const products = [
     image:
       "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/HyperXAlloyCore_jnedvo.png",
     mainCategory: "keyboards",
-    subCategory: "non-mech_wired",
+    subCategory: "membrane_wired",
     inStock: true,
     rating: 0,
     numberOfReviews: 0,
