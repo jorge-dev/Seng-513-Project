@@ -2,18 +2,20 @@
 
 import React, {useContext, useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {Alert, Box, Button, Container, TextField, Typography} from '@mui/material';
+import {Box, Button, Container, TextField, Typography} from '@mui/material';
 import {Helmet} from "react-helmet-async";
 import axios from "axios";
 import {ContextStore} from "../ContextStore";
+import {toast} from "react-toastify";
+import {getErrorMessage} from "../utils/handleApiError";
 
 export default function Login() {
     const navigate = useNavigate();
     const {search} = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
-    console.log(redirectInUrl);
+    // console.log(redirectInUrl);
     const redirectTo = redirectInUrl ? redirectInUrl : '/';
-    console.log(redirectTo);
+    // console.log(redirectTo);
 
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -30,12 +32,16 @@ export default function Login() {
                 username: userName,
                 password: password
             });
-            console.log(data);
+            // console.log(data);
             setCtxState({type: "SIGN_IN", payload: data});
             localStorage.setItem("userInfo", JSON.stringify(data));
             navigate(redirectTo || '/');
         } catch (error) {
-            fupdate(error.response.data.message)
+            // fupdate(error.response.data.message)
+            toast.error(getErrorMessage(error), {
+                theme: "colored",
+                autoClose: 5000
+            });
 
         }
 
@@ -96,8 +102,8 @@ export default function Login() {
                     <TextField margin="normal" required fullWidth name="password"
                                onChange={(event) => setPassword(event.target.value)}
                                label="Password" type="password" id="password" autoComplete="current-password"/>
-                    <Alert style={{width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none')}}
-                           severity="error"><h5>Error - {failure}.</h5></Alert>
+                    {/*<Alert style={{width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none')}}*/}
+                    {/*       severity="error"><h5>Error - {failure}.</h5></Alert>*/}
 
                     <Button type="submit" fullWidth variant="contained" color="success" sx={{mt: 3, mb: 2}}>
                         Sign In </Button>
