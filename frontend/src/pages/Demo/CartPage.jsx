@@ -28,6 +28,9 @@ export default function CartPage() {
     const checkoutHandler = () => {
         navigate('/pages/Login?redirect=/shippingCart');
     };
+    const continueShopping = () => {
+        navigate('/');
+    };
 
     const getSubtotal = () => {
         const subtotal = items.reduce((acc, item) => acc + item.price * item.quantities, 0)
@@ -122,10 +125,26 @@ export default function CartPage() {
                                 <ListGroup.Item className="border-bottom-0">
                                     <Container className="text-center d-grid">
                                         {items.length === 0 ? null :
-                                            <Button className="text-center align-middle" variant="contained"
-                                                    size="large" onClick={checkoutHandler}>
-                                                Proceed to Checkout
-                                            </Button>
+                                            <>
+                                                <Button sx={{
+
+                                                    borderRadius: '15px'
+                                                }} className=" mt-2 text-center align-middle" variant="contained"
+                                                        size="large" onClick={checkoutHandler}>
+                                                    Proceed to Checkout
+                                                </Button>
+
+                                                <Button
+                                                    sx={{
+                                                        backgroundColor: 'black',
+                                                        color: 'white',
+                                                        borderRadius: '15px'
+                                                    }}
+                                                    className="text-center align-middle mt-4" variant="contained"
+                                                    size="large" onClick={continueShopping}>
+                                                    Continue Shopping
+                                                </Button>
+                                            </>
                                         }
                                     </Container>
                                 </ListGroup.Item>

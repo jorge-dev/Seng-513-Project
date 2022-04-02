@@ -140,11 +140,18 @@ function ProductPage() {
                                     {/* <ListGroup.Item style={{ marginTop: '1em' }}> */}
                                     <Container className="text-center">
                                         {product.inStock ?
-                                            <Button className="text-center align-middle" variant="contained" size="large" onClick={addToCartHandler} >
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                            <Button sx={{
+
+                                                borderRadius: '15px'
+                                            }} className="text-center align-middle" variant="contained" size="large"
+                                                    onClick={addToCartHandler}>
+                                                <span className="btn-text"> Add to Card</span> <ShoppingCart/>
                                             </Button> :
-                                            <Button className="text-center" variant="contained" size="large" disabled>
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                            <Button sx={{
+
+                                                borderRadius: '15px'
+                                            }} className="text-center" variant="contained" size="large" disabled>
+                                                <span className="btn-text"> Add to Card</span> <ShoppingCart/>
                                             </Button>
                                         }
                                     </Container>
