@@ -1,15 +1,41 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Nav, Navbar, NavDropdown, NavItem, NavLink, Dropdown } from "react-bootstrap";
-import { LinkContainer } from 'react-router-bootstrap';
+import {useContext, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {Nav, Navbar} from "react-bootstrap";
+import {LinkContainer} from 'react-router-bootstrap';
+import {Badge, Divider, IconButton, Menu, MenuItem, Slide} from '@mui/material';
 import LogoImage from "../../logos/fullLogo.png";
+import {AccountCircle, ArrowDropDown, LoginOutlined, Logout, Person, Search, ShoppingCart} from '@mui/icons-material';
 import "./styles/Navbar.css";
+import {ContextStore} from "../../ContextStore";
+import {grey} from "@mui/material/colors";
+import CustomMenu from "../CustomMenu";
+import {MegaMenu} from "../MegaMenu";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faShoppingCart, faUser, faKeyboard, faComputerMouse, faHeadphones, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 function NavBar() {
     const [navColor, setNavColor] = useState(false);
+    const {state, setState: ctxDispatch} = useContext(ContextStore)
+    const {cart, userInfo} = state
+    // const navigate = useNavigate
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorElProduct, setAnchorElProduct] = useState(null);
+    const open = Boolean(anchorEl);
+    const openProduct = Boolean(anchorElProduct);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClickProduct = (event) => {
+        setAnchorElProduct(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleCloseProduct = () => {
+        setAnchorElProduct(null);
+    };
+
 
     const handleScroll = () => {
         if (window.scrollY > 10) {
@@ -19,123 +45,141 @@ function NavBar() {
         }
     }
     window.addEventListener('scroll', handleScroll);
+
+    const handleSignOut = () => {
+        ctxDispatch({type: 'SIGN_OUT'});
+        localStorage.removeItem('userInfo');
+        // navigate('/#signout');
+        setAnchorEl(null);
+    };
+
     return (
-        <Navbar fixed="top" className={navColor ? 'main-navbar active' : 'main-navbar'} collapseOnSelect expand="lg" variant="dark" >
+        <Navbar sticky="top" className={navColor ? 'main-navbar active' : 'main-navbar'} collapseOnSelect expand="lg"
+                variant="dark">
             <LinkContainer to="/">
-                <Navbar.Brand ><img className="brand" src={LogoImage} alt="logo" /></Navbar.Brand>
+                <Navbar.Brand><img className="brand" src={LogoImage} alt="logo"/></Navbar.Brand>
             </LinkContainer>
+            <Nav>
+
+                <div className="arrowDown" onClick={handleClickProduct}>
 
 
+                    Product
+                    <ArrowDropDown/>
+                </div>
+                <CustomMenu id="user-menu"
+                            anchorEl={anchorElProduct}
+                            open={openProduct}
+                            onClose={handleCloseProduct}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}>
+                    <MegaMenu clickMe={handleCloseProduct}/>
+                </CustomMenu>
 
-
-
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            </Nav>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
-                <Dropdown as={NavItem}>
-                    <Dropdown.Toggle className='arrowDown' as={NavLink} >Products</Dropdown.Toggle>
-                    <Dropdown.Menu className="large-dropdown-menu">
-                        <div className="dropdown-menu-wrapper">
-                            <div>
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
 
-                                            <div><NavDropdown.Item href="#keyboards"><b className='dropDownTitle'><FontAwesomeIcon icon={faKeyboard} />KeyBoards</b></NavDropdown.Item></div>
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wired</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wireless</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Mechanical</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Membrane</Link>
-                                    </NavDropdown.Item></li>
-
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
-
-                                            <div><NavDropdown.Item href="#mice"><b className='dropDownTitle mouse'><FontAwesomeIcon icon={faComputerMouse} />Mice </b></NavDropdown.Item></div>
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wired</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wireless</Link>
-                                    </NavDropdown.Item></li>
-                                </ul>
-                            </div>
-                            <div nameClass="dropdown-items-div">
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
-
-                                            <div><NavDropdown.Item href="#headphone"><b className='dropDownTitle'><FontAwesomeIcon icon={faHeadphones} />HeadPhones</b></NavDropdown.Item></div>
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wired</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wireless</Link>
-                                    </NavDropdown.Item></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li className="dropdown-header">
-                                        <div className="menu-icon-wrapper">
-
-                                            <div><NavDropdown.Item href="#accessories"><b className='dropDownTitle'><FontAwesomeIcon icon={faPlus} />Accessories</b></NavDropdown.Item></div>
-
-                                        </div>
-                                    </li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Desk mats</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Key Caps</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Mouse Pads</Link>
-                                    </NavDropdown.Item></li>
-                                    <li className="job-sub-tabs"><NavDropdown.Item >
-                                        <Link to="/product/logitech-h800-bluetooth-wireless-headset">Wrist Wrest</Link>
-                                    </NavDropdown.Item></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Nav className="me-auto" activeKey={window.location.pathname}>
+                <Nav className="me-auto">
 
                     <Link className='NavLinks non-product' to="/contact">Contact</Link>
                 </Nav>
                 <Nav>
-                    <Nav.Item className='NavLinks nav-icons' >
-
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <Nav.Item className='NavLinks nav-icons'>
+                        <Search fontSize="large"/>
+                        {/*<FontAwesomeIcon icon={faMagnifyingGlass}/>*/}
 
                     </Nav.Item>
-                    <Nav.Item className='NavLinks nav-icons' ><Link to="../pages/Login"><FontAwesomeIcon icon={faUser} /> </Link></Nav.Item>
-                    <Nav.Item className='NavLinks nav-icons' ><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart} /> </Link></Nav.Item>
+                    <Nav.Item className='NavLinks nav-icons'>
+                        {!userInfo ?
+                            (<Link to="/pages/Login">
+                                <LoginOutlined fontSize="large"/>
+                                {/*<FontAwesomeIcon icon={faRightToBracket}/>*/}
+                            </Link>) : (
+                                <>
+                                    <IconButton aria-label="add" id="basic-button"
+                                                aria-controls={open ? 'basic-menu' : undefined}
+                                                aria-haspopup="true"
+                                                aria-expanded={open ? 'true' : undefined}
+                                                onClick={handleClick}
+                                    >
+                                        <AccountCircle sx={{color: grey[50]}} fontSize="large"/>
+                                    </IconButton>
+                                    <Menu
+                                        sx={
+                                            {
+                                                '& .MuiPaper-root': {
+                                                    marginTop: "1.5em",
+                                                    borderRadius: 5,
+
+                                                    // minWidth: 180,
+
+                                                    background: "#858585ef",
+                                                    color:
+                                                        'white',
+                                                    boxShadow:
+                                                        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+                                                    '& .MuiMenu-list': {
+                                                        padding: '0',
+                                                    },
+                                                    '& .MuiMenuItem-root': {
+
+                                                        // justifyContent: "center",
+
+                                                        '& .MuiSvgIcon-root': {
+                                                            // justifyContent: "center",
+                                                            fontSize: "1.5em",
+                                                            color: "white",
+
+                                                        },
+
+                                                    },
+                                                },
+
+                                            }}
+                                        id="user-menu"
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        MenuListProps={{
+                                            'aria-labelledby': 'basic-button',
+                                        }}
+                                        TransitionComponent={Slide}
+
+                                    >
+                                        {/*<MegaMenu/>*/}
+
+                                        <MenuItem onClick={handleClose}><Link to="/pages/AccountManagement">
+                                            <Person/> My Account</Link></MenuItem>
+                                        <Divider/>
+                                        <MenuItem onClick={handleSignOut}><Link to="/#signout"> <Logout/> Logout</Link></MenuItem>
+                                    </Menu>
+                                </>
+                            )
+
+                        }
+                    </Nav.Item>
+                    <Nav.Item className='NavLinks nav-icons'>
+                        <Link to="/shoppingCart">
+
+                            < Badge color="error" badgeContent={cart.items.reduce((a, c) => a + c.quantities, 0)}>
+
+                                <ShoppingCart fontSize="large"/>
+
+
+                            </Badge>
+
+                        </Link>
+                    </Nav.Item>
 
 
                 </Nav>
             </Navbar.Collapse>
 
-        </Navbar >
-    );
+        </Navbar>
+    )
+        ;
 }
 
 export default NavBar;
