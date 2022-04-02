@@ -2,9 +2,9 @@ import {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
-import {Badge, Divider, IconButton, Menu, MenuItem} from '@mui/material';
+import {Badge, Divider, IconButton, Menu, MenuItem, Slide} from '@mui/material';
 import LogoImage from "../../logos/fullLogo.png";
-import {AccountCircle, ArrowDropDown, LoginOutlined, Search, ShoppingCart} from '@mui/icons-material';
+import {AccountCircle, ArrowDropDown, LoginOutlined, Logout, Person, Search, ShoppingCart} from '@mui/icons-material';
 import "./styles/Navbar.css";
 import {ContextStore} from "../../ContextStore";
 import {grey} from "@mui/material/colors";
@@ -107,7 +107,37 @@ function NavBar() {
                                         <AccountCircle sx={{color: grey[50]}} fontSize="large"/>
                                     </IconButton>
                                     <Menu
+                                        sx={
+                                            {
+                                                '& .MuiPaper-root': {
+                                                    marginTop: "1.5em",
+                                                    borderRadius: 5,
 
+                                                    // minWidth: 180,
+
+                                                    background: "#858585ef",
+                                                    color:
+                                                        'white',
+                                                    boxShadow:
+                                                        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+                                                    '& .MuiMenu-list': {
+                                                        padding: '0',
+                                                    },
+                                                    '& .MuiMenuItem-root': {
+
+                                                        // justifyContent: "center",
+
+                                                        '& .MuiSvgIcon-root': {
+                                                            // justifyContent: "center",
+                                                            fontSize: "1.5em",
+                                                            color: "white",
+
+                                                        },
+
+                                                    },
+                                                },
+
+                                            }}
                                         id="user-menu"
                                         anchorEl={anchorEl}
                                         open={open}
@@ -115,20 +145,19 @@ function NavBar() {
                                         MenuListProps={{
                                             'aria-labelledby': 'basic-button',
                                         }}
+                                        TransitionComponent={Slide}
 
                                     >
                                         {/*<MegaMenu/>*/}
-                                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                        <MenuItem onClick={handleClose}>My account</MenuItem>
+
+                                        <MenuItem onClick={handleClose}><Link to="/pages/AccountManagement">
+                                            <Person/> My Account</Link></MenuItem>
                                         <Divider/>
-                                        <MenuItem onClick={handleSignOut}><Link to="/#signout">Logout</Link></MenuItem>
+                                        <MenuItem onClick={handleSignOut}><Link to="/#signout"> <Logout/> Logout</Link></MenuItem>
                                     </Menu>
                                 </>
                             )
-                            // <Link to="/pages/AccountManagement">
-                            //
-                            //     <FontAwesomeIcon icon={faUser}/>
-                            // </Link>
+
                         }
                     </Nav.Item>
                     <Nav.Item className='NavLinks nav-icons'>
