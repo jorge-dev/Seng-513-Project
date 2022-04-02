@@ -1,14 +1,16 @@
 import { useEffect, useReducer } from "react";
 
 import axios from "axios";
-import logger from "use-reducer-logger"
 import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
 import { Helmet } from "react-helmet-async";
-
 import Product from "../../components/Demo/Product";
 
 import MainCarousel from "../../components/Demo/MainCarousel";
+import CardSkeleton from "../../components/Demo/CardSkeleton";
+import MessageAlert from "../../components/Demo/MessageAlert";
+
+var count = 0;
 
 // Init a reducer Hook to handle the data from the API
 const reducerHook = (state, action) => {
@@ -25,12 +27,8 @@ const reducerHook = (state, action) => {
     }
 };
 
-
-
-
-
 function HomePage() {
-    const [{ products, loading, error }, dispatch] = useReducer(logger(reducerHook), {
+    const [{ products, loading, error }, dispatch] = useReducer(reducerHook, {
         products: [],
         loading: true,
         error: ''
@@ -41,6 +39,12 @@ function HomePage() {
         { width: 998, itemsToShow: 2, },
         { width: 1200, itemsToShow: 4, itemPadding: [0, 5] }
     ];
+    const generateKey = (pre) => {
+        count++;
+        return `${pre}${count}_${new Date().getTime()}`;
+    }
+
+
 
     // fetch all products for API
     useEffect(() => {
@@ -52,11 +56,29 @@ function HomePage() {
 
                 // setProductsList(response.data.products);
             } catch (error) {
-                dispatch({ type: "FETCH_DATA_FAILURE", payload: error.message });
+                // Handle error codes
+                console.log(error.response.message);
+                if (error.response.status === 404) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "Product not found" });
+                } else if (error.response.status === 500) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "Internal server error" });
+                } else if (error.response.status === 403) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "Forbidden" });
+                } else if (error.response.status === 400) {
+                    dispatch({ type: "FETCH_DATA_FAILURE", payload: "No data found due to Bad request" });
+
+                }
+
             }
         };
         fetchProducts();
     }, []);
+    const skeleton = []
+    for (let i = 0; i < 4; i++) {
+        skeleton.push(
+            <CardSkeleton />
+        )
+    }
 
 
     return (
@@ -71,27 +93,48 @@ function HomePage() {
             <MainCarousel />
             <div><h1 className="featured">FEATURED PRODUCTS</h1>
             </div>
+
             <Carousel breakPoints={breakPoints} >
-                {
-                    products.slice(0, 10).map(product => (
+                {loading ?
+                    skeleton.map(item =>
+                        <div key={generateKey("skeleton")}>{item}</div>
+                    )
 
-                        <Product product={product} loading={loading} />
+                    : error ? <MessageAlert variant="danger">{error}</MessageAlert>
+                        :
 
-                    ))}
+                        products.slice(0, 10).map(product => (
+
+                            <Product key={generateKey(product.id)} product={product}
+                                loading={loading} onSale={true} discountPercent={30} />
+
+                        ))
+
+                }
             </Carousel>
 
 
 
-            <div><h1 className="featured">STAFF PRODUCTS</h1>
+            <div><h1 className="featured">STAFF RECOMMENDATIONS</h1>
             </div>
 
             <Carousel breakPoints={breakPoints} >
-                {
-                    products.slice(10, 20).map(product => (
-                        // <Col key={product.slug}  >
-                        <Product product={product} loading={loading} />
-                        // </Col>
-                    ))}
+                {loading ?
+                    skeleton.map(item =>
+                        <div key={generateKey("skeleton")}>{item}</div>
+                    )
+
+                    : error ? <MessageAlert variant="danger">{error}</MessageAlert>
+                        :
+
+                        products.slice(0, 10).map(product => (
+
+                            <Product key={generateKey(product.name)} product={product}
+                                loading={loading} onSale={false} discountPercent={30} />
+
+                        ))
+
+                }
             </Carousel>
 
         </div >
