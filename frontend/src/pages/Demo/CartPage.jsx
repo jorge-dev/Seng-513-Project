@@ -39,7 +39,7 @@ export default function CartPage() {
 
 
     return (
-        <div className="vh-100" style={{marginTop: "8em"}}>
+        <div className="vh-100" style={{marginTop: "2em"}}>
             <Helmet>
                 <title>Shopping Cart</title>
             </Helmet>

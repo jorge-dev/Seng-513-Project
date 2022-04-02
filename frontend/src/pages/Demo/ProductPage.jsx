@@ -74,9 +74,6 @@ function ProductPage() {
             window.alert("This product is out of stock")
         }
 
-        // if (isInCart) {
-        //     console.log("Product is already in the cart")
-        // }
         setCtxState({
             type: "ADD_TO_CART", payload: { ...product, quantities }
         });
@@ -85,17 +82,19 @@ function ProductPage() {
 
 
     return (
-        loading ? <LoadingScreen open={loading} /> : error ? <MessageAlert style={{ marginTop: '10em' }} variant="danger" > {error}</MessageAlert > :
+        loading ? <LoadingScreen open={loading}/> : error ?
+            <MessageAlert style={{marginTop: '3em'}} variant="danger"> {error}</MessageAlert> :
 
             <Container fluid className="main-container">
-                <Row >
-                    <Col className='mt-4' md={6} style={{ border: "1px solid #252836", height: "30em", borderRadius: "30px" }} >
+                <Row>
+                    <Col className='mt-4' md={6}
+                         style={{border: "1px solid #252836", height: "30em", borderRadius: "30px"}}>
 
-                        <img src={product.image} alt={product.name} style={{ width: "100%", height: '30em' }} />
+                        <img src={product.image} alt={product.name} style={{width: "100%", height: '30em'}}/>
 
 
                     </Col>
-                    <Col md={6}  >
+                    <Col md={6}>
                         <Card className="mt-4" style={{ background: "transparent", border: "none", borderRadius: "30px", height: "35em" }}>
                             <Card.Body style={{ padding: "0", }} >
                                 <ListGroup variant="flush" style={{ marginTop: "3em" }}>
