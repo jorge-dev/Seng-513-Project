@@ -1,12 +1,12 @@
 import { useState, useEffect, useReducer } from "react";
 import { Table, Modal, Button, Form } from 'react-bootstrap';
 import axios from "axios";
-
+import '../styles/AdminTrans.css';
 
 function AdminTrans() {
     const [tableData, setTableData] = useState([]);
 
-    const getTableData =() => {
+    const getTableData = () => {
         axios.get('/api/orders').then((res) => {
             console.log("res = ", res)
             setTableData(res.data.orders)
@@ -17,7 +17,6 @@ function AdminTrans() {
         getTableData()
     }, [])
 
-
     return (
         <div className="adminTransBox">
             <div className="breadTitBox">
@@ -25,7 +24,6 @@ function AdminTrans() {
                     Transactions
                 </div>
             </div>
-
 
             <Table borderless={true} bordered={false} responsive>
                 <thead>
