@@ -147,7 +147,7 @@ export default function ShippingInfoPage() {
             postalCode,
             country
         }));
-        navigate("/payment");
+        navigate("/paymentMethod");
     };
     return (
         <div>

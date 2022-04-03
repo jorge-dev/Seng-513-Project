@@ -51,6 +51,7 @@ function NavBar() {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('items');
         localStorage.removeItem('shippingInfo');
+        localStorage.removeItem('paymentMethod');
         // navigate('/#signout');
         setAnchorEl(null);
     };

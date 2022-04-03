@@ -1,21 +1,21 @@
-import { useContext, useEffect, useReducer } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {useContext, useEffect, useReducer} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
-import { Col, Container, Row, ListGroup } from "react-bootstrap";
+import {Col, Container, Row, ListGroup} from "react-bootstrap";
 import './styles/ProductPage.css';
 import Ratings from "../../components/Demo/Rating";
-import { Card } from "react-bootstrap";
-import { Button } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
-import { Badge } from "react-bootstrap";
-import { Helmet } from "react-helmet-async";
+import {Card} from "react-bootstrap";
+import {Button} from "@mui/material";
+import {AddShoppingCart} from "@mui/icons-material";
+import {Badge} from "react-bootstrap";
+import {Helmet} from "react-helmet-async";
 import MessageAlert from "../../components/Demo/MessageAlert";
-import { getErrorMessage } from "../../utils/handleApiError";
-import { ContextStore } from "../../ContextStore";
-import { Badge as BSBadge } from "react-bootstrap";
-import { Accordion } from "@mui/material";
+import {getErrorMessage} from "../../utils/handleApiError";
+import {ContextStore} from "../../ContextStore";
+import {Badge as BSBadge} from "react-bootstrap";
+import {Accordion} from "@mui/material";
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
@@ -143,14 +143,15 @@ function ProductPage() {
 
                                                 borderRadius: '15px'
                                             }} className="text-center align-middle" variant="contained" size="large"
-                                                    onClick={addToCartHandler}>
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart/>
+                                                    onClick={addToCartHandler}
+                                            >
+                                                <span className="btn-text"> Add to Cart</span> <AddShoppingCart/>
                                             </Button> :
                                             <Button sx={{
 
                                                 borderRadius: '15px'
                                             }} className="text-center" variant="contained" size="large" disabled>
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart/>
+                                                <span className="btn-text"> Add to Card</span> <AddShoppingCart/>
                                             </Button>
                                         }
                                     </Container>

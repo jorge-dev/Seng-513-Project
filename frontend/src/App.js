@@ -14,6 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import ShippingInfoPage from "./pages/Demo/ShippingInfoPage";
 import MainCollection from './pages/MainCollection';
 import SubCollection from './pages/SubCollection';
+import PayMethodPage from "./pages/Demo/PayMethodPage";
+import PlaceOrderPage from "./pages/Demo/PlaceOrderPage";
 
 function App() {
   const {state} = useContext(ContextStore)
@@ -43,6 +45,8 @@ function App() {
               <Route path="/" element={<HomePage/>}/>
               <Route path="/shoppingCart" element={<CartPage/>}/>
               <Route path="/shipping" element={<ShippingInfoPage/>}/>
+              <Route path="/paymentMethod" element={<PayMethodPage/>}/>
+              <Route path="/placeOrder" element={<PlaceOrderPage/>}/>
 
               <Route path="pages/Login" element={<Login/>}/>
               <Route path="pages/CreateAccount" element={<CreateAccount/>}/>
@@ -69,7 +73,7 @@ function App() {
 
         </div>
 
-    </BrowserRouter >
+      </BrowserRouter>
   );
 }
 
