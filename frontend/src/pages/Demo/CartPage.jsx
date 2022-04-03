@@ -26,7 +26,7 @@ export default function CartPage() {
     }
 
     const checkoutHandler = () => {
-        navigate('/pages/Login?redirect=/shippingCart');
+        navigate('/pages/Login?redirect=/shipping');
     };
     const continueShopping = () => {
         navigate('/');
@@ -39,7 +39,7 @@ export default function CartPage() {
 
 
     return (
-        <div className="vh-100" style={{marginTop: "2em"}}>
+        <div className="min-vh-100 mb-lg-4" style={{marginTop: "2em"}}>
             <Helmet>
                 <title>Shopping Cart</title>
             </Helmet>
