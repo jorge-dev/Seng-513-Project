@@ -142,5 +142,14 @@ function AdminProducts() {
                     })}
                 </tbody>
             </Table>
-                
+            
+            <Modal centered show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title style={{
+                        color: 'black'
+                    }}>{currentOperation == 'ADD' ? 'Add' : 'Edit'}
+                    </Modal.Title>
+                </Modal.Header>
+
+            </Modal>
     )
