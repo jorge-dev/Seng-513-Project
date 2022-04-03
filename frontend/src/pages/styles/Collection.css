@@ -1,0 +1,15 @@
+.page-title {
+    margin-top: 50px;
+}
+
+.main-category-title {
+    margin-top: 50px;
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 120%;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}

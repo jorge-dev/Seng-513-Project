@@ -6,13 +6,12 @@ import {ContextStore} from './ContextStore';
 import CartPage from './pages/Demo/CartPage';
 import HomePage from './pages/Demo/HomePage';
 import ProductPage from './pages/Demo/ProductPage';
-
-
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import AccountManagement from './pages/AccountManagement'
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Collection from './pages/Collection';
 
 function App() {
   const {state} = useContext(ContextStore)
@@ -36,6 +35,7 @@ function App() {
           <NavBar cart={cart}/>
           <main className="d-flex flex-column min-vh-100">
             <Routes>
+              <Route path="/collections/:slug1/:slug2" element={<Collection />}/>
               <Route path="/product/slug/:slug" element={<ProductPage/>}/>
               <Route path="/" element={<HomePage/>}/>
               <Route path="/shoppingCart" element={<CartPage/>}/>
