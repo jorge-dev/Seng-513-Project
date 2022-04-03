@@ -49,6 +49,8 @@ function NavBar() {
     const handleSignOut = () => {
         ctxDispatch({type: 'SIGN_OUT'});
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('items');
+        localStorage.removeItem('shippingInfo');
         // navigate('/#signout');
         setAnchorEl(null);
     };
