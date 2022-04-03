@@ -32,7 +32,6 @@
 .tdBtnBox{
     display: flex;
     justify-content: center;
-    /* width: ; */
 }
 .butnLeft{
     display: inline-block;

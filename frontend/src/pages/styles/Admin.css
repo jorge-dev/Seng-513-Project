@@ -56,7 +56,6 @@
         align-items: center;
     }
     .adminHeaderCenter{
-        /* height: 120px; */
         height: auto;
         flex-direction: column;
         padding: 0;
