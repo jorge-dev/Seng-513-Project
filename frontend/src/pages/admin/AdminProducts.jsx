@@ -34,5 +34,15 @@ const handleSubmit = () => {
             console.log("err = ", err)
             alert('Error')
         })
+    } else {
+        //edit products
+        axios.put('/api/products/' + currentItem._id, formModel).then((res) => {
+            alert(res.data.message)
+            setShow(false);
+            getTableData()
+        }).catch((err) => {
+            console.log("err = ", err)
+            alert('Error')
+        })
     }
 }
