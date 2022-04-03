@@ -94,7 +94,7 @@ function HomePage() {
             <div><h1 className="featured">FEATURED PRODUCTS</h1>
             </div>
 
-            <Carousel breakPoints={breakPoints} isRTL>
+            <Carousel breakPoints={breakPoints} isRTL={false}>
                 {loading ?
                     skeleton.map(item =>
                         <div key={generateKey("skeleton")}>{item}</div>
@@ -118,7 +118,7 @@ function HomePage() {
             <div><h1 className="featured">STAFF RECOMMENDATIONS</h1>
             </div>
 
-            <Carousel breakPoints={breakPoints} isRTL>
+            <Carousel breakPoints={breakPoints} isRTL={false} className="mb-4">
                 {loading ?
                     skeleton.map(item =>
                         <div key={generateKey("skeleton")}>{item}</div>
