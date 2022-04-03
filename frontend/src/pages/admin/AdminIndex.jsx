@@ -4,3 +4,7 @@ import AdminUsers from './AdminUsers';
 import AdminTrans from './AdminTrans';
 import fullLogo from '../../logos/fullLogo.png';
 import '../styles/Admin.css';
+
+function AdminIndex() {
+    let [currentNavIndex, setCurrentNavIndex] = useState(0);
+}
