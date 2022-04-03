@@ -24,21 +24,21 @@ function AdminProducts() {
 const handleClose = () => setShow(false);
 
 const handleSubmit = () => {
-    if (currentOperation) == 'ADD') {
-        //add products
+    if (currentOperation == 'ADD') {
+        // add product
         axios.post('/api/products', formModel).then((res) => {
             alert(res.data.message)
-            setShow(false);
+            setShow(false)
             getTableData()
         }).catch((err) => {
             console.log("err = ", err)
             alert('Error')
         })
     } else {
-        //edit products
-        axios.put('/api/products/' + currentItem._id, formModel).then((res) => {
+        // edit product
+        axios.put(`/api/products/${currentItem._id}`, formModel).then((res) => {
             alert(res.data.message)
-            setShow(false);
+            setShow(false)
             getTableData()
         }).catch((err) => {
             console.log("err = ", err)
