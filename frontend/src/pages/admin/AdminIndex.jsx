@@ -7,8 +7,8 @@ import '../styles/Admin.css';
 
 function AdminIndex() {
     let [currentNavIndex, setCurrentNavIndex] = useState(0);
-    
-    return(
+
+    return (
         <div className="adminBox">
             <div className="adminHeader">
                 <div className="adminHeaderCenter">
@@ -18,18 +18,26 @@ function AdminIndex() {
 
                     <div className="adminNavBox">
                         {['Users', 'Products', 'Transactions'].map((v, i) => {
-                            return(
+                            return (
                                 <div key={i} onClick={() => {
-                                    setCurrentNavIndex(i);
-                                }} className={`adminNav ${currentNavIndex === i ? 'adminActiveNav' : ''}`}>
+                                    setCurrentNavIndex(i)
+                                }} className={`adminNav ${currentNavIndex == i ? 'adminActiveNav' : ''}`}>
                                     {v}
-                                    </div>
+                                </div>
                             );
                         })}
                     </div>
                 </div>
             </div>
-        </div>
-    )
 
+            <div className="middleBox">
+                {currentNavIndex == 0 && <AdminUsers />}
+                {currentNavIndex == 1 && <AdminProducts />}
+                {currentNavIndex == 2 && <AdminTrans />}
+
+            </div>
+        </div>
+
+    );
 }
+export default AdminIndex;
