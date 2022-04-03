@@ -1,15 +1,14 @@
 import { useState, useEffect, useReducer } from "react";
 import { Table, Modal, Button, Form } from 'react-bootstrap';
 import axios from "axios";
-import '../styles/AdminTrans.css';
+import '../styles/AdminUsers.css';
 
-function AdminTrans() {
+function AdminUsers() {
     const [tableData, setTableData] = useState([]);
 
     const getTableData = () => {
-        axios.get('/api/orders').then((res) => {
-            console.log("res = ", res)
-            setTableData(res.data.orders)
+        axios.get('/api/users').then((res) => {
+            setTableData(res.data.users)
         })
     }
 
@@ -18,10 +17,10 @@ function AdminTrans() {
     }, [])
 
     return (
-        <div className="adminTransBox">
+        <div className="adminUsersBox">
             <div className="breadTitBox">
                 <div className="breadTit">
-                    Transactions
+                    Users
                 </div>
             </div>
 
@@ -29,43 +28,19 @@ function AdminTrans() {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>username</th>
                     </tr>
                 </thead>
                 <tbody>
                     {tableData.map((v, i) => {
-                        let sty = {};
-                        if(v.paymentStatus == 'Pending'){
-                            sty = {
-                                background: 'linear-gradient(to Right, rgb(255, 145, 0), rgb(255, 115, 0))'
-                            }
-                        }
-                        if(v.paymentStatus == 'Approved'){
-                            sty = {
-                                background: 'linear-gradient(to Right, rgb(0, 183, 255), rgb(0, 255, 242))'
-                            }
-                        }
-                        if(v.paymentStatus == 'Rejected'){
-                            sty = {
-                                background: 'linear-gradient(to Right, rgb(255, 0, 55), rgb(255, 0, 149))'
-                            }
-                        }
                         return (
                             <tr key={v._id}>
                                 <td align="center">{i + 1}</td>
-                                <td>{v.user}</td>
-                                <td>{v.createdAt}</td>
-                                <td>${v.totalPrice}</td>
-                                <td>
-                                    <div style={{
-                                        ...sty
-                                    }} className="paymentStatus">
-                                        {v.paymentStatus}
-                                    </div>
-                                </td>
+                                <td>{v.name}</td>
+                                <td>{v.email}</td>
+                                <td>{v.username}</td>
                             </tr>
                         );
                     })}
@@ -75,4 +50,4 @@ function AdminTrans() {
     );
 }
 
-export default AdminTrans;
+export default AdminUsers;
