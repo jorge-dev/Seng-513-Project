@@ -76,5 +76,38 @@ function AdminProducts() {
                 <div className="breadTit">
                     Products
                 </div>
+                <div onClick={() => {
+                    setShow(true)
+                    setFormModel({
+                        name: '',
+                        vendor: '',
+                        price: '',
+                        description: '',
+                        image: '',
+                        mainCategory: '',
+                        subCategory: '',
+                        inStock: 'true',
+                        rating: '1',
+                        numberOfReviews: ''
+
+                    })
+                }} className="butn">
+                    Add New product
+                </div>
+            </div>
+
+            <Table borderless={true} bordered={false} responsive>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>NumberOfReviews</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+            </Table>
                 
     )
