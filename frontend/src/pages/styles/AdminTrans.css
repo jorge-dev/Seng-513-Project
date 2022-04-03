@@ -50,3 +50,16 @@
     background: linear-gradient(to Right, rgb(255, 0, 55), rgb(255, 0, 149));
     background: linear-gradient(to Right, rgb(255, 145, 0), rgb(255, 115, 0));
 }
+@media only screen and (max-width: 600px) {
+    .adminTransBox{
+        padding: 0 20px;
+    }
+
+    .butnLeft{
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    .tdBtnBox{
+        display: inline-block;
+    }
+}
