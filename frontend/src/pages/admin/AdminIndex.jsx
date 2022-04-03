@@ -29,7 +29,7 @@ function AdminIndex() {
                     </div>
                 </div>
             </div>
-
+ 
             <div className="middleBox">
                 {currentNavIndex == 0 && (
                     <AdminUsers />
