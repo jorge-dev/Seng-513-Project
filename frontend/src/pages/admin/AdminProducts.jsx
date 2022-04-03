@@ -150,6 +150,137 @@ function AdminProducts() {
                     }}>{currentOperation == 'ADD' ? 'Add' : 'Edit'}
                     </Modal.Title>
                 </Modal.Header>
+                <Modal.Body style={{
+                    color: 'black'
+                }}>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control value={formModel.name} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    name: e.target.value
+                                })
+                            }} type="text" placeholder="Enter Name" />
+                        </Form.Group>
 
+                        <Form.Group className="mb-3">
+                            <Form.Label>Vendor</Form.Label>
+                            <Form.Control value={formModel.vendor} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    vendor: e.target.value
+                                })
+                            }} type="text" placeholder="Enter Vendor" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Price</Form.Label>
+                            <Form.Control value={formModel.price} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    price: e.target.value
+                                })
+                            }} type="number" placeholder="Enter Price" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control value={formModel.description} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    description: e.target.value
+                                })
+                            }} type="textarea" placeholder="Enter Description" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control value={formModel.image} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    image: e.target.value
+                                })
+                            }} type="text" placeholder="Enter Image" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>MainCategory</Form.Label>
+                            <Form.Control value={formModel.mainCategory} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    mainCategory: e.target.value
+                                })
+                            }} type="text" placeholder="Enter MainCategory" />
+                        </Form.Group>
+
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>SubCategory</Form.Label>
+                            <Form.Control value={formModel.subCategory} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    subCategory: e.target.value
+                                })
+                            }} type="text" placeholder="Enter SubCategory" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>InStock</Form.Label>
+                            <Form.Select value={formModel.inStock} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    inStock: e.target.value
+                                })
+                            }} placeholder="Select InStock">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </Form.Select>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Rating</Form.Label>
+                            <Form.Select value={formModel.rating} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    rating: e.target.value
+                                })
+                            }} placeholder="Select Rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </Form.Select>
+                        </Form.Group>
+
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>NumberOfReviews</Form.Label>
+                            <Form.Control value={formModel.numberOfReviews} onChange={(e) => {
+                                setFormModel({
+                                    ...formModel,
+                                    numberOfReviews: e.target.value
+                                })
+                            }} type="number" placeholder="Enter NumberOfReviews" />
+                        </Form.Group>
+
+
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSubmit}>
+                        Save
+                    </Button>
+                </Modal.Footer>
             </Modal>
-    )
+
+        </div >
+    );
+}
+
+export default AdminProducts;
