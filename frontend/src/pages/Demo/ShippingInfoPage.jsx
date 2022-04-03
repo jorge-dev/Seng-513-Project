@@ -4,6 +4,7 @@ import {Box, Button, Container, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {ContextStore} from "../../ContextStore";
 import {Payment} from "@mui/icons-material";
+import CustomStepper from "../../components/Demo/CustomeStepper";
 
 
 const textFieldStyle = {
@@ -153,6 +154,7 @@ export default function ShippingInfoPage() {
             <Helmet>
                 <title>Shipping Information</title>
             </Helmet>
+            <CustomStepper step1/>
             <h1 className="text-center mt-4">Shipping Information</h1>
 
             <Container component="main" maxWidth="md"
@@ -162,7 +164,7 @@ export default function ShippingInfoPage() {
 
                     <Box component="form" onSubmit={handleSubmit}>
 
-                        <TextField margin="normal" required fullWidth id="fullName"
+                        <TextField margin="dense" required fullWidth id="fullName"
                                    error={errorFullName !== ""}
                                    helperText={errorFullName}
                                    sx={textFieldStyle}
@@ -172,14 +174,14 @@ export default function ShippingInfoPage() {
 
                                    variant="outlined"/>
 
-                        <TextField margin="normal" required fullWidth id="address" label="Address" name="address"
+                        <TextField margin="dense" required fullWidth id="address" label="Address" name="address"
                                    sx={textFieldStyle}
                                    error={errorAddress !== ""}
                                    helperText={errorAddress}
                                    defaultValue={address}
                                    onChange={handleOnChange}
                         />
-                        <TextField margin="normal" required fullWidth id="city" label="City" name="city"
+                        <TextField margin="dense" required fullWidth id="city" label="City" name="city"
                                    sx={textFieldStyle}
                                    error={errorCity !== ""}
                                    helperText={errorCity}
@@ -194,7 +196,7 @@ export default function ShippingInfoPage() {
                                    defaultValue={postalCode}
                                    onChange={handleOnChange}
                         />
-                        <TextField margin="normal" required fullWidth id="country" label="Country" name="country"
+                        <TextField margin="dense" required fullWidth id="country" label="Country" name="country"
                                    sx={textFieldStyle}
                                    error={errorCountry !== ""}
                                    helperText={errorCountry}
