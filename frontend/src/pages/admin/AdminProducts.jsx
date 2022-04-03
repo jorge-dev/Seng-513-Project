@@ -107,7 +107,40 @@ function AdminProducts() {
                         <th>Action</th>
                     </tr>
                 </thead>
-                
+                <tbody>
+                    {tableData.map((v, i) => {
+                        return (
+                            <tr key={v._id}>
+                                <td align="center">{i + 1}</td>
+                                <td>{v.name}</td>
+                                <td>{v.mainCategory}</td>
+                                <td>{v.numberOfReviews}</td>
+                                <td>${v.price}</td>
+                                <td>
+                                    <div className="tdBtnBox">
+                                        <div onClick={() => {
+                                            setShow(true)
+                                            setCurrentOperation('EDIT')
+                                            // console.log("v = ", v)
+                                            setCurrentItem(v);
+                                            let { name, vendor, price, description, image, mainCategory, subCategory, inStock, rating, numberOfReviews } = v;
+                                            setFormModel({
+                                                name, vendor, price, description, image, mainCategory, subCategory, inStock, rating, numberOfReviews
+                                            })
+                                        }} className="butn butnLeft">
+                                            Edit
+                                        </div>
+                                        <div onClick={() => {
+                                            handelDelete(v)
+                                        }} className="butn butnRight">
+                                            Delete
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
             </Table>
                 
     )
