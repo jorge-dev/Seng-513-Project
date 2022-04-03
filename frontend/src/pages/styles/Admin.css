@@ -49,3 +49,22 @@
 .middleBox{
     padding-top: 50px;
 }
+@media only screen and (max-width: 600px) {
+    .adminHeader{
+        height: 120px;
+        display: flex;
+        align-items: center;
+    }
+    .adminHeaderCenter{
+        /* height: 120px; */
+        height: auto;
+        flex-direction: column;
+        padding: 0;
+    }
+    .adminHeaderTit{
+        margin-bottom: 20px;
+    }
+    .middleBox{
+        padding-top: 120px;
+    }
+}
