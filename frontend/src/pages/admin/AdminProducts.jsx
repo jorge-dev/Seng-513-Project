@@ -46,3 +46,35 @@ function AdminProducts() {
             })
         }
     }
+
+    const handleDelete = (item) => {
+        axios.delete(`/api/products/${item._id}`).then((res) => {
+            alert(res.data.message)
+            getTableData()
+        }).catch((err) => {
+            console.log("err = ", err)
+            alert('Error')
+        })
+    }
+
+    const getTableData = () => {
+        axios.get('/api/products').then((res) => {
+            setTableData(res.data.data)
+        }).catch((err) => {
+            console.log("err = ", err)
+            alert('Error')
+        })
+    }
+
+    useEffect(() => {
+        getTableData()
+    }, [])
+
+    return (
+        <div className="adminProductsBox">
+            <div className="breadTitBox">
+                <div className="breadTit">
+                    Products
+                </div>
+                
+    )
