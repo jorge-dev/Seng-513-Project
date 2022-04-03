@@ -25,7 +25,7 @@ function AdminProducts() {
 
     const handleSubmit = () => {
         if (currentOperation == 'ADD') {
-            // add product
+            //add product
             axios.post('/api/products', formModel).then((res) => {
                 alert(res.data.message)
                 setShow(false)
@@ -35,7 +35,7 @@ function AdminProducts() {
                 alert('Error')
             })
         } else {
-            // edit product
+            //edit product
             axios.put(`/api/products/${currentItem._id}`, formModel).then((res) => {
                 alert(res.data.message)
                 setShow(false)
@@ -47,7 +47,8 @@ function AdminProducts() {
         }
     }
 
-    const handleDelete = (item) => {
+    //delete product
+    const handelDelete = (item) => {
         axios.delete(`/api/products/${item._id}`).then((res) => {
             alert(res.data.message)
             getTableData()
@@ -59,10 +60,8 @@ function AdminProducts() {
 
     const getTableData = () => {
         axios.get('/api/products').then((res) => {
-            setTableData(res.data.data)
-        }).catch((err) => {
-            console.log("err = ", err)
-            alert('Error')
+            // console.log("res = ", res)
+            setTableData(res.data.products)
         })
     }
 
@@ -89,10 +88,9 @@ function AdminProducts() {
                         inStock: 'true',
                         rating: '1',
                         numberOfReviews: ''
-
                     })
                 }} className="butn">
-                    Add New product
+                    Add New Product
                 </div>
             </div>
 
@@ -142,13 +140,12 @@ function AdminProducts() {
                     })}
                 </tbody>
             </Table>
-            
+
             <Modal centered show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title style={{
                         color: 'black'
-                    }}>{currentOperation == 'ADD' ? 'Add' : 'Edit'}
-                    </Modal.Title>
+                    }}>{currentOperation == 'ADD' ? 'Add' : 'Edit'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{
                     color: 'black'
@@ -184,7 +181,6 @@ function AdminProducts() {
                             }} type="number" placeholder="Enter Price" />
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
                         <Form.Group className="mb-3">
                             <Form.Label>Description</Form.Label>
                             <Form.Control value={formModel.description} onChange={(e) => {
