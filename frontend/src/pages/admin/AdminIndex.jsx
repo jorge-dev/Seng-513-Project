@@ -31,10 +31,15 @@ function AdminIndex() {
             </div>
 
             <div className="middleBox">
-                {currentNavIndex == 0 && <AdminUsers />}
-                {currentNavIndex == 1 && <AdminProducts />}
-                {currentNavIndex == 2 && <AdminTrans />}
-
+                {currentNavIndex == 0 && (
+                    <AdminUsers />
+                )}
+                {currentNavIndex == 1 && (
+                    <AdminProducts />
+                )}
+                {currentNavIndex == 2 && (
+                    <AdminTrans />
+                )}
             </div>
         </div>
 
