@@ -94,7 +94,7 @@ function HomePage() {
             <div><h1 className="featured">FEATURED PRODUCTS</h1>
             </div>
 
-            <Carousel breakPoints={breakPoints} >
+            <Carousel breakPoints={breakPoints} isRTL>
                 {loading ?
                     skeleton.map(item =>
                         <div key={generateKey("skeleton")}>{item}</div>
@@ -118,7 +118,7 @@ function HomePage() {
             <div><h1 className="featured">STAFF RECOMMENDATIONS</h1>
             </div>
 
-            <Carousel breakPoints={breakPoints} >
+            <Carousel breakPoints={breakPoints} isRTL>
                 {loading ?
                     skeleton.map(item =>
                         <div key={generateKey("skeleton")}>{item}</div>
@@ -127,10 +127,10 @@ function HomePage() {
                     : error ? <MessageAlert variant="danger">{error}</MessageAlert>
                         :
 
-                        products.slice(0, 10).map(product => (
+                        products.slice(11, 20).map(product => (
 
                             <Product key={generateKey(product.name)} product={product}
-                                loading={loading} onSale={false} discountPercent={30} />
+                                     loading={loading} onSale={false} discountPercent={30}/>
 
                         ))
 
