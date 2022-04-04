@@ -9,6 +9,8 @@ import {getErrorMessage} from "../../utils/handleApiError";
 import {toast} from "react-toastify";
 import axios from "axios";
 import LoadingScreen from "../../components/Demo/LoadingScreen";
+import './styles/PlaceOrderStyles.css';
+import {Edit} from "@mui/icons-material";
 
 const TAX_RATE = 0.15;
 
@@ -52,17 +54,17 @@ export default function PlaceOrderPage() {
     } = state;
 
 
-    cart.itemsPrice = roundTo2(cart.items.reduce((a, b) => a + b.quantities * b.price, 0));
-    console.log(cart);
+    cart.itemsPrice = roundTo2(cart.items.reduce((a, b) => a + b.quantity * b.price, 0));
+    // console.log(cart);
     cart.shippingPrice = cart.itemsPrice > 50 ? roundTo2(0) : roundTo2(9.99);
     cart.taxPrice = roundTo2(cart.itemsPrice * TAX_RATE);
     cart.totalPrice = roundTo2(cart.itemsPrice + cart.shippingPrice + cart.taxPrice);
 
-    console.log("This is the shipping info", cart.shippingInfo);
+    // console.log("This is the shipping info", cart.shippingInfo);
     const placeOrder = async () => {
         try {
             dispatch({type: 'CREATE_ORDER_REQUEST'});
-            const {data} = await axios.post('/api/orders', {
+            const {data} = await axios.post('/api/ordersx', {
                     items: cart.items,
                     shippingAddress: cart.shippingInfo,
                     paymentMethod: cart.paymentMethod,
@@ -86,7 +88,7 @@ export default function PlaceOrderPage() {
 
         } catch (e) {
             dispatch({type: 'CREATE_ORDER_FAILURE'});
-            console.log(e.response)
+            // console.log(e.response)
             toast.error(getErrorMessage(e));
 
         }
@@ -177,11 +179,17 @@ export default function PlaceOrderPage() {
                                 <Card.Title>Shipping Summary</Card.Title>
                                 <Card.Text>
                                     <strong>Name: </strong> {cart.shippingInfo.fullName}<br/>
-                                    <strong>Address: </strong> {cart.shippingInfo.address}
-                                    {cart.shippingInfo.postalCode},{cart.shippingInfo.city}, {cart.shippingInfo.country}<br/>
+                                    <strong>Address: </strong> {cart.shippingInfo.address}{' '}
+                                    {cart.shippingInfo.postalCode}, {cart.shippingInfo.city}, {cart.shippingInfo.country}<br/>
 
                                 </Card.Text>
-                                <Link to='/shipping'>Edit Info</Link>
+                                <Link to='/shipping' className='edit-info'>
+                                    <Button variant="contained" size="small"
+                                            style={{borderRadius: '15px', color: 'white', fontSize: '.7rem'}}
+                                            startIcon={<Edit/>}>
+                                        <span className="btn-text">Edit</span>
+                                    </Button>
+                                </Link>
                             </Card.Body>
 
                         </Card>
@@ -196,7 +204,13 @@ export default function PlaceOrderPage() {
                                         className="fa-brands fa-stripe mx-2" style={{fontSize: '1.3em'}}/>}
 
                                 </Card.Text>
-                                <Link to='/paymentMethod'>Edit Payment</Link>
+                                <Link to='/paymentMethod' className='edit-info'>
+                                    <Button variant="contained" size="small"
+                                            style={{borderRadius: '15px', color: 'white', fontSize: '.7rem'}}
+                                            startIcon={<Edit/>}>
+                                        <span className="btn-text">Edit</span>
+                                    </Button>
+                                </Link>
                             </Card.Body>
 
                         </Card>
@@ -205,19 +219,28 @@ export default function PlaceOrderPage() {
                             <Card.Body>
                                 <Card.Title>Items In cart</Card.Title>
                                 <Card.Text>
-                                    <Link to='/shoppingCart'>Edit Payment</Link>
+                                    <Link to='/shoppingCart' className='edit-info'>
+                                        <Button variant="contained" size="small"
+                                                style={{borderRadius: '15px', color: 'white', fontSize: '.7rem'}}
+                                                startIcon={<Edit/>}>
+                                            <span className="btn-text">Edit</span>
+                                        </Button>
+                                    </Link>
                                 </Card.Text>
-                                <ListGroup variant={"flush"}>
+                                <ListGroup variant={"flush"} className='border-top'>
                                     {cart.items.map((item, index) => {
+                                        // check if item is last one
+                                        let last = index === cart.items.length - 1;
+                                        const style = {borderBottom: '1px dashed white'};
                                         return (
-                                            <ListGroup.Item key={index} style={{borderBottom: '1px dashed white'}}>
+                                            <ListGroup.Item key={index} style={!last ? style : {}}>
                                                 <Row className='align-items-center'>
                                                     <Col md={6}>
                                                         <Image src={item.image}
                                                                className=" mt-1 mb-1 mx-1" fluid
                                                                style={{width: '100px', height: '100px'}}/>
-                                                        <Link
-                                                            to={`/product/slug/${item.slug}`}>{item.name}</Link>
+                                                        <Link className='edit-info'
+                                                              to={`/product/slug/${item.slug}`}>{item.name}</Link>
                                                     </Col>
                                                     <Col md={3}>{item.quantity}</Col>
                                                     <Col md={3}>{item.price}</Col>
