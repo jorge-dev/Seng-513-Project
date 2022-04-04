@@ -1,5 +1,4 @@
 import slugify from "../utils/slugify.js";
-
 const products = [
   {
     name: "Logitech DESK MAT Studio Series",
@@ -178,7 +177,7 @@ const products = [
     price: 99.99,
     description: "Slim design and backlit",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/LogitechIlluminatedKeyboardK740_jnkkam.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/LogitechIlluminatedKeyboardK740_jnkkam.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wired",
     inStock: true,
@@ -192,7 +191,7 @@ const products = [
     price: 19.99,
     description: "Plug-and-Play USB Keyboard",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/LogitechKeyboardK120_iizqtl.png",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/LogitechKeyboardK120_iizqtl.png",
     mainCategory: "keyboards",
     subCategory: "membrane_wired",
     inStock: true,
@@ -206,7 +205,7 @@ const products = [
     price: 149.99,
     description: "Split Ergonomic Keyboard.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechERGOK860_iinqsw.png",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechERGOK860_iinqsw.png",
     mainCategory: "keyboards",
     subCategory: "membrane_wireless",
     inStock: true,
@@ -220,7 +219,7 @@ const products = [
     price: 139.99,
     description: "Compact and thin wireless keyboard.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechK360_x4meyo.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechK360_x4meyo.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wireless",
     inStock: true,
@@ -234,7 +233,7 @@ const products = [
     price: 39.99,
     description: "Minimalist keyboard for computers, tablets and phones.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechK380Multi-Device_uciakt.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechK380Multi-Device_uciakt.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wireless",
     inStock: true,
@@ -248,7 +247,7 @@ const products = [
     price: 149.99,
     description: "Advanced Wireless Illuminated Keyboard.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechMXKeysforMac_ifkn8o.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechMXKeysforMac_ifkn8o.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wireless",
     inStock: true,
@@ -262,7 +261,7 @@ const products = [
     price: 129.99,
     description: "Minimalist Wireless Illuminated Keyboard",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechMXKeysMini_pxec5o.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogitechMXKeysMini_pxec5o.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wireless",
     inStock: true,
@@ -275,9 +274,9 @@ const products = [
     vendor: "Logitech",
     price: 149.99,
     description:
-        "Boost productivity of coders, analysts and creators who need stability, precision and power to work better and truly master what they make.",
+      "Boost productivity of coders, analysts and creators who need stability, precision and power to work better and truly master what they make.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogiteckMXKeysforBusiness_togy2v.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356864/compfest/Keyboards/non-mech/wireless/LogiteckMXKeysforBusiness_togy2v.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wireless",
     inStock: true,
@@ -645,7 +644,7 @@ const products = [
     price: 199.99,
     description: "60% Gaming Keyboard with Analog Optical Switches.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/RazerHuntsmanMiniAnalog_s44se8.png",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/RazerHuntsmanMiniAnalog_s44se8.png",
     mainCategory: "keyboards",
     subCategory: "membrane_wired",
     inStock: true,
@@ -659,7 +658,7 @@ const products = [
     price: 329.99,
     description: "Gaming Keyboard with Razer™ Analog Optical Switches.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/RazerHuntsmanV2Analog_zdvh6f.png",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/RazerHuntsmanV2Analog_zdvh6f.png",
     mainCategory: "keyboards",
     subCategory: "membrane_wired",
     inStock: true,
@@ -1025,9 +1024,9 @@ const products = [
     vendor: "Corsair",
     price: 79.99,
     description:
-        "Three-Zone RGB Backlighting: Customize your colors with onboard dynamic and static lighting modes.",
+      "Three-Zone RGB Backlighting: Customize your colors with onboard dynamic and static lighting modes.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/CorsairK55RGBPROGamingKeyboard_oetvgm.webp",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356849/compfest/Keyboards/non-mech/wired/CorsairK55RGBPROGamingKeyboard_oetvgm.webp",
     mainCategory: "keyboards",
     subCategory: "membrane_wired",
     inStock: true,
@@ -1040,9 +1039,9 @@ const products = [
     vendor: "HyperX",
     price: 69.99,
     description:
-        "Boost your performance when you add this HyperX Alloy Core gaming keyboard to your computer setup.",
+      "Boost your performance when you add this HyperX Alloy Core gaming keyboard to your computer setup.",
     image:
-        "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/HyperXAlloyCore_jnedvo.png",
+      "https://res.cloudinary.com/cloud-513/image/upload/v1648356850/compfest/Keyboards/non-mech/wired/HyperXAlloyCore_jnedvo.png",
     mainCategory: "keyboards",
     subCategory: "membrane_wired",
     inStock: true,

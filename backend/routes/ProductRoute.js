@@ -1,8 +1,10 @@
 import express from "express";
 import asyncHandler from "express-async-handler";
+import mongoose from "mongoose";
 import logger from "../logger/devLogger.js";
+import { authenticate, authenticateAdmin } from "../Middleware/HandleAuth.js";
 import Product from "../models/ProductModel.js";
-import {authenticate, authenticateAdmin} from "../Middleware/HandleAuth.js";
+import slugify from "../utils/slugify.js";
 
 const productRoute = express.Router();
 
@@ -169,7 +171,6 @@ productRoute.post(
         }
     })
 );
-
 
 //Admin Only: delete product
 productRoute.delete(
