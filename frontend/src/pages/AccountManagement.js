@@ -22,6 +22,8 @@ import axios from "axios";
 import {ContextStore} from "../ContextStore";
 import MessageAlert from "../components/Demo/MessageAlert";
 import {ArrowForward} from "@mui/icons-material";
+import {Badge} from "react-bootstrap";
+import './styles/AccountManagement.css';
 
 export default function AccountManagement() {
     const [lastchanged, lcupdate] = useState("");
@@ -41,11 +43,12 @@ export default function AccountManagement() {
             axios.get("/api/orders/user", {"headers": {"Authorization": "Bearer " + userInfo.token}})
                 .then((response) => {
                     console.log(response.data.orders);
+
                     response.data.orders.forEach(o => {
                         var n = {
                             id: o._id.toUpperCase(),
                             cost: o.totalPrice,
-                            timestamp: "Purchased on: " + new Date(o.createdAt).toLocaleString("en-US",
+                            timestamp: "Order Placed on: " + new Date(o.createdAt).toLocaleString("en-US",
                                 {
                                     weekday: "short",
                                     month: "short",
@@ -54,6 +57,7 @@ export default function AccountManagement() {
                                     hour: "numeric",
                                     minute: "numeric"
                                 }),
+                            status: o.paymentStatus,
                             items: []
                         };
 
@@ -68,8 +72,15 @@ export default function AccountManagement() {
 
                         n.items.push("Shipping: " + price(o.shippingFee));
                         n.items.push("Taxes: " + price(o.taxPrice));
+                        // check if order not already in list
+                        let found = false;
+                        orders.forEach(o => {
+                            if (o.id === n.id)
+                                found = true;
+                        });
+                        if (!found)
+                            setOrders(orders => [...orders, n]);
 
-                        setOrders((old) => [...old, n]);
                     });
                 });
         } else {
@@ -128,10 +139,15 @@ export default function AccountManagement() {
                         first before accessing your account <ArrowForward/></Link>
                 </MessageAlert>) : (
                     <Container component="main" maxWidth="xs"
-                               style={{backgroundColor: "white", marginTop: "150px", minWidth: "45%"}}>
+                               style={{
+                                   backgroundColor: "white",
+                                   marginTop: "3em",
+                                   marginBottom: '3em',
+                                   minWidth: "50%"
+                               }}>
                         <Box sx={{marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center",}}>
 
-                            <Typography component="h1" variant="h3" style={{color: "black", marginTop: "50px"}}> Account
+                            <Typography component="h1" variant="h3" style={{color: "black"}}> Account
                                 Info </Typography>
 
                             <Box
@@ -236,13 +252,25 @@ export default function AccountManagement() {
                                                 <CardContent>
 
                                                     <Typography variant="h5" color="text.secondary" gutterBottom>
-                                                        Order #{o.id}
+                                                        Order # <Link className='order-link'
+                                                                      to={`/orders/${o.id}`}>{o.id} <ArrowForward
+                                                        fontSize='large'/></Link>
                                                     </Typography>
                                                     <Typography variant="h4" component="div">
                                                         Total cost: {price(o.cost)}
                                                     </Typography>
                                                     <Typography variant="h5" color="text.secondary">
                                                         {o.timestamp}
+                                                    </Typography>
+                                                    <Typography variant="h5" color="text.secondary">
+                                                        Order Status: {
+                                                        o.status === "Pending" ?
+                                                            <Badge bg="warning text-black">{o.status}</Badge> :
+                                                            o.status === "Paid" ?
+                                                                <Badge bg="success text-white">{o.status}</Badge> :
+                                                                <Badge bg="danger">{o.status}</Badge>
+
+                                                    }
                                                     </Typography>
                                                     <List key={o.id}>
                                                         {o.items.map((i, index) => {

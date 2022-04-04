@@ -1,0 +1,8 @@
+.order-link {
+    color: black;
+    font-weight: bold;
+}
+
+.order-link:hover {
+    color: #0099e6;
+}
