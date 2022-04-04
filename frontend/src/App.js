@@ -16,6 +16,7 @@ import MainCollection from './pages/MainCollection';
 import SubCollection from './pages/SubCollection';
 import PayMethodPage from "./pages/Demo/PayMethodPage";
 import PlaceOrderPage from "./pages/Demo/PlaceOrderPage";
+import OrderPage from "./pages/Demo/OrderPage";
 
 function App() {
   const {state} = useContext(ContextStore)
@@ -47,6 +48,7 @@ function App() {
               <Route path="/shipping" element={<ShippingInfoPage/>}/>
               <Route path="/paymentMethod" element={<PayMethodPage/>}/>
               <Route path="/placeOrder" element={<PlaceOrderPage/>}/>
+              <Route path="/orders/:id" element={<OrderPage/>}/>
 
               <Route path="pages/Login" element={<Login/>}/>
               <Route path="pages/CreateAccount" element={<CreateAccount/>}/>
