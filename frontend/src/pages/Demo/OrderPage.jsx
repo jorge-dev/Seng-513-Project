@@ -8,7 +8,11 @@ import {getErrorMessage} from "../../utils/handleApiError";
 import axios from "axios";
 import {Helmet} from "react-helmet-async";
 import {Badge, Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
+import StripeCheckout from "react-stripe-checkout";
+import {Button} from "@mui/material";
+import {toast} from "react-toastify";
 
+const STRIPE_PUBLISHABLE_KEY = "pk_test_A7jK4iCYHL045qgjjfzAfPxu";
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -23,6 +27,19 @@ const reducer = (state, action) => {
     }
 };
 
+const reducerPayment = (state, action) => {
+    switch (action.type) {
+        case "FETCH_PAYMENT":
+            return {...state, loading: true, error: ''};
+        case "FETCH_PAYMENT_SUCCESS":
+            return {...state, loading: false, error: ''};
+        case "FETCH_PAYMENT_FAILURE":
+            return {...state, loading: false, error: action.payload};
+        default:
+            return state;
+    }
+}
+
 export default function OrderPage() {
     const params = useParams()
     const {id: orderId} = params;
@@ -35,6 +52,10 @@ export default function OrderPage() {
         order: {},
         error: '',
 
+    });
+    const [{loading: loadingPayment, error: errorPayment}, dispatchPayment] = useReducer(reducerPayment, {
+        loading: false,
+        error: '',
     });
 
 
@@ -60,6 +81,62 @@ export default function OrderPage() {
         fetchOrder();
         // }
     }, [userInfo, orderId, navigate]);
+
+
+    function handleStripeToken(token) {
+
+        dispatchPayment({type: "FETCH_PAYMENT"});
+        const postData = async () => {
+            try {
+                const {data} = await axios.post(`/api/checkout`, {
+                    token,
+                    order
+                });
+                console.log(data);
+
+                try {
+                    const {data: patData} = await axios.put(`/api/orders/${orderId}`, {
+                        status: data.status
+                    }, {
+                        headers: {
+                            Authorization: `Bearer ${userInfo.token}`
+                        }
+                    });
+                    console.log(patData);
+                    dispatchPayment({type: "FETCH_PAYMENT_SUCCESS"});
+                    // toast.success('Payment Successful');
+                } catch (e) {
+                    dispatchPayment({type: "FETCH_PAYMENT_FAILURE", payload: getErrorMessage(e)});
+                }
+
+                if (data.status === 'Paid') {
+                    toast.success('Payment Successful', {
+                        autoClose: 3000,
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                    //    refresh the page
+                    // wait 2 seconds and then refresh
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 4000);
+                    // window.location.reload();
+                } else {
+                    toast.error(`Payment got declined: ${data.error}`, {
+                        autoClose: 3000,
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 4000);
+                }
+
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        postData();
+        // console.log(token);
+    }
 
 
     return loading ? <LoadingScreen open={loading}/> : error ?
@@ -124,21 +201,40 @@ export default function OrderPage() {
                                                 }}>$ {order.totalPrice}</span></Col>
                                         </Row>
                                     </ListGroup.Item>
-                                    {/*<ListGroup.Item>*/}
-                                    {/*    <Container className="text-center mt-3">*/}
+                                    {order.paymentStatus !== "Paid" ?
+                                        <ListGroup.Item>
+                                            <Container className="text-center mt-3">
 
-                                    {/*        <Button sx={{*/}
+                                                <StripeCheckout token={handleStripeToken}
+                                                                stripeKey={STRIPE_PUBLISHABLE_KEY}
+                                                                amount={order.totalPrice * 100}
+                                                                name={"DotCom Store"}
+                                                                currency={'CAD'}
+                                                >
+                                                    {order.paymentStatus === 'Pending' ?
+                                                        (<Button sx={{
 
-                                    {/*            borderRadius: '15px'*/}
-                                    {/*        }} className="text-center align-middle" variant="contained"*/}
-                                    {/*                size="large"*/}
-                                    {/*                onClick={placeOrder}*/}
-                                    {/*        >*/}
-                                    {/*            <span className="btn-text"> Place Order</span>*/}
-                                    {/*        </Button>*/}
-                                    {/*    </Container>*/}
-                                    {/*    {loading && <LoadingScreen open={loading}/>}*/}
-                                    {/*</ListGroup.Item>*/}
+                                                            borderRadius: '15px'
+                                                        }} className="text-center align-middle" variant="contained"
+                                                                 size="large"
+
+                                                        >
+                                                            <span className="btn-text"> Process Payment </span>
+                                                        </Button>) : order.paymentStatus === 'Declined' ?
+                                                            (<Button sx={{
+
+                                                                borderRadius: '15px'
+                                                            }} className="text-center align-middle" variant="contained"
+                                                                     size="large"
+
+                                                            >
+                                                                <span className="btn-text"> Retry Payment </span>
+                                                            </Button>) : <h1>{order.paymentStatus}</h1>}
+                                                </StripeCheckout>
+                                            </Container>
+                                            {loading && <LoadingScreen open={loading}/>}
+                                        </ListGroup.Item> :
+                                        null}
                                 </ListGroup>
                             </Card.Body>
 
@@ -191,9 +287,9 @@ export default function OrderPage() {
                                         <strong>Status: </strong> {
                                         order.paymentStatus === "Pending" ?
                                             <Badge bg="warning text-black">Pending</Badge> :
-                                            order.paymentStatus === "Processed" ?
-                                                <Badge bg="success text-black">Processed</Badge> :
-                                                <Badge bg="danger">Failed</Badge>
+                                            order.paymentStatus === "Paid" ?
+                                                <Badge bg="success text-white">Paid</Badge> :
+                                                <Badge bg="danger">Declined</Badge>
 
                                     }
 
