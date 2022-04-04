@@ -1,0 +1,64 @@
+.adminTransBox{
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 40px;
+    color: white;
+}
+.table-responsive th, .table-responsive td{
+    color: white;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.breadTitBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 0;
+}
+.breadTit{
+    font-size: 35px;
+    font-weight: bold;
+}
+.butn{
+    background: #565ffa;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+.tdBtnBox{
+    display: flex;
+    justify-content: center;
+}
+.butnLeft{
+    display: inline-block;
+    width: 60px;
+    margin-right: 20px;
+}
+.butnRight{
+    width: 60px;
+    display: 'inline-block';
+}
+.paymentStatus{
+    padding: 3px 5px;
+    border-radius: 5px;
+    background: linear-gradient(to Right, rgb(0, 183, 255), rgb(0, 255, 242));
+    background: linear-gradient(to Right, rgb(255, 0, 55), rgb(255, 0, 149));
+    background: linear-gradient(to Right, rgb(255, 145, 0), rgb(255, 115, 0));
+}
+@media only screen and (max-width: 600px) {
+    .adminTransBox{
+        padding: 0 20px;
+    }
+
+    .butnLeft{
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    .tdBtnBox{
+        display: inline-block;
+    }
+}

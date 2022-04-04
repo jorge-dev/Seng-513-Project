@@ -1,0 +1,69 @@
+.adminHeader{
+    height: 50px;
+    background: #585858;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+.adminHeaderCenter{
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    padding: 0 20px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.adminHeaderTit{
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+.logo{
+    width: 150px;
+}
+.adminNavBox{
+    display: flex;
+    align-items: center;
+}
+.adminNav{
+    height: 30px;
+    align-items: center;
+    display: flex;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    background: #dbdbdb;
+    border-radius: 15px;
+    padding: 0 15px;
+    cursor: pointer;
+    margin-left: 25px;
+}
+.adminActiveNav{
+    background: #565ffa;
+    color: white;
+}
+
+.middleBox{
+    padding-top: 50px;
+}
+@media only screen and (max-width: 600px) {
+    .adminHeader{
+        height: 120px;
+        display: flex;
+        align-items: center;
+    }
+    .adminHeaderCenter{
+        height: auto;
+        flex-direction: column;
+        padding: 0;
+    }
+    .adminHeaderTit{
+        margin-bottom: 20px;
+    }
+    .middleBox{
+        padding-top: 120px;
+    }
+}
