@@ -81,7 +81,10 @@ export default function OrderPreview() {
             );
             ctxDispatch({type: 'EMPTY_CART'});
             dispatch({type: 'CREATE_ORDER_SUCCESS'});
-            toast.success('Order placed successfully');
+            toast.success('Order placed successfully', {
+                autoClose: 3000,
+                position: toast.POSITION.TOP_CENTER
+            });
             localStorage.removeItem('items');
             navigate(`/orders/${data.newOrder._id}`);
 
@@ -89,7 +92,10 @@ export default function OrderPreview() {
         } catch (e) {
             dispatch({type: 'CREATE_ORDER_FAILURE'});
             // console.log(e.response)
-            toast.error(getErrorMessage(e));
+            toast.error(getErrorMessage(e), {
+                autoClose: 3000,
+                position: toast.POSITION.TOP_CENTER
+            });
 
         }
     }
@@ -162,7 +168,7 @@ export default function OrderPreview() {
                                         }} className="text-center align-middle" variant="contained" size="large"
                                                 onClick={placeOrder}
                                         >
-                                            <span className="btn-text"> Checkout</span>
+                                            <span className="btn-text"> Place Order</span>
                                         </Button>
                                     </Container>
                                     {loading && <LoadingScreen open={loading}/>}
