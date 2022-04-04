@@ -1,0 +1,30 @@
+.page-title {
+    margin-top: 50px;
+}
+
+.main-category-title {
+    margin-top: 50px;
+    font-family: 'Bitter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 120%;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.dropdown {
+    margin-bottom: 150px;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.reset-filter-button {
+    margin-bottom: 10px;
+}
