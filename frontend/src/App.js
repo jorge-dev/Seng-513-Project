@@ -15,7 +15,7 @@ import ShippingInfoPage from "./pages/Demo/ShippingInfoPage";
 import MainCollection from './pages/MainCollection';
 import SubCollection from './pages/SubCollection';
 import PayMethodPage from "./pages/Demo/PayMethodPage";
-import PlaceOrderPage from "./pages/Demo/PlaceOrderPage";
+import OrderPreview from "./pages/Demo/OrderPreview";
 import OrderPage from "./pages/Demo/OrderPage";
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
               <Route path="/shoppingCart" element={<CartPage/>}/>
               <Route path="/shipping" element={<ShippingInfoPage/>}/>
               <Route path="/paymentMethod" element={<PayMethodPage/>}/>
-              <Route path="/placeOrder" element={<PlaceOrderPage/>}/>
+              <Route path="/placeOrder" element={<OrderPreview/>}/>
               <Route path="/orders/:id" element={<OrderPage/>}/>
 
               <Route path="pages/Login" element={<Login/>}/>

@@ -39,7 +39,7 @@ const reducer = (state, action) => {
     }
 }
 
-export default function PlaceOrderPage() {
+export default function OrderPreview() {
     const navigate = useNavigate();
     const [{loading, error}, dispatch] = useReducer(reducer, {
         loading: false,
@@ -102,10 +102,10 @@ export default function PlaceOrderPage() {
     return (
         <div>
             <Helmet>
-                <title>Place Order</title>
+                <title>Preview Order</title>
             </Helmet>
             <CustomStepper step1 step2 step3/>
-            <h1 className="text-center mt-4">Place Order</h1>
+            <h1 className="text-center mt-4">Preview Order</h1>
             <Container
                 style={{marginTop: '1em', borderRadius: "30px", background: '#252836', paddingTop: '10px'}}>
                 < Row style={{marginTop: '1em', background: 'transparent'}}>
@@ -162,7 +162,7 @@ export default function PlaceOrderPage() {
                                         }} className="text-center align-middle" variant="contained" size="large"
                                                 onClick={placeOrder}
                                         >
-                                            <span className="btn-text"> Place Order</span>
+                                            <span className="btn-text"> Checkout</span>
                                         </Button>
                                     </Container>
                                     {loading && <LoadingScreen open={loading}/>}

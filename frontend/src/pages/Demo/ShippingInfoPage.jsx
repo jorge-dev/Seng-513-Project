@@ -208,7 +208,7 @@ export default function ShippingInfoPage() {
                                 type="submit"
                                 variant="contained"
                                 color="primary" size='large' endIcon={<Payment/>}>
-                            Proceed to payment </Button>
+                            Proceed to Payment Method </Button>
 
 
                     </Box>

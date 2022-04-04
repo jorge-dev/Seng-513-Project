@@ -74,7 +74,7 @@ export default function PayMethodPage() {
                                     type="submit"
                                     variant="contained"
                                     color="primary" size='large'>
-                                <span className="btn-text"> Proceed to Order</span>
+                                <span className="btn-text"> Proceed to Order Review</span>
                             </Button>
                         </div>
                     </Form>
