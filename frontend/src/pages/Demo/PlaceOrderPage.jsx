@@ -64,7 +64,7 @@ export default function PlaceOrderPage() {
     const placeOrder = async () => {
         try {
             dispatch({type: 'CREATE_ORDER_REQUEST'});
-            const {data} = await axios.post('/api/ordersx', {
+            const {data} = await axios.post('/api/orders', {
                     items: cart.items,
                     shippingAddress: cart.shippingInfo,
                     paymentMethod: cart.paymentMethod,
