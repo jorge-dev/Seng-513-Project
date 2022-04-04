@@ -31,9 +31,9 @@ orderRouter.post(
       const order = new Order({
         user: user,
         items: req.body.items.map((item) => ({
-          ...item,
-          slug: slugify(item.name),
-          product: item.product,
+            ...item,
+            slug: slugify(item.name),
+            product: item._id,
         })),
         shippingAddress: req.body.shippingAddress,
         paymentMethod: req.body.paymentMethod,

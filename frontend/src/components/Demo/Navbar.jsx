@@ -166,7 +166,7 @@ function NavBar() {
                     <Nav.Item className='NavLinks nav-icons'>
                         <Link to="/shoppingCart">
 
-                            < Badge color="error" badgeContent={cart.items.reduce((a, c) => a + c.quantities, 0)}>
+                            < Badge color="error" badgeContent={cart.items.reduce((a, c) => a + c.quantity, 0)}>
 
                                 <ShoppingCart fontSize="large"/>
 

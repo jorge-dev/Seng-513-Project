@@ -14,9 +14,9 @@ export default function CartPage() {
     const {cart: {items}} = ctxState
     const navigate = useNavigate()
 
-    const updateCartHandler = (item, quantities) => {
+    const updateCartHandler = (item, quantity) => {
         setCtxState({
-            type: "ADD_TO_CART", payload: {...item, quantities}
+            type: "ADD_TO_CART", payload: {...item, quantity}
         });
     }
     const removeItemHandler = (item) => {
@@ -33,7 +33,7 @@ export default function CartPage() {
     };
 
     const getSubtotal = () => {
-        const subtotal = items.reduce((acc, item) => acc + item.price * item.quantities, 0)
+        const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
         return Math.round(subtotal * 100) / 100
     }
 
@@ -63,19 +63,20 @@ export default function CartPage() {
                                         </Col>
                                         <Col md={2} style={{color: 'white'}}>
                                             <IconButton aria-label="add"
-                                                        onClick={() => updateCartHandler(item, item.quantities + 1)}>
+                                                        onClick={() => updateCartHandler(item, item.quantity + 1)}>
                                                 <AddCircle sx={{color: grey[50]}}/>
                                             </IconButton> {" "}
-                                            {item.quantities}
-                                            {item.quantities === 1 ?
+                                            {item.quantity}
+                                            {item.quantity === 1 ?
                                                 (
                                                     <IconButton aria-label="remove" disabled>
                                                         <RemoveCircleOutline sx={{color: grey[500]}}/>
                                                     </IconButton>
                                                 ) :
                                                 (
-                                                    <IconButton aria-label="remove" onClick={() => updateCartHandler(item, item.quantities - 1)} >
-                                                        <RemoveCircle sx={{ color: grey[50] }} />
+                                                    <IconButton aria-label="remove"
+                                                                onClick={() => updateCartHandler(item, item.quantity - 1)}>
+                                                        <RemoveCircle sx={{color: grey[50]}}/>
                                                     </IconButton>
                                                 )
                                             }
@@ -107,7 +108,7 @@ export default function CartPage() {
                                             <h5>Total Items in Cart:</h5>
                                         </Col>
                                         <Col md={5}>
-                                            <h5>{items.reduce((acc, item) => acc + item.quantities, 0)}</h5>
+                                            <h5>{items.reduce((acc, item) => acc + item.quantity, 0)}</h5>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>

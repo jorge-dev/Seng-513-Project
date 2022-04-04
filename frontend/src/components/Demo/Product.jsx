@@ -27,9 +27,9 @@ function Product(props) {
 
     const addToCartHandler = (item) => {
         const isInCart = items.find(item => item._id === product._id)
-        const quantities = isInCart ? isInCart.quantities + 1 : 1;
+        const quantity = isInCart ? isInCart.quantity + 1 : 1;
         setCtxState({
-            type: "ADD_TO_CART", payload: { ...item, quantities }
+            type: "ADD_TO_CART", payload: {...item, quantity}
         });
     }
 

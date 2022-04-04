@@ -67,7 +67,7 @@ function ProductPage() {
     const addToCartHandler = () => {
         // check if the product is already in the cart
         const isInCart = cart.items.find(item => item._id === product._id)
-        const quantities = isInCart ? isInCart.quantities + 1 : 1;
+        const quantity = isInCart ? isInCart.quantity + 1 : 1;
         console.log(isInCart)
         // const { data } = await axios.get(`/api/products/${product._id}`);
         if (!product.inStock) {
@@ -75,7 +75,7 @@ function ProductPage() {
         }
 
         setCtxState({
-            type: "ADD_TO_CART", payload: { ...product, quantities }
+            type: "ADD_TO_CART", payload: {...product, quantity}
         });
         navigate("/shoppingCart")
     }
