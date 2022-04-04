@@ -7,6 +7,12 @@ const initialState = {
         ? JSON.parse(localStorage.getItem('userInfo'))
         : null,
     cart: {
+        shippingInfo: localStorage.getItem('shippingInfo')
+            ? JSON.parse(localStorage.getItem('shippingInfo'))
+            : {},
+        paymentMethod: localStorage.getItem('paymentMethod')
+            ? localStorage.getItem('paymentMethod')
+            : '',
         items: localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : []
     }
 };
@@ -34,13 +40,35 @@ const reducer = (state, action) => {
             );
             localStorage.setItem("items", JSON.stringify(itemsToRemove));
             return {...state, cart: {...state.cart, items: itemsToRemove}};
+        case 'EMPTY_CART':
+            return {...state, cart: {...state.cart, items: []}};
         case 'SIGN_IN':
             return {...state, userInfo: action.payload};
         case 'SIGN_OUT':
             return {
                 ...state,
                 userInfo: null,
+                cart: {
+                    shippingInfo: {},
+                    paymentMethod: '',
+                    items: []
+                }
             };
+        case 'SAVE_SHIPPING_INFO':
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    shippingInfo: action.payload
+                }
+
+            }
+        case 'SAVE_PAYMENT_METHOD':
+            return {
+                ...state,
+                cart: {...state.cart, paymentMethod: action.payload},
+            };
+
         default:
             return state;
     }

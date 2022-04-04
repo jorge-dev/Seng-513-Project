@@ -6,14 +6,21 @@ import products from "./data/Products.js";
 import connectToMongoDB from "./config/MongoDBConnection.js";
 import SeedData from "./SeedDB.js";
 import productRoute from "./routes/ProductRoute.js";
-import { errorHandler, notFoundError } from "./Middleware/HandleErrors.js";
+import {errorHandler, notFoundError} from "./Middleware/HandleErrors.js";
 import userRouter from "./routes/UserRoute.js";
 import orderRouter from "./routes/OrderRoute.js";
+import Stripe from "stripe";
+import {v4 as uuidv4} from 'uuid';
+
 
 const port = process.env.PORT || 4321;
-
+const secretKey = process.env.STRIPE_SECRET_KEY;
+console.log(secretKey);
 dotenv.config();
-
+const stripe2 = new Stripe(`${secretKey}`, {
+  apiVersion: "2020-03-02",
+  typescript: true,
+});
 // Connect to MongoDB
 connectToMongoDB();
 
@@ -27,6 +34,44 @@ app.use(express.json());
 // });
 
 // =====================ENPOINTS====================
+
+app.post("/api/checkout", async (req, res) => {
+  console.log("Request:", req.body);
+
+  let error;
+  let status;
+  try {
+    const {order, token} = req.body;
+
+    const customer = await stripe2.customers.create({
+      email: token.email,
+      source: token.id
+    });
+
+    const idempotency_key = uuidv4();
+    const charge = await stripe2.charges.create(
+        {
+          amount: order.itemsPrice * 100,
+          currency: "usd",
+          customer: customer.id,
+
+
+        },
+        {
+          idempotency_key
+        }
+    );
+    console.log("Charge:", {charge});
+    status = "Paid";
+    error = "";
+  } catch (err) {
+    console.error("Error:", err);
+    error = err.message;
+    status = "Declined";
+  }
+
+  res.json({status, error});
+});
 
 //seed the database
 app.use("/api/seed", SeedData);

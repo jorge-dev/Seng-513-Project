@@ -31,9 +31,9 @@ orderRouter.post(
       const order = new Order({
         user: user,
         items: req.body.items.map((item) => ({
-          ...item,
-          slug: slugify(item.name),
-          product: item.product,
+            ...item,
+            slug: slugify(item.name),
+            product: item._id,
         })),
         shippingAddress: req.body.shippingAddress,
         paymentMethod: req.body.paymentMethod,
@@ -81,23 +81,24 @@ orderRouter.get(
 
 // update order payment status
 orderRouter.put(
-  "/:id/payed",
-  authenticate,
-  asyncHandler(async (req, res) => {
-    logger.debug(`PUT /api/orders/:id/paid was called`);
-    const order = await Order.findById(req.params.id);
-    if (!order) {
-      logger.error(`PUT /api/orders/:id/paid: Order not found`);
-      res.status(404);
-      throw new Error("Order not found");
-    } else {
-      // Verify user is the same as the order's user
-      if (order.user._id.toString() !== req.user._id.toString()) {
-        logger.error(`PUT /api/orders/:id/paid: User not authorized`);
-        res.status(401);
-        throw new Error("User not authorized to update this order");
+    "/:id",
+    authenticate,
+    asyncHandler(async (req, res) => {
+        logger.debug(`PUT /api/orders/:id/paid was called`);
+        const {status} = req.body;
+        const order = await Order.findById(req.params.id);
+        if (!order) {
+            logger.error(`PUT /api/orders/:id/paid: Order not found`);
+            res.status(404);
+            throw new Error("Order not found");
+        } else {
+            // Verify user is the same as the order's user
+            if (order.user._id.toString() !== req.user._id.toString()) {
+                logger.error(`PUT /api/orders/:id/paid: User not authorized`);
+                res.status(401);
+                throw new Error("User not authorized to update this order");
       } else {
-        order.paymentStatus = "Approved";
+                order.paymentStatus = status;
         const updatedOrder = await order.save();
         res.json({
           message: `Order ${req.params.id} has been Approved`,

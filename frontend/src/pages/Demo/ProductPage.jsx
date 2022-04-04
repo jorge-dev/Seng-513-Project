@@ -1,21 +1,21 @@
-import { useContext, useEffect, useReducer } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {useContext, useEffect, useReducer} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import './styles/HomePage.css';
 import LoadingScreen from "../../components/Demo/LoadingScreen";
-import { Col, Container, Row, ListGroup } from "react-bootstrap";
+import {Col, Container, Row, ListGroup} from "react-bootstrap";
 import './styles/ProductPage.css';
 import Ratings from "../../components/Demo/Rating";
-import { Card } from "react-bootstrap";
-import { Button } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
-import { Badge } from "react-bootstrap";
-import { Helmet } from "react-helmet-async";
+import {Card} from "react-bootstrap";
+import {Button} from "@mui/material";
+import {AddShoppingCart} from "@mui/icons-material";
+import {Badge} from "react-bootstrap";
+import {Helmet} from "react-helmet-async";
 import MessageAlert from "../../components/Demo/MessageAlert";
-import { getErrorMessage } from "../../utils/handleApiError";
-import { ContextStore } from "../../ContextStore";
-import { Badge as BSBadge } from "react-bootstrap";
-import { Accordion } from "@mui/material";
+import {getErrorMessage} from "../../utils/handleApiError";
+import {ContextStore} from "../../ContextStore";
+import {Badge as BSBadge} from "react-bootstrap";
+import {Accordion} from "@mui/material";
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
@@ -67,35 +67,34 @@ function ProductPage() {
     const addToCartHandler = () => {
         // check if the product is already in the cart
         const isInCart = cart.items.find(item => item._id === product._id)
-        const quantities = isInCart ? isInCart.quantities + 1 : 1;
+        const quantity = isInCart ? isInCart.quantity + 1 : 1;
         console.log(isInCart)
         // const { data } = await axios.get(`/api/products/${product._id}`);
         if (!product.inStock) {
             window.alert("This product is out of stock")
         }
 
-        // if (isInCart) {
-        //     console.log("Product is already in the cart")
-        // }
         setCtxState({
-            type: "ADD_TO_CART", payload: { ...product, quantities }
+            type: "ADD_TO_CART", payload: {...product, quantity}
         });
         navigate("/shoppingCart")
     }
 
 
     return (
-        loading ? <LoadingScreen open={loading} /> : error ? <MessageAlert style={{ marginTop: '10em' }} variant="danger" > {error}</MessageAlert > :
+        loading ? <LoadingScreen open={loading}/> : error ?
+            <MessageAlert style={{marginTop: '3em'}} variant="danger"> {error}</MessageAlert> :
 
             <Container fluid className="main-container">
-                <Row >
-                    <Col className='mt-4' md={6} style={{ border: "1px solid #252836", height: "30em", borderRadius: "30px" }} >
+                <Row>
+                    <Col className='mt-4' md={6}
+                         style={{border: "1px solid #252836", height: "30em", borderRadius: "30px"}}>
 
-                        <img src={product.image} alt={product.name} style={{ width: "100%", height: '30em' }} />
+                        <img src={product.image} alt={product.name} style={{width: "100%", height: '30em'}}/>
 
 
                     </Col>
-                    <Col md={6}  >
+                    <Col md={6}>
                         <Card className="mt-4" style={{ background: "transparent", border: "none", borderRadius: "30px", height: "35em" }}>
                             <Card.Body style={{ padding: "0", }} >
                                 <ListGroup variant="flush" style={{ marginTop: "3em" }}>
@@ -140,11 +139,19 @@ function ProductPage() {
                                     {/* <ListGroup.Item style={{ marginTop: '1em' }}> */}
                                     <Container className="text-center">
                                         {product.inStock ?
-                                            <Button className="text-center align-middle" variant="contained" size="large" onClick={addToCartHandler} >
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                            <Button sx={{
+
+                                                borderRadius: '15px'
+                                            }} className="text-center align-middle" variant="contained" size="large"
+                                                    onClick={addToCartHandler}
+                                            >
+                                                <span className="btn-text"> Add to Cart</span> <AddShoppingCart/>
                                             </Button> :
-                                            <Button className="text-center" variant="contained" size="large" disabled>
-                                                <span className="btn-text"> Add to Card</span> <ShoppingCart />
+                                            <Button sx={{
+
+                                                borderRadius: '15px'
+                                            }} className="text-center" variant="contained" size="large" disabled>
+                                                <span className="btn-text"> Add to Card</span> <AddShoppingCart/>
                                             </Button>
                                         }
                                     </Container>

@@ -1,0 +1,13 @@
+.main-stepper > div {
+    border-bottom: .7rem solid #a8a8a8;
+    color: #a8a8a8;
+    margin-top: 2rem;
+    transition: all .3s ease-in-out;
+}
+
+.main-stepper > div.active {
+    border-bottom: .7rem solid #00c714;
+    color: #00c714;
+    margin-top: 2em;
+    transition: all .3s ease-in-out;
+}

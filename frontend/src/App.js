@@ -11,8 +11,12 @@ import CreateAccount from './pages/CreateAccount'
 import AccountManagement from './pages/AccountManagement'
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ShippingInfoPage from "./pages/Demo/ShippingInfoPage";
 import MainCollection from './pages/MainCollection';
 import SubCollection from './pages/SubCollection';
+import PayMethodPage from "./pages/Demo/PayMethodPage";
+import OrderPreview from "./pages/Demo/OrderPreview";
+import OrderPage from "./pages/Demo/OrderPage";
 
 function App() {
   const {state} = useContext(ContextStore)
@@ -41,6 +45,10 @@ function App() {
               <Route path="/product/slug/:slug" element={<ProductPage/>}/>
               <Route path="/" element={<HomePage/>}/>
               <Route path="/shoppingCart" element={<CartPage/>}/>
+              <Route path="/shipping" element={<ShippingInfoPage/>}/>
+              <Route path="/paymentMethod" element={<PayMethodPage/>}/>
+              <Route path="/placeOrder" element={<OrderPreview/>}/>
+              <Route path="/orders/:id" element={<OrderPage/>}/>
 
               <Route path="pages/Login" element={<Login/>}/>
               <Route path="pages/CreateAccount" element={<CreateAccount/>}/>
@@ -48,7 +56,7 @@ function App() {
             </Routes>
 
           </main>
-          <footer className='footer mt-4'>
+          <footer className='footer mt-auto'>
             <div className="text-center">All rights reserved &copy; 2020</div>
             <div className="text-center"> Designed and implemented by: Ahmed Elnasri,Haotian Chen, Daryl Dang
               , and Jorge Avila
@@ -67,7 +75,7 @@ function App() {
 
         </div>
 
-    </BrowserRouter >
+      </BrowserRouter>
   );
 }
 
