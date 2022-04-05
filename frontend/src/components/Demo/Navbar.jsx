@@ -86,7 +86,7 @@ function NavBar() {
 
                 <Nav className="me-auto">
 
-                    <Link className='NavLinks non-product' to="/contact">Contact</Link>
+                    <Link className='NavLinks non-product' to="/pages/Contact">Contact</Link>
                 </Nav>
                 <Nav>
                     <Nav.Item className='NavLinks nav-icons'>
