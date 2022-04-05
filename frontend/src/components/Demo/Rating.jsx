@@ -42,7 +42,7 @@ function ratingName() {
 }
 
 export default function Ratings(props) {
-    const { ratingReceived, numberOfReviews, readOnly, isDark, align } = props;
+    const {getRating, showReviews, ratingReceived, numberOfReviews, readOnly, isDark, align} = props;
     const alignItems = align ? align : 'center';
     const [rating, setRating] = React.useState(ratingReceived);
     const name = ratingName();
@@ -63,7 +63,7 @@ export default function Ratings(props) {
                 isDark ?
                     <DarkStyledRating
                         name={name}
-                        defaultValue={ratingReceived}
+                        defaultValue={ratingReceived || 0}
                         value={rating}
                         precision={0.5}
                         readOnly={readOnly}
@@ -83,16 +83,18 @@ export default function Ratings(props) {
                         size="large"
                         onChange={(event, newValue) => {
                             setRating(newValue);
+                            getRating(newValue);
                         }}
 
-                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                        emptyIcon={<StarBorderIcon fontSize="inherit"/>}
                     />
-            }
-            {rating !== null && (
-                isDark ?
-                    <Typography style={{ color: "white" }}  >{formatNumOfReviews(numberOfReviews)}</Typography>
-                    :
-                    <Typography style={{ color: "black" }} >{formatNumOfReviews(numberOfReviews)}</Typography>
+        }
+            {rating !== null && (showReviews ?
+                    isDark ?
+                        <Typography style={{color: "white"}}>{formatNumOfReviews(numberOfReviews)}</Typography>
+                        :
+                        <Typography style={{color: "black"}}>{formatNumOfReviews(numberOfReviews)}</Typography>
+                    : null
             )}
         </Box>
     );
