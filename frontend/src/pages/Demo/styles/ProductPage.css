@@ -5,10 +5,20 @@
 
 .main-container {
   margin-top: 2em;
-  height: 100vh;
 }
 
 .btn-text {
   padding-right: 0.5em;
   font-size: 1.2em;
+}
+
+.info-link {
+  color: #0088e3;
+  font-weight: bold;
+
+}
+
+.info-link:hover {
+  color: #269ceb;
+
 }
