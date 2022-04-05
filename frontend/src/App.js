@@ -6,6 +6,7 @@ import {ContextStore} from './ContextStore';
 import CartPage from './pages/Demo/CartPage';
 import HomePage from './pages/Demo/HomePage';
 import ProductPage from './pages/Demo/ProductPage';
+import Contact from './pages/Contact';
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import AccountManagement from './pages/AccountManagement'
@@ -49,7 +50,7 @@ function App() {
               <Route path="/paymentMethod" element={<PayMethodPage/>}/>
               <Route path="/placeOrder" element={<OrderPreview/>}/>
               <Route path="/orders/:id" element={<OrderPage/>}/>
-
+              <Route path="pages/Contact" element={<Contact/>}/>
               <Route path="pages/Login" element={<Login/>}/>
               <Route path="pages/CreateAccount" element={<CreateAccount/>}/>
               <Route path="pages/AccountManagement" element={<AccountManagement/>}/>
