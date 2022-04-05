@@ -16,7 +16,7 @@ export default function GridSystem({colCount, children, md}) {
 
         for (let row = 0; row < rowCount; row++) {
             rows.push(
-                <Row>
+                <Row className={"mt-4"}>
                     {
                         renderCols()
                     }

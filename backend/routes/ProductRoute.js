@@ -142,18 +142,25 @@ productRoute.post(
     authenticate,
     asyncHandler(async (req, res) => {
         logger.http(`GET /api/products/${req.params.id} was called`);
-        const { rating, comment } = req.body;
-        const product = await Product.findOne({ slug: req.params.slug });
+        const {rating, comment} = req.body;
+        const product = await Product.findOne({slug: req.params.slug});
         if (!product) {
             res.status(404);
             throw new Error("Product not found");
         } else {
-            const hasAlreadyReviewed = product.reviews.some(
-                (review) => review.user.toString() === req.user._id.toString()
-            );
-            if (hasAlreadyReviewed) {
-                res.status(400);
-                throw new Error("You have already reviewed this product");
+            let numOfReviewsForUser = 0;
+            product.reviews.forEach(review => {
+                if (review.user.toString() === req.user._id.toString()) {
+                    numOfReviewsForUser += 1;
+                }
+            });
+
+            // const hasAlreadyReviewed = product.reviews.some(
+            //     (review) => review.user.toString() === req.user._id.toString()
+            // );
+            if (numOfReviewsForUser >= 3) {
+                res.status(409);
+                throw new Error("It seems that you have already reviewed this product at least 3 times");
             } else {
                 product.reviews.push({
                     name: req.user.name,
@@ -161,12 +168,12 @@ productRoute.post(
                     rating: Number(rating),
                     comment,
                 });
-                product.numberOfReviews += product.reviews.length;
+                product.numberOfReviews += 1;
                 product.rating =
                     product.reviews.reduce((acc, review) => review.rating + acc, 0) /
                     product.reviews.length;
                 await product.save();
-                res.status(201).json({ message: "Review was added", product });
+                res.status(201).json({message: "Review was added", numOfReviewsForUser, product});
             }
         }
     })
