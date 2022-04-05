@@ -2,20 +2,6 @@ import React from 'react'
 import { Col, Container, Row, InputGroup, FormControl, Button } from 'react-bootstrap'
 import "./styles/Contact.css"
 
-// Init a reducer Hook to handle the data from the API
-const reducerHook = (state, action) => {
-    switch (action.type) {
-        case "FETCH_DATA":
-            return { ...state, loading: true };
-        case "FETCH_DATA_SUCCESS":
-            return { ...state, products: action.payload, loading: false };
-        case "FETCH_DATA_FAILURE":
-            return { ...state, loading: false, error: action.payload };
-        default:
-            return state;
-    }
-};
-
 export default function Contact() {
     return (
         <Container className="contact-content"  fluid>
