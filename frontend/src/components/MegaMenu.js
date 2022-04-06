@@ -1,15 +1,14 @@
 import {Col, Row} from "react-bootstrap";
 import {MenuItem} from "@mui/material";
 import {Link} from "react-router-dom";
-import {Headphones, Keyboard, More, Mouse} from "@mui/icons-material";
-
+import './styles/MegaMenu.css';
 export const MegaMenu = (props) => {
     return (
         <Row className="justify-content-center mx-3">
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/keyboards"}>
-                        <h4><Keyboard/>Keyboards</h4>
+                        <h4><i className="fa-solid fa-keyboard"/> Keyboards</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
@@ -39,7 +38,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/mice"}>
-                        <h4><Mouse/> Mice</h4>
+                        <h4><i className="fa-solid fa-computer-mouse"/> Mice</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
@@ -58,7 +57,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/headphones"}>
-                        <h4><Headphones/> Headphones</h4>
+                        <h4><i className="fa-solid fa-headphones"/> Headphones</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
@@ -77,7 +76,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/accessories"}>
-                        <h4><More/> Accessories</h4>
+                        <h4><i className="fa-solid fa-angles-right"/> Accessories</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>

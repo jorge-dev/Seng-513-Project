@@ -1,19 +1,8 @@
 import {useContext, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {Col, Container, Form, FormControl, InputGroup, Nav, Navbar} from "react-bootstrap";
+import {Container, Form, Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
-import {
-    Badge,
-    Button,
-    Divider,
-    IconButton,
-    InputAdornment,
-    InputBase,
-    Menu,
-    MenuItem,
-    Slide,
-    TextField
-} from '@mui/material';
+import {Badge, Divider, IconButton, InputBase, Menu, MenuItem, Slide} from '@mui/material';
 import LogoImage from "../../logos/fullLogo.png";
 import {AccountCircle, ArrowDropDown, LoginOutlined, Logout, Person, Search, ShoppingCart} from '@mui/icons-material';
 import "./styles/Navbar.css";
@@ -23,42 +12,6 @@ import CustomMenu from "../CustomMenu";
 import {MegaMenu} from "../MegaMenu";
 import {alpha, styled} from "@mui/material/styles";
 
-const textFieldStyle = {
-    marginTop: "0rem",
-
-    '& label': {
-        color: '#fff',
-        fontSize: '1rem',
-
-    },
-    '& input': {
-        color: '#fff',
-        fontSize: '1.2rem',
-
-    },
-    '& label.Mui-focused': {
-        color: 'white',
-
-    },
-    '& .MuiInput-underline:after': {
-        borderBottomColor: 'white',
-    },
-    '& .MuiOutlinedInput-root': {
-        borderRadius: "15px",
-        '& fieldset': {
-            borderColor: 'white',
-            borderWidth: '3px',
-        },
-        '&:hover fieldset': {
-            borderColor: 'white',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: 'white',
-            borderWidth: '3px',
-
-        }
-    }
-};
 
 const SearchBar = styled('div')(({theme}) => ({
     position: 'relative',
@@ -108,7 +61,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
         [theme.breakpoints.up('xs')]: {
             width: '0em',
             '&:focus': {
-                width: '8em',
+                width: '12em',
                 backgroundColor: alpha(theme.palette.common.white, 0.8),
                 borderRadius: '30px',
                 color: 'black'

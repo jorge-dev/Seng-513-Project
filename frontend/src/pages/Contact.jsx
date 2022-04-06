@@ -8,7 +8,13 @@ import {toast} from "react-toastify";
 export default function Contact() {
     return (
         <Container className="contact-content"
-                   style={{paddingBottom: '1em', borderRadius: "30px", background: '#252836', maxWidth: '600px'}}>
+                   style={{
+                       marginTop: '3em',
+                       paddingBottom: '1em',
+                       borderRadius: "30px",
+                       background: '#252836',
+                       maxWidth: '600px'
+                   }}>
             <Row>
                 <h1 className="title">Contact Us</h1>
             </Row>
