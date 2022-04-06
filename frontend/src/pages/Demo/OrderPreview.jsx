@@ -114,8 +114,8 @@ export default function OrderPreview() {
             <h1 className="text-center mt-4">Preview Order</h1>
             <Container
                 style={{marginTop: '1em', borderRadius: "30px", background: '#252836', paddingTop: '10px'}}>
-                < Row style={{marginTop: '1em', background: 'transparent'}}>
-                    <Col md={4}><Card className='mb-3'
+                < Row style={{margin: '1em 0', background: 'transparent'}}>
+                    <Col md={6}><Card className='mb-3'
                                       style={{
                                           background: 'transparent',
                                           borderRadius: '10px',
@@ -178,7 +178,7 @@ export default function OrderPreview() {
 
                     </Card></Col>
 
-                    < Col md={8}>
+                    < Col md={6}>
                         <Card className='mb-3'
                               style={{background: 'transparent', border: '1px solid white', borderRadius: '10px'}}>
                             <Card.Body>
