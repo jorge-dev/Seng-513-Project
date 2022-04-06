@@ -73,7 +73,7 @@ function Product(props) {
                                     <p className="text-success" style={{fontWeight: 'bold'}}>${product.price}</p>
                                 </Col>
                             </Row>
-                            : product.price}
+                            : <p className="text-success" style={{fontWeight: 'bold'}}>${product.price}</p>}
                     </div>
                 }
                 {loading ? <Skeleton variant="text" width={'100%'} height={'100%'} /> :
