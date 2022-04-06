@@ -121,7 +121,7 @@ function NavBar() {
         e.preventDefault();
         console.log(searchInput)
         setSearchInput('');
-        navigate(`/search/${searchInput}`);
+        navigate(searchInput ? `/search/?query=${searchInput}` : '/search')
     }
 
     return (
