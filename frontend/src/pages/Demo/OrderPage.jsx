@@ -11,6 +11,7 @@ import {Badge, Card, Col, Container, Image, ListGroup, Row} from "react-bootstra
 import StripeCheckout from "react-stripe-checkout";
 import {Button} from "@mui/material";
 import {toast} from "react-toastify";
+import './styles/OrderPage.css';
 
 const STRIPE_PUBLISHABLE_KEY = "pk_test_A7jK4iCYHL045qgjjfzAfPxu";
 
@@ -153,9 +154,8 @@ export default function OrderPage() {
                 <Helmet>
                     <title>Order #{orderId}</title>
                 </Helmet>
-                <h1 className="text-center mt-4">Order #{orderId}</h1>
-                <Container
-                    style={{marginTop: '1em', borderRadius: "30px", background: '#252836', paddingTop: '10px'}}>
+                <h1 className="text-center mt-4 order-num">Order #{orderId}</h1>
+                <Container fl className='top-container-order'>
                     < Row style={{marginTop: '1em', background: 'transparent'}}>
                         <Col md={4}><Card className='mb-3'
                                           style={{

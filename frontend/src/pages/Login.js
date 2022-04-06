@@ -2,12 +2,14 @@
 
 import React, {useContext, useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {Box, Button, Container, TextField, Typography} from '@mui/material';
+import {Box, Button, TextField, Typography} from '@mui/material';
 import {Helmet} from "react-helmet-async";
 import axios from "axios";
 import {ContextStore} from "../ContextStore";
 import {toast} from "react-toastify";
 import {getErrorMessage} from "../utils/handleApiError";
+import {Container} from "react-bootstrap";
+import './styles/Login.css';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -40,7 +42,7 @@ export default function Login() {
             // fupdate(error.response.data.message)
             toast.error(getErrorMessage(error), {
                 theme: "colored",
-                autoClose: 5000
+                autoClose: 2000
             });
 
         }
@@ -84,13 +86,13 @@ export default function Login() {
 // else
 
     return (
-        <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginTop: "150px"}}>
+        <Container className='login-container'>
             <Helmet>
                 <title>Login</title>
             </Helmet>
-            <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Box sx={{marginTop: '1em', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-                <Typography component="h1" variant="h3" style={{color: "black", marginTop: "50px"}}> Sign
+                <Typography component="h1" variant="h3" style={{color: "black"}}> Sign
                     in </Typography>
 
                 <Box component="form" onSubmit={submit}>
@@ -109,7 +111,7 @@ export default function Login() {
                         Sign In </Button>
 
                     <Link to={`/pages/CreateAccount?redirect${redirectTo}`}>
-                        <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
+                        <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 3, borderRadius: '10px'}}>
                             Create Account </Button>
                     </Link>
 

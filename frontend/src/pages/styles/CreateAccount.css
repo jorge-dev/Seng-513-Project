@@ -1,0 +1,15 @@
+.create-acc-container {
+    background-color: white;
+    border-radius: 30px;
+    margin-top: 3em;
+    max-width: 600px;
+    padding-top: 0;
+}
+
+@media (max-width: 600px) {
+    .create-acc-container {
+        width: 90%;
+        height: auto;
+
+    }
+}
