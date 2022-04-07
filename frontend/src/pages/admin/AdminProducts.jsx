@@ -1,5 +1,5 @@
 import {useState, useEffect, useReducer, useContext} from "react";
-import {Table, Modal, Button, Form} from 'react-bootstrap';
+import {Table, Modal, Button, Form, Badge} from 'react-bootstrap';
 import axios from "axios";
 import '../styles/AdminProducts.css';
 import {getErrorMessage} from "../../utils/handleApiError";
@@ -126,6 +126,7 @@ function AdminProducts() {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>InStock</th>
                         <th>NumberOfReviews</th>
                         <th>Price</th>
                         <th>Action</th>
@@ -138,6 +139,25 @@ function AdminProducts() {
                                 <td align="center">{i + 1}</td>
                                 <td>{v.name}</td>
                                 <td>{v.mainCategory}</td>
+                                <td>{v.inStock ?
+                                    <Badge
+                                        bg="success"
+                                        pill
+                                        style={{
+                                            fontSize: '10px',
+                                            padding: '5px',
+                                            margin: '5px'
+                                        }}>In Stock</Badge> :
+                                    <Badge
+                                        bg="danger"
+                                        pill
+                                        style={{
+                                            fontSize: '10px',
+                                            padding: '5px',
+                                            margin: '5px'
+                                        }}>Out of Stock</Badge>
+                                }
+                                </td>
                                 <td>{v.numberOfReviews}</td>
                                 <td>${v.price}</td>
                                 <td>
@@ -147,9 +167,29 @@ function AdminProducts() {
                                             setCurrentOperation('EDIT')
                                             // console.log("v = ", v)
                                             setCurrentItem(v);
-                                            let { name, vendor, price, description, image, mainCategory, subCategory, inStock, rating, numberOfReviews } = v;
+                                            let {
+                                                name,
+                                                vendor,
+                                                price,
+                                                description,
+                                                image,
+                                                mainCategory,
+                                                subCategory,
+                                                inStock,
+                                                rating,
+                                                numberOfReviews
+                                            } = v;
                                             setFormModel({
-                                                name, vendor, price, description, image, mainCategory, subCategory, inStock, rating, numberOfReviews
+                                                name,
+                                                vendor,
+                                                price,
+                                                description,
+                                                image,
+                                                mainCategory,
+                                                subCategory,
+                                                inStock,
+                                                rating,
+                                                numberOfReviews
                                             })
                                         }} className="butn butnLeft">
                                             Edit
