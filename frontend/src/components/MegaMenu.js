@@ -8,7 +8,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/keyboards"}>
-                        <h4><i className="fa-solid fa-keyboard"/> Keyboards</h4>
+                        <h4 className='cust-h4'><i className="fa-solid fa-keyboard"/> Keyboards</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
@@ -38,7 +38,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/mice"}>
-                        <h4><i className="fa-solid fa-computer-mouse"/> Mice</h4>
+                        <h4 className='cust-h4'><i className="fa-solid fa-computer-mouse"/> Mice</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
@@ -57,7 +57,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/headphones"}>
-                        <h4><i className="fa-solid fa-headphones"/> Headphones</h4>
+                        <h4 className='cust-h4'><i className="fa-solid fa-headphones"/> Headphones</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
@@ -76,7 +76,7 @@ export const MegaMenu = (props) => {
             <Col sm={"6"} lg={"3"}>
                 <MenuItem onClick={props.clickMe}>
                     <Link to={"/collections/accessories"}>
-                        <h4><i className="fa-solid fa-angles-right"/> Accessories</h4>
+                        <h4 className='cust-h4'><i className="fa-solid fa-angles-right"/> Accessories</h4>
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={props.clickMe}>
