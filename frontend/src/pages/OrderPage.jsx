@@ -70,6 +70,7 @@ export default function OrderPage() {
                         Authorization: `Bearer ${userInfo.token}`
                     }
                 });
+                setPaymentStatus(data.order.paymentStatus)
                 // console.log(data);
                 dispatch({type: "FETCH_ORDER_SUCCESS", payload: data.order});
             } catch (e) {
@@ -178,7 +179,7 @@ export default function OrderPage() {
                                         <Row className='align-items-center'>
                                             <Col md={6}>Shipping:</Col>
                                             <Col
-                                                md={6}>{order.shippingPrice > 0 ? order.shippingPrice.toFixed(2) : "Free"}</Col>
+                                                md={6}>{order.shippingFee > 0 ? order.shippingFee.toFixed(2) : "Free"}</Col>
                                         </Row>
                                     </ListGroup.Item>
                                     <ListGroup.Item style={{borderBottom: '1px solid white'}}>

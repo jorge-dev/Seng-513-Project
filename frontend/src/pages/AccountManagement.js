@@ -9,7 +9,7 @@ import {
     CardContent,
     Container,
     Grid,
-    IconButton,
+    IconButton, InputAdornment,
     List,
     ListItem,
     TextField,
@@ -21,12 +21,14 @@ import {grey} from '@mui/material/colors';
 import axios from "axios";
 import {ContextStore} from "../ContextStore";
 import MessageAlert from "../components/MessageAlert";
-import {ArrowForward} from "@mui/icons-material";
+import {ArrowForward, Visibility, VisibilityOff} from "@mui/icons-material";
 import {Badge} from "react-bootstrap";
 import './styles/AccountManagement.css';
 
 export default function AccountManagement() {
     const [lastchanged, lcupdate] = useState("");
+    const [visible, setVisible] = useState(false);
+    let tempVisibility = true;
     const [orders, setOrders] = useState([]);
     const {state,} = useContext(ContextStore)
     const {userInfo} = state
@@ -220,7 +222,19 @@ export default function AccountManagement() {
                                 marginTop: 3, display: "flex", flexDirection: "row", alignItems: "center", width: "95%"
                             }}>
                                 <TextField required fullWidth variant="outlined"
-                                           InputProps={{style: {fontSize: "125%"}}}
+                                           type={visible ? "text" : "password"}
+
+                                           InputProps={{
+                                               endAdornment: (
+                                                   <InputAdornment position="end" onClick={() => {
+
+                                                       setVisible(!visible)
+                                                       console.log(visible);
+                                                   }}>
+                                                       {visible ? <Visibility/> : <VisibilityOff/>}
+                                                   </InputAdornment>
+                                               ),
+                                           }}
                                            InputLabelProps={{style: {fontSize: "125%"}}}
                                            name="password" label="Change Password"/>
                                 <IconButton type="submit" color="inherit" sx={{
