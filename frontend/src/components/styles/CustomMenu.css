@@ -1,5 +1,5 @@
 @media (min-width: 768px) {
-    .MuiPaper-root {
+    .MuiPaper-root .MuiMenu-paper {
         height: 30em
     }
 }
