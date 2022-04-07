@@ -34,17 +34,24 @@ productRoute.get(
 productRoute.get(
     '/categoriesList',
     asyncHandler(async (req, res) => {
+
         const categories = await Product.find().distinct('mainCategory');
+        //sort categories length
+        categories.sort((a, b) => {
+            return a.length - b.length;
+        });
+        // categories.sort();
         res.json({message: 'Success!', categories});
     })
 );
 
 //get search results
-const PAGE_SIZE = 3
+const PAGE_SIZE = 9;
 productRoute.get(
     "/search",
     asyncHandler(async (req, res) => {
         const {query} = req;
+        logger.debug(JSON.stringify(query));
         const pageSize = query.pageSize || PAGE_SIZE;
         const page = query.page || 1;
         const mainCategory = query.mainCategory || '';
@@ -68,28 +75,6 @@ productRoute.get(
                 :
                 {}
         ;
-
-        // const queryFilterMainCat =
-        //     searchQuery && searchQuery !== 'all'
-        //         ? {
-        //
-        //             mainCategory: {
-        //                 $regex: searchQuery,
-        //                 $options: 'i',
-        //             },
-        //
-        //         }
-        //         : {};
-        // const queryFilterSubCat =
-        //     searchQuery && searchQuery !== 'all'
-        //         ? {
-        //
-        //             subCategory: {
-        //                 $regex: searchQuery,
-        //                 $options: 'i',
-        //             },
-        //         }
-        //         : {};
         const categoryFilter = mainCategory && mainCategory !== 'all' ? {mainCategory} : {};
         const ratingFilter =
             rating && rating !== 'all'
