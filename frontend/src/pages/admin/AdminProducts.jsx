@@ -1,10 +1,15 @@
-import { useState, useEffect, useReducer } from "react";
-import { Table, Modal, Button, Form } from 'react-bootstrap';
+import {useState, useEffect, useReducer, useContext} from "react";
+import {Table, Modal, Button, Form} from 'react-bootstrap';
 import axios from "axios";
 import '../styles/AdminProducts.css';
+import {getErrorMessage} from "../../utils/handleApiError";
+import {ContextStore} from "../../ContextStore";
+import {toast} from "react-toastify";
 
 function AdminProducts() {
     const [show, setShow] = useState(false);
+    const {state: ctxState, setState: setCtxState} = useContext(ContextStore)
+    const {userInfo} = ctxState;
     const [currentOperation, setCurrentOperation] = useState('ADD');
     const [currentItem, setCurrentItem] = useState(null);
     const [tableData, setTableData] = useState([]);
@@ -19,42 +24,63 @@ function AdminProducts() {
         inStock: 'true',
         rating: '1',
         numberOfReviews: ''
-    });
+    },);
 
     const handleClose = () => setShow(false);
 
     const handleSubmit = () => {
         if (currentOperation == 'ADD') {
             //add product
-            axios.post('/api/products', formModel).then((res) => {
-                alert(res.data.message)
+            axios.post('/api/products', formModel, {"headers": {"Authorization": "Bearer " + userInfo.token}}).then((res) => {
+                toast.success('Product added successfully', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    theme: 'colored',
+                });
                 setShow(false)
                 getTableData()
             }).catch((err) => {
-                console.log("err = ", err)
-                alert('Error')
+                console.log("err = ", getErrorMessage(err))
+                toast.error(getErrorMessage(err), {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 3000,
+                    theme: 'colored'
+                });
+                // alert('Error')
             })
         } else {
             //edit product
-            axios.put(`/api/products/${currentItem._id}`, formModel).then((res) => {
-                alert(res.data.message)
+            axios.put(`/api/products/${currentItem._id}`, formModel, {"headers": {"Authorization": "Bearer " + userInfo.token}}).then((res) => {
+                toast.success('Product updated successfully', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    theme: 'colored',
+                });
                 setShow(false)
                 getTableData()
             }).catch((err) => {
                 console.log("err = ", err)
-                alert('Error')
+                toast.error(getErrorMessage(err), {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 3000,
+                    theme: 'colored'
+                });
             })
         }
     }
 
     //delete product
     const handelDelete = (item) => {
-        axios.delete(`/api/products/${item._id}`).then((res) => {
+        axios.delete(`/api/products/${item._id}`, {"headers": {"Authorization": "Bearer " + userInfo.token}}).then((res) => {
             alert(res.data.message)
             getTableData()
         }).catch((err) => {
             console.log("err = ", err)
-            alert('Error')
+            toast.error(getErrorMessage(err), {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000,
+                theme: 'colored'
+            });
         })
     }
 

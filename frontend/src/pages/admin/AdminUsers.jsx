@@ -1,15 +1,26 @@
-import { useState, useEffect, useReducer } from "react";
-import { Table, Modal, Button, Form } from 'react-bootstrap';
+import {useState, useEffect, useReducer, useContext} from "react";
+import {Table, Modal, Button, Form} from 'react-bootstrap';
 import axios from "axios";
 import '../styles/AdminUsers.css';
+import {ContextStore} from "../../ContextStore";
 
 function AdminUsers() {
     const [tableData, setTableData] = useState([]);
+    const {state} = useContext(ContextStore)
+    const {userInfo} = state
 
     const getTableData = () => {
-        axios.get('/api/users').then((res) => {
-            setTableData(res.data.users)
-        })
+        axios.get('/api/users', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            }
+        )
+            .then((res) => {
+                console.log(res.data)
+                setTableData(res.data.users)
+            })
     }
 
     useEffect(() => {
