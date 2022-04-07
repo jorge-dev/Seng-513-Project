@@ -170,7 +170,7 @@ export default function SearchPage() {
                             <Card.Body>
                                 <h4>Categories</h4>
                                 <Card.Text>
-                                    <Badge bg='secondary'
+                                    <Badge bg={mainCategory === 'all' ? 'primary' : 'secondary'}
                                            style={{margin: '0 .5em .5em 0', fontSize: '.8em', padding: '5px 15px'}}
                                            pill>
                                         <Link
@@ -180,7 +180,7 @@ export default function SearchPage() {
                                         </Link>
                                     </Badge>
                                     {categories.map((category) => (
-                                        <Badge bg='secondary'
+                                        <Badge bg={mainCategory === category ? 'primary' : 'secondary'}
                                                style={{margin: '0 .5em .5em 0', fontSize: '.8em', padding: '5px 15px'}}
 
                                                pill key={category}>
@@ -218,15 +218,15 @@ export default function SearchPage() {
                                             Any Price
                                         </Link>
                                     </Badge>
-                                    {prices.map((price) => (
-                                        <Badge bg='secondary'
+                                    {prices.map((p) => (
+                                        <Badge bg={price === p.value ? 'primary' : 'secondary'}
                                                style={{margin: '0 .5em .5em 0', fontSize: '.8em', padding: '5px 15px'}}
 
-                                               pill key={price.value}>
+                                               pill key={p.value}>
                                             <Link
 
-                                                to={getFilterUrl({price: price.value})}>
-                                                {price.name}
+                                                to={getFilterUrl({price: p.value})}>
+                                                {p.name}
                                             </Link>
                                         </Badge>
                                     ))}
@@ -246,14 +246,14 @@ export default function SearchPage() {
                             <Card.Body>
                                 <h4>Average Reviews</h4>
                                 <Card.Text>
-                                    {ratings.map((rating) => (
-                                        <Badge bg='secondary'
+                                    {ratings.map((r) => (
+                                        <Badge bg={Number(rating) === r.rating ? 'primary' : 'secondary'}
                                                style={{margin: '0 .5em .5em 0', fontSize: '.8em', padding: '5px 15px'}}
 
-                                               pill key={rating.name}>
+                                               pill key={r.name}>
                                             <Link
 
-                                                to={getFilterUrl({rating: rating.rating})}>
+                                                to={getFilterUrl({rating: r.rating})}>
                                                 <Row>
                                                     <Col md={8} style={{paddingRight: 0}}><Rating
                                                         sx={{
@@ -261,17 +261,18 @@ export default function SearchPage() {
                                                                 color: '#e6e6e6',
                                                             }
                                                         }}
-                                                        readOnly size="small" value={rating.rating}/> </Col>
+                                                        readOnly size="small" value={r.rating}/> </Col>
                                                     <Col md={4} style={{marginTop: '3px', paddingLeft: '3px'}}>
                                                      <span
-                                                     >& Up</span>
+                                                     >& Up
+                                                     </span>
                                                     </Col>
                                                 </Row>
 
                                             </Link>
                                         </Badge>
                                     ))}
-                                    <Badge bg='secondary'
+                                    <Badge bg={rating === 'all' ? 'primary' : 'secondary'}
                                            style={{margin: '0 .5em .5em 0', fontSize: '.8em', padding: '5px 15px'}}
                                            pill>
                                         <Link
