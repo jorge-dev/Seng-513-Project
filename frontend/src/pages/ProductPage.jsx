@@ -8,7 +8,7 @@ import './styles/ProductPage.css';
 import Ratings from "../components/Rating";
 import {Card} from "react-bootstrap";
 import {Button, Rating} from "@mui/material";
-import {AddShoppingCart} from "@mui/icons-material";
+import {AddShoppingCart, ArrowForward} from "@mui/icons-material";
 import {Badge} from "react-bootstrap";
 import {Helmet} from "react-helmet-async";
 import MessageAlert from "../components/MessageAlert";
@@ -58,6 +58,7 @@ function ProductPage() {
     const navigate = useNavigate();
     const [rating, setRating] = useState(0.0);
     const [comment, setComment] = useState('');
+    const [reviews, setReviews] = useState([]);
 
     const [{product, loading, error}, dispatch] = useReducer(reducerHook, {
         product: {},
@@ -72,6 +73,7 @@ function ProductPage() {
             try {
                 const response = await axios.get(`/api/products/slug/${slug}`);
                 dispatch({ type: "FETCH_DATA_SUCCESS", payload: response.data });
+                setReviews([...response.data.reviews]);
 
                 // setProductsList(response.data.products);
             } catch (error) {
@@ -92,7 +94,13 @@ function ProductPage() {
         // console.log(isInCart)
         // const { data } = await axios.get(`/api/products/${product._id}`);
         if (!product.inStock) {
-            window.alert("This product is out of stock")
+            // window.alert("This product is out of stock")
+            toast.warning("This product is out of stock", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000,
+                theme: "colored",
+
+            })
         }
 
         setCtxState({
@@ -130,6 +138,7 @@ function ProductPage() {
                 });
                 console.log(data)
                 reviewDispatch({type: "CREATE_REVIEW_SUCCESS"});
+                setReviews([...data.product.reviews]);
                 toast.success("Review submitted successfully", {
                     position: toast.POSITION.BOTTOM_CENTER,
                     autoClose: 3000,
@@ -137,9 +146,9 @@ function ProductPage() {
                 });
                 setComment('');
                 setRating(0);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 4000);
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 4000);
             } catch (err) {
                 console.log(err.response)
                 reviewDispatch({type: "CREATE_REVIEW_FAIL", payload: getErrorMessage(err)});
@@ -283,10 +292,10 @@ function ProductPage() {
                             {/*    Reviews*/}
                             <Col md={6} className="my-4">
                                 <h2 className="mb-3 text-center">Reviews</h2>
-                                {product.reviews.length === 0 && (
+                                {reviews.length === 0 && (
                                     <MessageAlert custStyle={{marginTop: '10px'}}>No reviews</MessageAlert>
                                 )}
-                                {product.reviews.map((review) => (
+                                {reviews.map((review) => (
                                     <div style={{borderRadius: '15px', backgroundColor: '#e8e8e8'}}
                                          key={review._id}
                                          className="mb-5 mb-md-3  p-3 shadow-sm  text-black"
@@ -397,7 +406,11 @@ function ProductPage() {
                                         <h5>
                                             <Link className='info-link'
                                                   to={`/pages/Login?redirect=/product/slug/${product.slug}`}>
-                                                <strong>Please login or register to post a review</strong>
+                                                <strong>If you have an account you can login here <ArrowForward/></strong>
+                                            </Link> <br/> <br/>
+                                            <Link className='info-link'
+                                                  to={`/pages/CreateAccount?redirect=/product/slug/${product.slug}`}>
+                                                <strong>If you are new, you can create an account here <ArrowForward/></strong>
                                             </Link>
 
                                         </h5>
@@ -408,137 +421,10 @@ function ProductPage() {
                             </Col>
                         </Row>
 
-                        {/*< Row style={{marginTop: '1em', background: 'transparent'}}>*/}
-                        {/*    <Col md={6}>*/}
-                        {/*        <Card className='mb-3'*/}
-                        {/*              style={{*/}
-                        {/*                  background: 'transparent',*/}
-                        {/*                  borderRadius: '10px',*/}
-                        {/*                  border: '1px solid white',*/}
-                        {/*              }}>*/}
-                        {/*            <Card.Body>*/}
-                        {/*                <Card.Title className='text-center'><h1>Reviews</h1></Card.Title>*/}
-                        {/*                {product.reviews.length === 0 ?*/}
-                        {/*                    <MessageAlert custStyle={{marginTop: '10px'}}>No reviews</MessageAlert> :*/}
-                        {/*                    (product.reviews.map((review, index) => {*/}
-                        {/*                            let key = `${review.id}` + `${index}`;*/}
-                        {/*                            return (*/}
-                        {/*                                <Container key={key}*/}
-                        {/*                                           style={{*/}
-                        {/*                                               marginTop: '1em',*/}
-                        {/*                                               borderRadius: "30px",*/}
-                        {/*                                               background: '#e8e8e8',*/}
-                        {/*                                               paddingTop: '10px'*/}
-                        {/*                                           }}>*/}
-                        {/*                                    <ListGroup variant='flush' key={review._id}>*/}
-                        {/*                                        <ListGroup.Item className='border-bottom-0 text-black'>*/}
-                        {/*                                            <h5>{review.name}</h5>*/}
-                        {/*                                        </ListGroup.Item>*/}
-                        {/*                                        <ListGroup.Item className='border-bottom-0'>*/}
-                        {/*                                            <Rating*/}
-                        {/*                                                sx={{*/}
-                        {/*                                                    // '& .MuiRating-iconFilled': {*/}
-                        {/*                                                    //     color: '#ffeb38',*/}
-                        {/*                                                    // },*/}
-                        {/*                                                    // '& .MuiRating-iconHover': {*/}
-                        {/*                                                    //     color: '#ffd000',*/}
-                        {/*                                                    // },*/}
-                        {/*                                                    '& .MuiRating-iconEmpty': {*/}
-                        {/*                                                        color: '#737373',*/}
-                        {/*                                                    }*/}
-                        {/*                                                }}*/}
-                        {/*                                                name="Rating Label"*/}
-                        {/*                                                value={review.rating}*/}
-                        {/*                                                readOnly*/}
-                        {/*                                                onChange={(event, newValue) => {*/}
-                        {/*                                                    setRating(newValue);*/}
-                        {/*                                                }}*/}
-                        {/*                                            />*/}
-                        {/*                                        </ListGroup.Item>*/}
-                        {/*                                        <ListGroup.Item*/}
-                        {/*                                            style={{*/}
-                        {/*                                                borderBottom: '1px solid gray',*/}
-                        {/*                                                color: 'black'*/}
-                        {/*                                            }}>*/}
-                        {/*                                            <p>{new Date(review.createdAt).toLocaleString("en-US",*/}
-                        {/*                                                {*/}
-                        {/*                                                    weekday: "short",*/}
-                        {/*                                                    month: "short",*/}
-                        {/*                                                    day: "numeric",*/}
-                        {/*                                                    year: "numeric",*/}
-                        {/*                                                    hour: "numeric",*/}
-                        {/*                                                    minute: "numeric"*/}
-                        {/*                                                })}</p>*/}
-                        {/*                                        </ListGroup.Item>*/}
-                        {/*                                    </ListGroup>*/}
-                        {/*                                    <Card.Text key={index} className="alert alert-info ">*/}
 
-                        {/*                                        {review.comment}*/}
-
-                        {/*                                    </Card.Text>*/}
-                        {/*                                </Container>*/}
-                        {/*                            )*/}
-                        {/*                        })*/}
-
-                        {/*                    )}*/}
-                        {/*            </Card.Body>*/}
-
-                        {/*        </Card>*/}
-                        {/*    </Col>*/}
-
-                        {/*    < Col md={6}>*/}
-
-                        {/*    </Col>*/}
-                        {/*</Row>*/}
                     </Container>
-                    {/*<Col md={6}>*/
-                    }
-                    {/*    <h2 className="text-center">Reviews</h2>*/
-                    }
-                    {/*    <hr/>*/
-                    }
-                    {/*    {product.reviews.length === 0 ? (*/
-                    }
-                    {/*            <MessageAlert custStyle={{marginTop: '10px'}}>No reviews</MessageAlert>*/
-                    }
-                    {/*        ) :*/
-                    }
-                    {/*        (*/
-                    }
-                    {/*            <Container fluid className='mt-4'>*/
-                    }
-                    {/*                */
-                    }
-                    {/*            </Container>*/
-                    }
-                    {/*        )*/
-                    }
-                    {/*    }*/
-                    }
-                    {/*</Col>*/
-                    }
-                    {/*<Col md={6}>*/
-                    }
-                    {/*    <Rating*/
-                    }
-                    {/*        name="Rating Label"*/
-                    }
-                    {/*        value={rating}*/
-                    }
-                    {/*        precision={0.5}*/
-                    }
-                    {/*        defaultValue={0}*/
-                    }
-                    {/*        onChange={(event, newValue) => {*/
-                    }
-                    {/*            setRating(newValue);*/
-                    }
-                    {/*        }}*/
-                    }
-                    {/*    />*/
-                    }
-                    {/*</Col>*/
-                    }
+
+
                 </Row>
 
             </Container>
