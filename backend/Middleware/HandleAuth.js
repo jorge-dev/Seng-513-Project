@@ -19,8 +19,24 @@ export const authenticate = asyncHandler(async (req, res, next) => {
     } catch (error) {
       logger.error(error);
       res.status(401);
-      throw new Error("Not authorized, token failed");
+      let sendError = "";
+      switch (error.name) {
+        case "TokenExpiredError":
+          sendError = "Your Session is expired. Please sign in again.";
+          break;
+        case "JsonWebTokenError":
+          sendError = `Invalid Token: ${error.message} .\n Please sign in again.`;
+          break
+        case "NotBeforeError":
+          sendError = "Your Session is not valid yet. Please sign in again.";
+          break
+        default:
+          sendError = "Invalid Token. Please sign in again.";
+          break;
+      }
+      throw new Error(sendError);
     }
+
   }
   if (!token) {
     res.status(401);

@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {Alert, Button, TextField, Box, Typography, Container} from '@mui/material';
 import axios from "axios";
-
+import './styles/CreateAccount.css'
 export default function CreateAccount()
 {
     const [failure, fupdate] = useState(0);
@@ -28,30 +28,33 @@ export default function CreateAccount()
     }
 
     return (
-    <Container component="main" maxWidth="xs" style={{backgroundColor: "white", marginTop: "150px"}}>
-          <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Container className='create-acc-container'>
+            <Box sx={{marginTop: '1em', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-          <Typography component="h1" variant="h3" style={{color: "black", marginTop: "50px"}}> Create Account </Typography>
+                <Typography component="h1" variant="h3" className='text-center' style={{color: "black"}}> Create
+                    Account </Typography>
 
-          <Box component="form" onSubmit={submit}>
+                <Box component="form" onSubmit={submit}>
 
-              <TextField margin="normal" fullWidth required
-              label="Username" name="username" autoComplete="on"/>
+                    <TextField margin="normal" fullWidth required
+                               label="Username" name="username" autoComplete="on"/>
 
-              <TextField margin="normal" fullWidth required
-              label="Your Name" name="name" autoComplete="on" />
+                    <TextField margin="normal" fullWidth required
+                               label="Your Name" name="name" autoComplete="on"/>
 
-              <TextField margin="normal" fullWidth required
-              label="Email" type="email" name="email" autoComplete="on" />
+                    <TextField margin="normal" fullWidth required
+                               label="Email" type="email" name="email" autoComplete="on"/>
 
-              <TextField margin="normal" fullWidth required
-              label="Password" type="password" name="password" autoComplete="on"/>
+                    <TextField margin="normal" fullWidth required
+                               label="Password" type="password" name="password" autoComplete="on"/>
 
-              <Alert style={{ width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none') }} severity="error"><h5>Error - {failure}.</h5></Alert>
+                    <Alert style={{width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none')}}
+                           severity="error"><h5>Error - {failure}.</h5></Alert>
 
-              <Button type="submit" fullWidth variant="contained" color="success" sx={{ mt: 3, mb: 2 }}>
-              Create Account </Button>
-          </Box>
+                    <Button type="submit" fullWidth variant="contained" color="success"
+                            sx={{mt: 3, mb: 3, borderRadius: '10px'}}>
+                        Create Account </Button>
+                </Box>
           </Box>
       </Container>
     );

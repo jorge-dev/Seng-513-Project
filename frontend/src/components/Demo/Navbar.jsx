@@ -1,8 +1,8 @@
 import {useContext, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Nav, Navbar} from "react-bootstrap";
+import {Link, useNavigate} from 'react-router-dom';
+import {Container, Form, Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
-import {Badge, Divider, IconButton, Menu, MenuItem, Slide} from '@mui/material';
+import {Badge, Divider, IconButton, InputBase, Menu, MenuItem, Slide} from '@mui/material';
 import LogoImage from "../../logos/fullLogo.png";
 import {AccountCircle, ArrowDropDown, LoginOutlined, Logout, Person, Search, ShoppingCart} from '@mui/icons-material';
 import "./styles/Navbar.css";
@@ -10,13 +10,74 @@ import {ContextStore} from "../../ContextStore";
 import {grey} from "@mui/material/colors";
 import CustomMenu from "../CustomMenu";
 import {MegaMenu} from "../MegaMenu";
+import {alpha, styled} from "@mui/material/styles";
 
+
+const SearchBar = styled('div')(({theme}) => ({
+    position: 'relative',
+    marginTop: '0.5rem',
+    borderRadius: '30px',
+    color: 'white',
+    fontSize: '1.2rem',
+    backgroundColor: alpha(theme.palette.common.white, 0),
+    '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.1),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        width: 'auto',
+    },
+}));
+
+const SearchIconWrapper = styled('div')(({theme}) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({theme}) => ({
+    // color: 'inherit',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1.5, 1, 1, 1),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(5)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '0em',
+            '&:focus': {
+                width: '20em',
+                backgroundColor: alpha(theme.palette.common.white, 0.8),
+                borderRadius: '30px',
+                color: 'black'
+            },
+        },
+        [theme.breakpoints.up('xs')]: {
+            width: '0em',
+            '&:focus': {
+                width: '12em',
+                backgroundColor: alpha(theme.palette.common.white, 0.8),
+                borderRadius: '30px',
+                color: 'black'
+            },
+        },
+    },
+}));
 
 function NavBar() {
+    const [expanded, setExpanded] = useState(false);
+
     const [navColor, setNavColor] = useState(false);
     const {state, setState: ctxDispatch} = useContext(ContextStore)
     const {cart, userInfo} = state
-    // const navigate = useNavigate
+    const [searchInput, setSearchInput] = useState('')
+    const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorElProduct, setAnchorElProduct] = useState(null);
@@ -56,49 +117,72 @@ function NavBar() {
         setAnchorEl(null);
     };
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        console.log(searchInput)
+        setSearchInput('');
+        navigate(searchInput ? `/search/?query=${searchInput}` : '/search')
+    }
+
     return (
-        <Navbar sticky="top" className={navColor ? 'main-navbar active' : 'main-navbar'} collapseOnSelect expand="lg"
+        <Navbar sticky="top" className={navColor ? 'main-navbar active' : 'main-navbar'} collapseOnSelect
+                expanded={expanded} expand="lg"
                 variant="dark">
             <LinkContainer to="/">
-                <Navbar.Brand><img className="brand" src={LogoImage} alt="logo"/></Navbar.Brand>
+                <Navbar.Brand onClick={() => setExpanded(false)}><img className="brand" src={LogoImage}
+                                                                      alt="logo"/></Navbar.Brand>
             </LinkContainer>
-            <Nav>
 
-                <div className="arrowDown" onClick={handleClickProduct}>
-
-
-                    Product
-                    <ArrowDropDown/>
-                </div>
-                <CustomMenu id="user-menu"
-                            anchorEl={anchorElProduct}
-                            open={openProduct}
-                            onClose={handleCloseProduct}
-                            MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                            }}>
-                    <MegaMenu clickMe={handleCloseProduct}/>
-                </CustomMenu>
-
-            </Nav>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"
+                           onClick={() => setExpanded(expanded ? false : "expanded")}/>
             <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav>
 
+                    <div className="arrowDown" onClick={handleClickProduct}>
+
+
+                        Product
+                        <ArrowDropDown/>
+                    </div>
+                    <CustomMenu id="user-menu"
+                                anchorEl={anchorElProduct}
+                                open={openProduct}
+                                onClose={handleCloseProduct}
+                                MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                }}>
+                        <MegaMenu clickMe={handleCloseProduct}/>
+                    </CustomMenu>
+
+                </Nav>
                 <Nav className="me-auto">
 
-                    <Link className='NavLinks non-product' to="/pages/Contact">Contact</Link>
+                    <Link onClick={() => setExpanded(false)} className='NavLinks non-product'
+                          to="/pages/Contact">Contact</Link>
                 </Nav>
                 <Nav>
-                    <Nav.Item className='NavLinks nav-icons'>
-                        <Search fontSize="large"/>
-                        {/*<FontAwesomeIcon icon={faMagnifyingGlass}/>*/}
+                    <Container className="me-auto searchContainer">
+                        <Form onSubmit={handleSearch}>
+                            <SearchBar className='searchBox'>
+                                <SearchIconWrapper>
+                                    <Search sx={{fontSize: '2.1em',}}/>
+                                </SearchIconWrapper>
+                                <StyledInputBase className='searchInput'
+                                                 onChange={(e) => setSearchInput(e.target.value)}
+                                                 value={searchInput}
+                                                 placeholder="Search…"
+                                                 inputProps={{'aria-label': 'search'}}
+                                />
+                            </SearchBar>
 
-                    </Nav.Item>
+                        </Form>
+                    </Container>
+
                     <Nav.Item className='NavLinks nav-icons'>
                         {!userInfo ?
-                            (<Link to="/pages/Login">
+                            (<Link onClick={() => setExpanded(false)} to="/pages/Login">
                                 <LoginOutlined fontSize="large"/>
-                                {/*<FontAwesomeIcon icon={faRightToBracket}/>*/}
+
                             </Link>) : (
                                 <>
                                     <IconButton aria-label="add" id="basic-button"
@@ -153,18 +237,20 @@ function NavBar() {
                                     >
                                         {/*<MegaMenu/>*/}
 
-                                        <MenuItem onClick={handleClose}><Link to="/pages/AccountManagement">
+                                        <MenuItem onClick={handleClose}><Link onClick={() => setExpanded(false)}
+                                                                              to="/pages/AccountManagement">
                                             <Person/> My Account</Link></MenuItem>
                                         <Divider/>
-                                        <MenuItem onClick={handleSignOut}><Link to="/#signout"> <Logout/> Logout</Link></MenuItem>
+                                        <MenuItem onClick={handleSignOut}><Link onClick={() => setExpanded(false)}
+                                                                                to="/#signout"> <Logout/> Logout</Link></MenuItem>
                                     </Menu>
                                 </>
                             )
 
                         }
                     </Nav.Item>
-                    <Nav.Item className='NavLinks nav-icons'>
-                        <Link to="/shoppingCart">
+                    <Nav.Item className='NavLinks nav-icons cart'>
+                        <Link onClick={() => setExpanded(false)} to="/shoppingCart">
 
                             < Badge color="error" badgeContent={cart.items.reduce((a, c) => a + c.quantity, 0)}>
 

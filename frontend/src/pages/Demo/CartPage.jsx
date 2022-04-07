@@ -45,7 +45,7 @@ export default function CartPage() {
             </Helmet>
             <h1 className="text-center">Shopping Cart</h1>
             <Row style={{margin: "0 20px"}}>
-                <Col md={8}>
+                <Col md={8} style={{margin: '10px 0px'}}>
                     {items.length === 0 ? (
                         <MessageAlert custStyle={{marginTop: '1.5em'}}><h1>The Cart Is Empty</h1> <br/>
                             <Link style={{color: 'black'}} to={'/'}>Checkout some of our featured

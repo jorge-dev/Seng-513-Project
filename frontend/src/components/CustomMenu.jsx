@@ -2,7 +2,7 @@ import * as React from 'react';
 import {alpha, styled} from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
 import {Slide} from "@mui/material";
-
+import './styles/CustomMenu.css';
 const StyledMenu = styled((props) => (
     <Menu
         elevation={20}
@@ -17,11 +17,13 @@ const StyledMenu = styled((props) => (
         {...props}
     />
 ))(({theme}) => ({
+
     '& .MuiPaper-root': {
 
         borderRadius: 30,
         marginTop: theme.spacing(3.9),
         minWidth: 180,
+        maxHeight: '18em',
         width: '100%',
         background: "#858585ef",
         color:

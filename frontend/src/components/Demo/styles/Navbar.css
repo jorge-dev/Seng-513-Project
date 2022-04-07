@@ -70,7 +70,48 @@ a {
 .dropDownTitle {
   font-size: 1.2em;
 }
+
 .mouse {
   padding-left: 7px;
 }
 
+@media (max-width: 992px) {
+  .arrowDown {
+    padding-left: 1em;
+  }
+
+  .non-product {
+    padding-left: 1em;
+
+  }
+
+  .nav-icons {
+    padding-left: .5em;
+  }
+
+  .cart {
+    padding-left: .7em;
+  }
+
+  .searchBox:hover {
+    width: 4em;
+  }
+
+  .searchContainer {
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .searchInput {
+    padding-left: 0;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .searchInput:focus {
+    width: 8em;
+  }
+}

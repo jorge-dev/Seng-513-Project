@@ -6,6 +6,7 @@ import { authenticate, authenticateAdmin } from "../Middleware/HandleAuth.js";
 import Product from "../models/ProductModel.js";
 import slugify from "../utils/slugify.js";
 
+
 const productRoute = express.Router();
 
 // get all products
@@ -29,6 +30,112 @@ productRoute.get(
     })
 );
 
+// get main categories
+productRoute.get(
+    '/categoriesList',
+    asyncHandler(async (req, res) => {
+
+        const categories = await Product.find().distinct('mainCategory');
+        //sort categories length
+        categories.sort((a, b) => {
+            return a.length - b.length;
+        });
+        // categories.sort();
+        res.json({message: 'Success!', categories});
+    })
+);
+
+//get search results
+const PAGE_SIZE = 9;
+productRoute.get(
+    "/search",
+    asyncHandler(async (req, res) => {
+        const {query} = req;
+        logger.debug(JSON.stringify(query));
+        const pageSize = query.pageSize || PAGE_SIZE;
+        const page = query.page || 1;
+        const mainCategory = query.mainCategory || '';
+        const price = query.price || '';
+        const rating = query.rating || '';
+        const order = query.order || '';
+        const searchQuery = query.query || '';
+
+        logger.debug('rating', rating);
+        const queryFilterName =
+            searchQuery && searchQuery !== 'all'
+                ? {
+                    $or: [
+                        {name: {$regex: searchQuery, $options: 'i'}},
+                        {mainCategory: {$regex: searchQuery, $options: 'i'}},
+                        {subCategory: {$regex: searchQuery, $options: 'i'}},
+
+                    ]
+
+                }
+                :
+                {}
+        ;
+        const categoryFilter = mainCategory && mainCategory !== 'all' ? {mainCategory} : {};
+        const ratingFilter =
+            rating && rating !== 'all'
+                ? {
+                    rating: {
+                        $gte: Number(rating),
+                    },
+                }
+                : {};
+        const priceFilter =
+            price && price !== 'all'
+                ? {
+                    // 1-50
+                    price: {
+                        $gte: Number(price.split('-')[0]),
+                        $lte: Number(price.split('-')[1]),
+                    },
+                }
+                : {};
+        logger.debug(JSON.stringify(priceFilter));
+        const sortOrder =
+            order === 'featured'
+                ? {featured: -1}
+                : order === 'lowest'
+                    ? {price: 1}
+                    : order === 'highest'
+                        ? {price: -1}
+                        : order === 'toprated'
+                            ? {rating: -1}
+                            : order === 'newest'
+                                ? {createdAt: -1}
+                                : {_id: -1};
+
+        const products = await Product.find({
+            ...queryFilterName,
+            // ...queryFilterMainCat,
+            // ...queryFilterSubCat,
+            ...categoryFilter,
+            ...priceFilter,
+            ...ratingFilter,
+        })
+            .sort(sortOrder)
+            .skip(pageSize * (page - 1))
+            .limit(pageSize);
+
+        const countProducts = await Product.countDocuments({
+            ...queryFilterName,
+            // ...queryFilterMainCat,
+            // ...queryFilterSubCat,
+            ...categoryFilter,
+            ...priceFilter,
+            ...ratingFilter,
+        });
+        res.send({
+            products,
+            countProducts,
+            page,
+            pages: Math.ceil(countProducts / pageSize),
+        });
+    }));
+
 // get a single product by slug
 productRoute.get(
     "/slug/:slug",
@@ -36,7 +143,7 @@ productRoute.get(
         logger.http(`GET /api/products/slug/${req.params.id} was called`);
         console.log(req.params);
 
-        const product = await Product.findOne({ slug: req.params.slug });
+        const product = await Product.findOne({slug: req.params.slug});
         if (!product) {
             res.status(404);
             throw new Error("Product not found");
@@ -133,7 +240,6 @@ productRoute.get(
         }
     })
 );
-
 
 
 // post product review

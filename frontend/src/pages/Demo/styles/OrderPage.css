@@ -1,0 +1,27 @@
+.top-container-order {
+    margin-top: 1em;
+    border-radius: 30px;
+    background: #252836;
+    padding-top: 10px;
+}
+
+@media (max-width: 668px) {
+    .order-num {
+        font-size: 1.5em;
+    }
+
+    .top-container-order {
+        width: 30em;
+    }
+}
+
+@media (max-width: 495px) {
+    .order-num {
+        font-size: 1.5em;
+    }
+
+    .top-container-order {
+        width: 23em;
+        margin-bottom: 1em;
+    }
+}

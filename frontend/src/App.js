@@ -18,6 +18,7 @@ import SubCollection from './pages/SubCollection';
 import PayMethodPage from "./pages/Demo/PayMethodPage";
 import OrderPreview from "./pages/Demo/OrderPreview";
 import OrderPage from "./pages/Demo/OrderPage";
+import SearchPage from "./pages/Demo/SearchPage";
 
 function App() {
   const {state} = useContext(ContextStore)
@@ -41,8 +42,9 @@ function App() {
           <NavBar cart={cart}/>
           <main className="d-flex flex-column min-vh-100">
             <Routes>
-              <Route path="/collections/:slug" element={<MainCollection />}/>
-              <Route path="/collections/:slug1/:slug2" element={<SubCollection />}/>
+              <Route path="/search" element={<SearchPage/>}/>
+              <Route path="/collections/:slug" element={<MainCollection/>}/>
+              <Route path="/collections/:slug1/:slug2" element={<SubCollection/>}/>
               <Route path="/product/slug/:slug" element={<ProductPage/>}/>
               <Route path="/" element={<HomePage/>}/>
               <Route path="/shoppingCart" element={<CartPage/>}/>

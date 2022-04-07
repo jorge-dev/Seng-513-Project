@@ -1,12 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet-async";
 import CustomStepper from "../../components/Demo/CustomeStepper";
-import {Box, Button, Container} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {ContextStore} from "../../ContextStore";
-import {Form,} from "react-bootstrap";
+import {Container, Form,} from "react-bootstrap";
+import './styles/PaymentMethod.css';
 
 export default function PayMethodPage() {
+
+    const isSmallScreen = window.innerWidth < 768;
 
     const navigate = useNavigate();
     const {state, setState: ctxDispatch} = useContext(ContextStore);
@@ -38,15 +41,15 @@ export default function PayMethodPage() {
             <CustomStepper step1 step2/>
             <h1 className="text-center mt-4">Payment Method</h1>
 
-            <Container component="main" maxWidth="md"
-                       style={{marginTop: '1em', borderRadius: "30px", background: '#252836', maxWidth: '375px'}}>
+            <Container className="top-container"
+            >
 
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
                      textAlign='center'>
 
                     <Form onSubmit={submitHandler}>
                         <div className="mt-3">
-                            <Form.Check style={{fontSize: '2em'}}
+                            <Form.Check className={'form-check'}
 
                                         type="radio"
                                         id="PayPal"
@@ -58,23 +61,27 @@ export default function PayMethodPage() {
                             />
                         </div>
                         <div className="mb-t">
-                            <Form.Check
-                                style={{fontSize: '2em'}}
-                                type="radio"
-                                id="Stripe"
-                                label={<>Stripe <i
-                                    className="fa-brands fa-stripe mx-4"/></>}
-                                value="Stripe"
-                                checked={paymentMethodName === 'Stripe'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
+                            <Form.Check className='form-check'
+
+                                        type="radio"
+                                        id="Stripe"
+                                        label={<>Stripe <i
+                                            className="fa-brands fa-stripe mx-4"/></>}
+                                        value="Stripe"
+                                        checked={paymentMethodName === 'Stripe'}
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
                             />
                         </div>
                         <div className="mb-3">
-                            <Button sx={{borderRadius: '15px', margin: " 2em auto", padding: '1em'}}
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary" size='large'>
-                                <span className="btn-text"> Proceed to Order Review</span>
+                            <Button
+                                sx={{borderRadius: '15px'}}
+                                classname='btn-proceed'
+                                type="submit"
+                                variant="contained"
+
+                                color="primary" size={isSmallScreen ? "medium" : "large"}>
+                                <span
+                                    className="btn-text"> {isSmallScreen ? "Proceed to Review" : "Proceed to Order Review"}</span>
                             </Button>
                         </div>
                     </Form>

@@ -1,0 +1,15 @@
+.login-container {
+    background-color: white;
+    border-radius: 30px;
+    margin-top: 3em;
+    max-width: 600px;
+    padding-top: 0;
+}
+
+@media (max-width: 600px) {
+    .login-container {
+        width: 90%;
+        height: auto;
+
+    }
+}

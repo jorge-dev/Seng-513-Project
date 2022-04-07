@@ -150,21 +150,19 @@ function ProductPage() {
                         theme: "colored"
                     });
                 } else {
-                    toast.error(`Something went wrong: ${getErrorMessage(err)}`, {
+                    toast.error(`Something went wrong:\n ${getErrorMessage(err)}`, {
                         position: toast.POSITION.BOTTOM_CENTER,
                         autoClose: 3000,
                         theme: "colored"
                     });
                 }
-                // setTimeout(() => {
-                //     window.location.reload();
-                // }, 4000);
+
 
             }
         };
         postReview();
-        console.log(rating);
-        console.log(comment);
+        // console.log(rating);
+        // console.log(comment);
     }
 
     return (
@@ -270,6 +268,8 @@ function ProductPage() {
                 <Row className='text-center' style={{padding: "10px", borderBottom: '1px solid white'}}>
                     <Col><h1>REVIEW SECTION</h1></Col>
                 </Row>
+
+                {/*Show reviews*/}
                 <Row style={{margin: "0 10px"}}>
                     <Container
                         style={{
@@ -282,7 +282,7 @@ function ProductPage() {
                         <Row style={{margin: "0 10px"}}>
                             {/*    Reviews*/}
                             <Col md={6} className="my-4">
-                                <h2 className="mb-3 text-center">REVIEWS</h2>
+                                <h2 className="mb-3 text-center">Reviews</h2>
                                 {product.reviews.length === 0 && (
                                     <MessageAlert custStyle={{marginTop: '10px'}}>No reviews</MessageAlert>
                                 )}
@@ -320,7 +320,7 @@ function ProductPage() {
 
                             {/*    Add a review*/}
                             <Col md={6}>
-                                <h2 className="mb-3 text-center">Review this product</h2>
+                                <h2 className="mt-4 text-center">Review this product</h2>
 
                                 {userInfo ? (
 

@@ -1,7 +1,7 @@
 .title {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    font-family: 'Montserrat';
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 75px;
@@ -11,7 +11,7 @@
     color: #FFFFFF;
 }
 .body {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-size: 30px;
     line-height: 30px;
@@ -19,10 +19,29 @@
     letter-spacing: 0.5px;
     color: #FFFFFF;
 }
+
+
 .new-row {
     margin-bottom: 30px;
 }
+
 .send-button {
     font-size: 30px;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 50px;
+        line-height: 50px;
+    }
+
+    .body {
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    .contact-content {
+        margin: 2em 0;
+    }
 }
