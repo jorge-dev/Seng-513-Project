@@ -4,11 +4,11 @@ import axios from "axios";
 import Carousel from 'react-elastic-carousel'
 import './styles/HomePage.css';
 import { Helmet } from "react-helmet-async";
-import Product from "../../components/Demo/Product";
+import Product from "../components/Product";
 
-import MainCarousel from "../../components/Demo/MainCarousel";
-import CardSkeleton from "../../components/Demo/CardSkeleton";
-import MessageAlert from "../../components/Demo/MessageAlert";
+import MainCarousel from "../components/MainCarousel";
+import CardSkeleton from "../components/CardSkeleton";
+import MessageAlert from "../components/MessageAlert";
 
 var count = 0;
 

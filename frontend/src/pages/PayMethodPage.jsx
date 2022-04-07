@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet-async";
-import CustomStepper from "../../components/Demo/CustomeStepper";
+import CustomStepper from "../components/CustomeStepper";
 import {Box, Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {ContextStore} from "../../ContextStore";
+import {ContextStore} from "../ContextStore";
 import {Container, Form,} from "react-bootstrap";
 import './styles/PaymentMethod.css';
 

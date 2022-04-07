@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {Helmet} from "react-helmet-async";
 import {Box, Button, Container, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {ContextStore} from "../../ContextStore";
+import {ContextStore} from "../ContextStore";
 import {Payment} from "@mui/icons-material";
-import CustomStepper from "../../components/Demo/CustomeStepper";
+import CustomStepper from "../components/CustomeStepper";
 
 
 const textFieldStyle = {

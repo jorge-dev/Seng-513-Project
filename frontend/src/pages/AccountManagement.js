@@ -1,7 +1,7 @@
 //This code is heavily inspired (but not verbatim copied) from: https://github.com/mui/material-ui/blob/v5.5.2/docs/data/material/getting-started/templates/sign-in/SignIn.js
 
 import React, {useContext, useEffect, useState} from "react";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {
     Alert,
     Box,
@@ -20,7 +20,7 @@ import {grey} from '@mui/material/colors';
 
 import axios from "axios";
 import {ContextStore} from "../ContextStore";
-import MessageAlert from "../components/Demo/MessageAlert";
+import MessageAlert from "../components/MessageAlert";
 import {ArrowForward} from "@mui/icons-material";
 import {Badge} from "react-bootstrap";
 import './styles/AccountManagement.css';

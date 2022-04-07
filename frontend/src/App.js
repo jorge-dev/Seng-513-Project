@@ -1,24 +1,24 @@
 import {useContext} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import NavBar from './components/Demo/Navbar';
-import ScrollToTop from './components/Demo/ScrollToTop';
+import NavBar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
 import {ContextStore} from './ContextStore';
-import CartPage from './pages/Demo/CartPage';
-import HomePage from './pages/Demo/HomePage';
-import ProductPage from './pages/Demo/ProductPage';
+import CartPage from './pages/CartPage';
+import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
 import Contact from './pages/Contact';
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import AccountManagement from './pages/AccountManagement'
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import ShippingInfoPage from "./pages/Demo/ShippingInfoPage";
+import ShippingInfoPage from "./pages/ShippingInfoPage";
 import MainCollection from './pages/MainCollection';
 import SubCollection from './pages/SubCollection';
-import PayMethodPage from "./pages/Demo/PayMethodPage";
-import OrderPreview from "./pages/Demo/OrderPreview";
-import OrderPage from "./pages/Demo/OrderPage";
-import SearchPage from "./pages/Demo/SearchPage";
+import PayMethodPage from "./pages/PayMethodPage";
+import OrderPreview from "./pages/OrderPreview";
+import OrderPage from "./pages/OrderPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const {state} = useContext(ContextStore)

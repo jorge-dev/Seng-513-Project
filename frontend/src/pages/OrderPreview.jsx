@@ -1,14 +1,14 @@
 import React, {useContext, useEffect, useReducer} from 'react';
 import {Helmet} from "react-helmet-async";
-import CustomStepper from "../../components/Demo/CustomeStepper";
+import CustomStepper from "../components/CustomeStepper";
 import {Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
-import {ContextStore} from "../../ContextStore";
+import {ContextStore} from "../ContextStore";
 import {Link, useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
-import {getErrorMessage} from "../../utils/handleApiError";
+import {getErrorMessage} from "../utils/handleApiError";
 import {toast} from "react-toastify";
 import axios from "axios";
-import LoadingScreen from "../../components/Demo/LoadingScreen";
+import LoadingScreen from "../components/LoadingScreen";
 import './styles/PlaceOrderStyles.css';
 import {Edit} from "@mui/icons-material";
 

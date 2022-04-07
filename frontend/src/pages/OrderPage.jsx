@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useReducer} from "react";
-import LoadingScreen from "../../components/Demo/LoadingScreen";
-import MessageAlert from "../../components/Demo/MessageAlert";
+import LoadingScreen from "../components/LoadingScreen";
+import MessageAlert from "../components/MessageAlert";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {ArrowForward} from "@mui/icons-material";
-import {ContextStore} from "../../ContextStore";
-import {getErrorMessage} from "../../utils/handleApiError";
+import {ContextStore} from "../ContextStore";
+import {getErrorMessage} from "../utils/handleApiError";
 import axios from "axios";
 import {Helmet} from "react-helmet-async";
 import {Badge, Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
