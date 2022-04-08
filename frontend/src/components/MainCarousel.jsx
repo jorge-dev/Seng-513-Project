@@ -12,8 +12,8 @@ function MainCarousel() {
 
                 />
                 <Carousel.Caption style={{ textAlign: "left" }}>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h3>Click Your Way to Victory</h3>
+                    <p>Get ready to win every battle with our wide range of mice perfect for work or play.</p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item className="item">
@@ -24,8 +24,8 @@ function MainCarousel() {
                 />
 
                 <Carousel.Caption style={{ textAlign: "left" }} >
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h3>Play With Passion</h3>
+                    <p>Gaming or working with the newest RGB ready keyboards now!</p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item className="item">
@@ -37,8 +37,8 @@ function MainCarousel() {
 
 
                 <Carousel.Caption style={{ textAlign: "left" }}>
-                    <h3>Fourth slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <h3>"FPS Gaming? Just nail it!"</h3>
+                    <p>Bring your gameplay to the next level with our audio system.</p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item className="item">
@@ -50,8 +50,8 @@ function MainCarousel() {
 
 
                 <Carousel.Caption style={{ textAlign: "left" }}>
-                    <h3>Third slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <h3>Own Your Style</h3>
+                    <p>Design your own light effect with our RGB equipped mousepad.</p>
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>
