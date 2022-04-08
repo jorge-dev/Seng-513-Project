@@ -3,13 +3,13 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Container, Form, Nav, Navbar} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
 import {Badge, Divider, IconButton, InputBase, Menu, MenuItem, Slide} from '@mui/material';
-import LogoImage from "../../logos/fullLogo.png";
+import LogoImage from "../logos/fullLogo.png";
 import {AccountCircle, ArrowDropDown, LoginOutlined, Logout, Person, Search, ShoppingCart} from '@mui/icons-material';
 import "./styles/Navbar.css";
-import {ContextStore} from "../../ContextStore";
+import {ContextStore} from "../ContextStore";
 import {grey} from "@mui/material/colors";
-import CustomMenu from "../CustomMenu";
-import {MegaMenu} from "../MegaMenu";
+import CustomMenu from "./CustomMenu";
+import {MegaMenu} from "./MegaMenu";
 import {alpha, styled} from "@mui/material/styles";
 
 

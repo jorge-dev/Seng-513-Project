@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useReducer} from "react";
-import LoadingScreen from "../../components/Demo/LoadingScreen";
-import MessageAlert from "../../components/Demo/MessageAlert";
+import React, {useContext, useEffect, useReducer, useState} from "react";
+import LoadingScreen from "../components/LoadingScreen";
+import MessageAlert from "../components/MessageAlert";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {ArrowForward} from "@mui/icons-material";
-import {ContextStore} from "../../ContextStore";
-import {getErrorMessage} from "../../utils/handleApiError";
+import {ContextStore} from "../ContextStore";
+import {getErrorMessage} from "../utils/handleApiError";
 import axios from "axios";
 import {Helmet} from "react-helmet-async";
 import {Badge, Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
@@ -45,6 +45,7 @@ export default function OrderPage() {
     const params = useParams()
     const {id: orderId} = params;
     const navigate = useNavigate();
+    const [paymentStatus,setPaymentStatus] = useState("Pending")
 
     const {state} = useContext(ContextStore);
     const {userInfo} = state;
@@ -69,6 +70,7 @@ export default function OrderPage() {
                         Authorization: `Bearer ${userInfo.token}`
                     }
                 });
+                setPaymentStatus(data.order.paymentStatus)
                 // console.log(data);
                 dispatch({type: "FETCH_ORDER_SUCCESS", payload: data.order});
             } catch (e) {
@@ -105,6 +107,7 @@ export default function OrderPage() {
                     });
                     console.log(patData);
                     dispatchPayment({type: "FETCH_PAYMENT_SUCCESS"});
+                    setPaymentStatus(data.status)
                     // toast.success('Payment Successful');
                 } catch (e) {
                     dispatchPayment({type: "FETCH_PAYMENT_FAILURE", payload: getErrorMessage(e)});
@@ -117,18 +120,18 @@ export default function OrderPage() {
                     });
                     //    refresh the page
                     // wait 2 seconds and then refresh
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 4000);
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 4000);
                     // window.location.reload();
                 } else {
                     toast.error(`Payment got declined: ${data.error}`, {
                         autoClose: 3000,
                         position: toast.POSITION.TOP_CENTER
                     });
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 4000);
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 4000);
                 }
 
             } catch (e) {
@@ -176,7 +179,7 @@ export default function OrderPage() {
                                         <Row className='align-items-center'>
                                             <Col md={6}>Shipping:</Col>
                                             <Col
-                                                md={6}>{order.shippingPrice > 0 ? order.shippingPrice.toFixed(2) : "Free"}</Col>
+                                                md={6}>{order.shippingFee > 0 ? order.shippingFee.toFixed(2) : "Free"}</Col>
                                         </Row>
                                     </ListGroup.Item>
                                     <ListGroup.Item style={{borderBottom: '1px solid white'}}>
@@ -204,14 +207,14 @@ export default function OrderPage() {
                                     {order.paymentStatus !== "Paid" ?
                                         <ListGroup.Item>
                                             <Container className="text-center mt-3">
-
+                                                {paymentStatus !== "Paid" ?
                                                 <StripeCheckout token={handleStripeToken}
                                                                 stripeKey={STRIPE_PUBLISHABLE_KEY}
                                                                 amount={order.totalPrice * 100}
                                                                 name={"DotCom Store"}
                                                                 currency={'CAD'}
                                                 >
-                                                    {order.paymentStatus === 'Pending' ?
+                                                    {paymentStatus === 'Pending' ?
                                                         (<Button sx={{
 
                                                             borderRadius: '15px'
@@ -220,7 +223,7 @@ export default function OrderPage() {
 
                                                         >
                                                             <span className="btn-text"> Process Payment </span>
-                                                        </Button>) : order.paymentStatus === 'Declined' ?
+                                                        </Button>) : paymentStatus === 'Declined' ?
                                                             (<Button sx={{
 
                                                                 borderRadius: '15px'
@@ -229,8 +232,8 @@ export default function OrderPage() {
 
                                                             >
                                                                 <span className="btn-text"> Retry Payment </span>
-                                                            </Button>) : <h1>{order.paymentStatus}</h1>}
-                                                </StripeCheckout>
+                                                            </Button>) : null }
+                                                </StripeCheckout> : null}
                                             </Container>
                                             {loading && <LoadingScreen open={loading}/>}
                                         </ListGroup.Item> :
@@ -285,9 +288,9 @@ export default function OrderPage() {
                                             className="fa-brands fa-stripe mx-2" style={{fontSize: '1.3em'}}/>}
                                         <br/>
                                         <strong>Status: </strong> {
-                                        order.paymentStatus === "Pending" ?
+                                        paymentStatus === "Pending" ?
                                             <Badge bg="warning text-black">Pending</Badge> :
-                                            order.paymentStatus === "Paid" ?
+                                            paymentStatus === "Paid" ?
                                                 <Badge bg="success text-white">Paid</Badge> :
                                                 <Badge bg="danger">Declined</Badge>
 

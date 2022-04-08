@@ -34,10 +34,15 @@ export default function Login() {
                 username: userName,
                 password: password
             });
-            // console.log(data);
+            console.log(data);
             setCtxState({type: "SIGN_IN", payload: data});
             localStorage.setItem("userInfo", JSON.stringify(data));
-            navigate(redirectTo || '/');
+            if (data.isAdmin) {
+                navigate('/admin');
+            } else {
+                navigate(redirectTo || '/');
+            }
+            // navigate(redirectTo || '/');
         } catch (error) {
             // fupdate(error.response.data.message)
             toast.error(getErrorMessage(error), {
@@ -107,7 +112,8 @@ export default function Login() {
                     {/*<Alert style={{width: "100%", alignSelf: "center", display: ((failure) ? 'block' : 'none')}}*/}
                     {/*       severity="error"><h5>Error - {failure}.</h5></Alert>*/}
 
-                    <Button type="submit" fullWidth variant="contained" color="success" sx={{mt: 3, mb: 2}}>
+                    <Button type="submit" fullWidth variant="contained" color="success"
+                            sx={{mt: 3, mb: 2, borderRadius: '10px'}}>
                         Sign In </Button>
 
                     <Link to={`/pages/CreateAccount?redirect${redirectTo}`}>

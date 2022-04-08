@@ -5,7 +5,7 @@ import axios from "axios";
 import logger from "use-reducer-logger"
 import { Container, Col, Row, Dropdown, DropdownButton, Button } from "react-bootstrap";
 import GridSystem from "../components/GridSystem"
-import Product from "../components/Demo/Product";
+import Product from "../components/Product";
 import "./styles/Collection.css"
 
 // Init a reducer Hook to handle the data from the API

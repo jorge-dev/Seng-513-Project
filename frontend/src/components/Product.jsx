@@ -8,7 +8,7 @@ import { Badge } from 'react-bootstrap'
 
 import { ShoppingCart } from '@mui/icons-material';
 import { useContext } from "react";
-import { ContextStore } from "../../ContextStore";
+import { ContextStore } from "../ContextStore";
 
 
 

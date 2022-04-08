@@ -5,8 +5,8 @@ import {Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap"
 import {Helmet} from "react-helmet-async"
 import {grey, red} from '@mui/material/colors';
 import {Link, useNavigate} from "react-router-dom"
-import MessageAlert from "../../components/Demo/MessageAlert"
-import {ContextStore} from "../../ContextStore"
+import MessageAlert from "../components/MessageAlert"
+import {ContextStore} from "../ContextStore"
 import "./styles/CartStyles.css"
 
 export default function CartPage() {

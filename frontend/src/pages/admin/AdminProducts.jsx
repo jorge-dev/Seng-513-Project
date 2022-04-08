@@ -1,10 +1,15 @@
-import { useState, useEffect, useReducer } from "react";
-import { Table, Modal, Button, Form } from 'react-bootstrap';
+import {useState, useEffect, useReducer, useContext} from "react";
+import {Table, Modal, Button, Form, Badge} from 'react-bootstrap';
 import axios from "axios";
 import '../styles/AdminProducts.css';
+import {getErrorMessage} from "../../utils/handleApiError";
+import {ContextStore} from "../../ContextStore";
+import {toast} from "react-toastify";
 
 function AdminProducts() {
     const [show, setShow] = useState(false);
+    const {state: ctxState, setState: setCtxState} = useContext(ContextStore)
+    const {userInfo} = ctxState;
     const [currentOperation, setCurrentOperation] = useState('ADD');
     const [currentItem, setCurrentItem] = useState(null);
     const [tableData, setTableData] = useState([]);
@@ -19,42 +24,63 @@ function AdminProducts() {
         inStock: 'true',
         rating: '1',
         numberOfReviews: ''
-    });
+    },);
 
     const handleClose = () => setShow(false);
 
     const handleSubmit = () => {
         if (currentOperation == 'ADD') {
             //add product
-            axios.post('/api/products', formModel).then((res) => {
-                alert(res.data.message)
+            axios.post('/api/products', formModel, {"headers": {"Authorization": "Bearer " + userInfo.token}}).then((res) => {
+                toast.success('Product added successfully', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    theme: 'colored',
+                });
                 setShow(false)
                 getTableData()
             }).catch((err) => {
-                console.log("err = ", err)
-                alert('Error')
+                console.log("err = ", getErrorMessage(err))
+                toast.error(getErrorMessage(err), {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 3000,
+                    theme: 'colored'
+                });
+                // alert('Error')
             })
         } else {
             //edit product
-            axios.put(`/api/products/${currentItem._id}`, formModel).then((res) => {
-                alert(res.data.message)
+            axios.put(`/api/products/${currentItem._id}`, formModel, {"headers": {"Authorization": "Bearer " + userInfo.token}}).then((res) => {
+                toast.success('Product updated successfully', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    theme: 'colored',
+                });
                 setShow(false)
                 getTableData()
             }).catch((err) => {
                 console.log("err = ", err)
-                alert('Error')
+                toast.error(getErrorMessage(err), {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 3000,
+                    theme: 'colored'
+                });
             })
         }
     }
 
     //delete product
     const handelDelete = (item) => {
-        axios.delete(`/api/products/${item._id}`).then((res) => {
+        axios.delete(`/api/products/${item._id}`, {"headers": {"Authorization": "Bearer " + userInfo.token}}).then((res) => {
             alert(res.data.message)
             getTableData()
         }).catch((err) => {
             console.log("err = ", err)
-            alert('Error')
+            toast.error(getErrorMessage(err), {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000,
+                theme: 'colored'
+            });
         })
     }
 
@@ -100,6 +126,7 @@ function AdminProducts() {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>InStock</th>
                         <th>NumberOfReviews</th>
                         <th>Price</th>
                         <th>Action</th>
@@ -112,6 +139,25 @@ function AdminProducts() {
                                 <td align="center">{i + 1}</td>
                                 <td>{v.name}</td>
                                 <td>{v.mainCategory}</td>
+                                <td>{v.inStock ?
+                                    <Badge
+                                        bg="success"
+                                        pill
+                                        style={{
+                                            fontSize: '10px',
+                                            padding: '5px',
+                                            margin: '5px'
+                                        }}>In Stock</Badge> :
+                                    <Badge
+                                        bg="danger"
+                                        pill
+                                        style={{
+                                            fontSize: '10px',
+                                            padding: '5px',
+                                            margin: '5px'
+                                        }}>Out of Stock</Badge>
+                                }
+                                </td>
                                 <td>{v.numberOfReviews}</td>
                                 <td>${v.price}</td>
                                 <td>
@@ -121,9 +167,29 @@ function AdminProducts() {
                                             setCurrentOperation('EDIT')
                                             // console.log("v = ", v)
                                             setCurrentItem(v);
-                                            let { name, vendor, price, description, image, mainCategory, subCategory, inStock, rating, numberOfReviews } = v;
+                                            let {
+                                                name,
+                                                vendor,
+                                                price,
+                                                description,
+                                                image,
+                                                mainCategory,
+                                                subCategory,
+                                                inStock,
+                                                rating,
+                                                numberOfReviews
+                                            } = v;
                                             setFormModel({
-                                                name, vendor, price, description, image, mainCategory, subCategory, inStock, rating, numberOfReviews
+                                                name,
+                                                vendor,
+                                                price,
+                                                description,
+                                                image,
+                                                mainCategory,
+                                                subCategory,
+                                                inStock,
+                                                rating,
+                                                numberOfReviews
                                             })
                                         }} className="butn butnLeft">
                                             Edit

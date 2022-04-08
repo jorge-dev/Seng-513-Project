@@ -12,10 +12,10 @@ import Col from 'react-bootstrap/Col';
 // import Button from 'react-bootstrap/Button';
 // import Product from '../components/Product';
 import {Pagination, Rating} from "@mui/material";
-import LoadingScreen from "../../components/Demo/LoadingScreen";
-import MessageAlert from "../../components/Demo/MessageAlert";
-import Product from "../../components/Demo/Product";
-import {getErrorMessage} from "../../utils/handleApiError";
+import LoadingScreen from "../components/LoadingScreen";
+import MessageAlert from "../components/MessageAlert";
+import Product from "../components/Product";
+import {getErrorMessage} from "../utils/handleApiError";
 import {Badge, Button, Card, Container, Form} from "react-bootstrap";
 
 const reducer = (state, action) => {

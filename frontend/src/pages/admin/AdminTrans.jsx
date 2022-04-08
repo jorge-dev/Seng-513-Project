@@ -1,13 +1,22 @@
-import { useState, useEffect, useReducer } from "react";
-import { Table, Modal, Button, Form } from 'react-bootstrap';
+import {useState, useEffect, useReducer, useContext} from "react";
+import {Table, Modal, Button, Form} from 'react-bootstrap';
 import axios from "axios";
 import '../styles/AdminTrans.css';
+import {ContextStore} from "../../ContextStore";
 
 function AdminTrans() {
     const [tableData, setTableData] = useState([]);
+    const {state} = useContext(ContextStore)
+    const {userInfo} = state
 
     const getTableData = () => {
-        axios.get('/api/orders').then((res) => {
+        axios.get('/api/orders', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            }
+        ).then((res) => {
             console.log("res = ", res)
             setTableData(res.data.orders)
         })
@@ -38,17 +47,17 @@ function AdminTrans() {
                 <tbody>
                     {tableData.map((v, i) => {
                         let sty = {};
-                        if(v.paymentStatus == 'Pending'){
+                        if (v.paymentStatus === 'Pending') {
                             sty = {
                                 background: 'linear-gradient(to Right, rgb(255, 145, 0), rgb(255, 115, 0))'
                             }
                         }
-                        if(v.paymentStatus == 'Approved'){
+                        if (v.paymentStatus === 'Paid') {
                             sty = {
-                                background: 'linear-gradient(to Right, rgb(0, 183, 255), rgb(0, 255, 242))'
+                                background: 'linear-gradient(133deg, rgba(28,156,0,1) 27%, rgba(47,163,186,1) 91%)'
                             }
                         }
-                        if(v.paymentStatus == 'Rejected'){
+                        if (v.paymentStatus === 'Declined') {
                             sty = {
                                 background: 'linear-gradient(to Right, rgb(255, 0, 55), rgb(255, 0, 149))'
                             }
