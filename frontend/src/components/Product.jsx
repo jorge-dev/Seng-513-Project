@@ -79,7 +79,7 @@ function Product(props) {
                 {loading ? <Skeleton variant="text" width={'100%'} height={'100%'} /> :
 
                     <Button className="mt-auto " disabled={!product.inStock} variant="contained" onClick={() => addToCartHandler(product)} endIcon={<ShoppingCart />}>
-                        {product.inStock ? "Add to Card" : "Out of Stock"}
+                        {product.inStock ? "Add to Cart" : "Out of Stock"}
                     </Button>
                 }
 

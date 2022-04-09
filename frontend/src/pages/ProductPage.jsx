@@ -257,7 +257,7 @@ function ProductPage() {
 
                                                 borderRadius: '15px'
                                             }} className="text-center" variant="contained" size="large" disabled>
-                                                <span className="btn-text"> Add to Card</span> <AddShoppingCart/>
+                                                <span className="btn-text"> Add to Cart</span> <AddShoppingCart/>
                                             </Button>
                                         }
                                     </Container>
