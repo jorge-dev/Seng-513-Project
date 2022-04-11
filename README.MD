@@ -11,12 +11,13 @@ $ git@github.com:jorge-dev/Seng-513-Project.git
 $ cd Seng-513-Project
 ```
 ## 2. Create an .env file in the root backend folder
-- Duplicate the .env-template file and name it .env
+- Duplicate the .env-template file and rename it to .env
 - Get the MongoDb connection string from the MongoDb Atlas instance or an admin with access to the database and update the MONGO_DB_URI variable
 
-## 3. Install Mongo Db atlas desktop client (optional)
+## 3. (optional) Install Mongo Db atlas desktop client 
   - Download the app from [MongoDb Compass](https://www.mongodb.com/try/download/compass) site
   - In the mongoD Compass app, click on the "Connect to MongoDB Atlas" button and paste the link you got from your admin in the "Connection String" field
+
 ## 4. Setup
 - Init backend and frontend servers by running `make init-servers`
   - this will initialized and create the node modules on for each server 
@@ -76,18 +77,18 @@ $ cd Seng-513-Project
 
 ## 7. Update Account Info
   - Once you are in your account page, you can change any of the information from your profile including your name, email, username, and password. When you see the confirmation message, this means your information is updated and if you sign in and out this changes will be persistent.
-  - Make sure you don't forget th password because we don't have a way to reset it yet.
+  - Make sure you don't forget the password because we don't have a way to reset it yet.
     - ![UpdateAccuntInfo](https://user-images.githubusercontent.com/20519640/162807923-b62c071f-d7bf-48e2-9bf6-40f96609226f.gif)
 
 ## 8. Filter products by theri main or subcategory.
-  - Anywhere fro the web app, you can access the the available products categories by clicking on the "Products" dropdown on the Navbar.
+  - Anywhere from the web app, you can access the the available products categories by clicking on the "Products" dropdown on the Navbar.
   - Here you can click on any of the main or sub categories to only see those products. 
-  - Once in the collections page you can continue filtering items by their price, averae reviews and brand
+  - Once in the collections page you can continue filtering items by their price, average reviews and brand
     -  ![ProductCollection](https://user-images.githubusercontent.com/20519640/162807893-e2eeaa68-7588-4515-9667-0234504ffdba.gif)
 
 ## 9. Search for a specific product or keyword.
   - Also from anywhere in the web app, you can access a global search to look for a specific product or keyword in case you want to be more specific about your search.
-  - Once you get your results, you can continue filtering items by their price, main category, average reviews, and order them from high-low, low to high, or newest arrivals.
+  - Once you get your results, you can continue filtering items by their price, main category, average reviews, and order them from high to low, low to high, or newest arrivals.
   - You can also select how many products you want to see for page in case the result is too big and you want to see more products or make it less products per page to have a beetter look at individual results.
     - ![Search](https://user-images.githubusercontent.com/20519640/162807913-108f8c67-d3fc-49ee-9251-850306fca721.gif)
 
@@ -110,7 +111,7 @@ $ cd Seng-513-Project
     - username: `admin`
     - password: `password`
     - ![LoginAdmin](https://user-images.githubusercontent.com/20519640/162815161-1e27fcd5-ff3f-4604-bb8a-9d35abbfae10.gif)
-  - Regular users can no become admins, and access to the admin page is restricted to admins only. If a regular or non user tries to access the admin page, a message will be displayed letting them know they are not authorized to access this page.
+  - Regular users can not become admins, and access to the admin page is restricted to admins only. If a regular or non user tries to access the admin page, a message will be displayed letting them know they are not authorized to access this page.
     - ![AccessAdminError](https://user-images.githubusercontent.com/20519640/162815158-6fe7857c-8a3c-4636-a942-12cc34f5320f.gif)
  
 ## 2. Admin page
@@ -135,7 +136,7 @@ $ cd Seng-513-Project
     - ![AdminDeleteProduct](https://user-images.githubusercontent.com/20519640/162818973-965be424-0a64-480c-a234-34debc69e586.gif)
 
 ## Logout
-  - To logout click on the red "Sign Out" button on the Admin navbar.
+  - To logout, click on the red "Sign Out" button on the Admin navbar.
   - This will take you back to the website main page and delete the admin session
     - ![AdminLogout](https://user-images.githubusercontent.com/20519640/162819225-92572ac0-86a9-47b3-851f-e8d25e72c2ca.gif)
 
