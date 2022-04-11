@@ -16,11 +16,11 @@ $ cd Seng-513-Project
 
 ## 3. (optional) Install Mongo Db atlas desktop client 
   - Download the app from [MongoDb Compass](https://www.mongodb.com/try/download/compass) site
-  - In the mongoD Compass app, click on the "Connect to MongoDB Atlas" button and paste the link you got from your admin in the "Connection String" field
+  - In the mongoDB Compass app, click on the "Connect to MongoDB Atlas" button and paste the link you got from your admin in the "Connection String" field
 
 ## 4. Setup
 - Init backend and frontend servers by running `make init-servers`
-  - this will initialized and create the node modules on for each server 
+  - this will initialize and create the node modules on for each server 
 - Start the backend server by running `make start-backend`
   - if you need to see the logs and more debug information about the backend server then run `make start-backend-dev` instead
 - Start the frontend server by running `make start-frontend`
@@ -51,7 +51,7 @@ $ cd Seng-513-Project
 
 ## 5. Edit Order
   - After the order info has been updated, you can review it and edit any of the information provided, including the product itself.
-  - Clicking on the available product details will take to a page where you can edit the information you selected and guide back the the Review order page
+  - Clicking on the available product details will take to a page where you can edit the information you selected and guide back the Review order page
     - ![EditOrder](https://user-images.githubusercontent.com/20519640/162803798-9bc63c8c-60ef-45c5-a3bf-82e0e582fbf8.gif)
 
 ## 6. Place order and process payment
@@ -70,7 +70,7 @@ $ cd Seng-513-Project
           ```
         - ![TestSuccesfulCard](https://user-images.githubusercontent.com/20519640/162807919-7df5745d-3702-4b84-be7d-0584c2f1270d.gif)
 
-      - The expiration dat can be any future date ( so anything grater than the month and year you are testing this at)
+      - The expiration date can be any future date ( so anything grater than the month and year you are testing this at)
       - The CVC can be any 3 digits number
     - More information can be found at [Stripe documentation](https://stripe.com/docs/testing#cards)
   - After the payment was successfully processed, the order details will be updated and you can access this information by clicking the user icon on the Navbar and clicking "My Account"
@@ -80,8 +80,8 @@ $ cd Seng-513-Project
   - Make sure you don't forget the password because we don't have a way to reset it yet.
     - ![UpdateAccuntInfo](https://user-images.githubusercontent.com/20519640/162807923-b62c071f-d7bf-48e2-9bf6-40f96609226f.gif)
 
-## 8. Filter products by theri main or subcategory.
-  - Anywhere from the web app, you can access the the available products categories by clicking on the "Products" dropdown on the Navbar.
+## 8. Filter products by main or subcategory.
+  - Anywhere from the web app, you can access the available products categories by clicking on the "Products" dropdown on the Navbar.
   - Here you can click on any of the main or sub categories to only see those products. 
   - Once in the collections page you can continue filtering items by their price, average reviews and brand
     -  ![ProductCollection](https://user-images.githubusercontent.com/20519640/162807893-e2eeaa68-7588-4515-9667-0234504ffdba.gif)
@@ -89,12 +89,12 @@ $ cd Seng-513-Project
 ## 9. Search for a specific product or keyword.
   - Also from anywhere in the web app, you can access a global search to look for a specific product or keyword in case you want to be more specific about your search.
   - Once you get your results, you can continue filtering items by their price, main category, average reviews, and order them from high to low, low to high, or newest arrivals.
-  - You can also select how many products you want to see for page in case the result is too big and you want to see more products or make it less products per page to have a beetter look at individual results.
+  - You can also select how many products you want to see for page in case the result is too big and you want to see more products or make it less products per page to have a better look at individual results.
     - ![Search](https://user-images.githubusercontent.com/20519640/162807913-108f8c67-d3fc-49ee-9251-850306fca721.gif)
 
 ## 10. Review a product
-  - A product can only be reviewed by signed in users. If you are not signed in, there will be a message asking ou to do so or to create an account if you dont have one, and will redirect you to the product you are trying to review after successfully login in.
-  - To review a product, click on any product card ( again its image or name), this will take ou to the products page and at the bottom you can add a review and a comment about the product.
+  - A product can only be reviewed by signed in users. If you are not signed in, there will be a message asking you to do so or to create an account if you don't have one, and will redirect you to the product you are trying to review after successfully login in.
+  - To review a product, click on any product card (again its image or name), this will take you to the products page and at the bottom you can add a review and a comment about the product.
   - There is a limit on how many reviews a user can have per product and that limit is 3 for now. If you try to review a product more than 3 times a warning message will pop up letting you know you have exceeded the number of reviews allowed for that specific product.
     - ![ReviewProduct](https://user-images.githubusercontent.com/20519640/162807905-d76b03f8-615f-44a3-ab1e-622981cef492.gif)
 
@@ -126,13 +126,13 @@ $ cd Seng-513-Project
 
 ## Adding a product
   - To add a new product, click the Product button on the Admin navbar, and click on the "Add Product" button.
-  - This will bring a form where you can fill the products information and add this product to th database. 
-  - Currently the product image has to be a url but in the future we can allow admins to upload local pictures instead
+  - This will bring a form where you can fill the products information and add this product to the database. 
+  - Currently the product image has to be a URL but in the future we can allow admins to upload local pictures instead
     - ![AdminAddProduct](https://user-images.githubusercontent.com/20519640/162818639-b42b2d9b-9fa8-42de-a363-47695200bdf7.gif)
 
 ## Delete a product
   - To delete a product, click the Product button on the Admin navbar, look for the product you with to delete, and click on the delete button.
-  - This will delete thr product from the database and it will no longer be available in the main website.
+  - This will delete the product from the database and it will no longer be available in the main website.
     - ![AdminDeleteProduct](https://user-images.githubusercontent.com/20519640/162818973-965be424-0a64-480c-a234-34debc69e586.gif)
 
 ## Logout
