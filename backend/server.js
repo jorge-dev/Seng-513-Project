@@ -6,11 +6,11 @@ import products from "./data/Products.js";
 import connectToMongoDB from "./config/MongoDBConnection.js";
 import SeedData from "./SeedDB.js";
 import productRoute from "./routes/ProductRoute.js";
-import {errorHandler, notFoundError} from "./Middleware/HandleErrors.js";
+import { errorHandler, notFoundError } from "./Middleware/HandleErrors.js";
 import userRouter from "./routes/UserRoute.js";
 import orderRouter from "./routes/OrderRoute.js";
 import Stripe from "stripe";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const port = process.env.PORT || 4321;
@@ -41,7 +41,7 @@ app.post("/api/checkout", async (req, res) => {
   let error;
   let status;
   try {
-    const {order, token} = req.body;
+    const { order, token } = req.body;
 
     const customer = await stripe2.customers.create({
       email: token.email,
@@ -50,18 +50,18 @@ app.post("/api/checkout", async (req, res) => {
 
     const idempotency_key = uuidv4();
     const charge = await stripe2.charges.create(
-        {
-          amount: order.itemsPrice * 100,
-          currency: "usd",
-          customer: customer.id,
+      {
+        amount: Math.ceil(order.itemsPrice) * 100,
+        currency: "cad",
+        customer: customer.id,
 
 
-        },
-        {
-          idempotency_key
-        }
+      },
+      {
+        idempotency_key
+      }
     );
-    console.log("Charge:", {charge});
+    console.log("Charge:", { charge });
     status = "Paid";
     error = "";
   } catch (err) {
@@ -70,7 +70,7 @@ app.post("/api/checkout", async (req, res) => {
     status = "Declined";
   }
 
-  res.json({status, error});
+  res.json({ status, error });
 });
 
 //seed the database
