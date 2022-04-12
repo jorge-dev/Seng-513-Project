@@ -66,7 +66,7 @@ $ cd Seng-513-Project
 
       - For a successful payment you can use this card number:
         - ```
-          Card Number: 4000 0000 0000 9999
+          Card Number: 4242 4242 4242 4242
           ```
         - ![TestSuccesfulCard](https://user-images.githubusercontent.com/20519640/162807919-7df5745d-3702-4b84-be7d-0584c2f1270d.gif)
 
